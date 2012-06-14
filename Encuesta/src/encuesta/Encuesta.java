@@ -18,6 +18,8 @@ public class Encuesta {
      */
     public static void main(String[] args) {
         IntroFrame a = new IntroFrame();
+        //este es un cometario de prueba
+        //hasta los comentarios se ven
         //frameSurvey b= new FrameSurvey(1);
         //FrameAdmon b= new FrameAdmon(0);
         // TODO code application logic here
