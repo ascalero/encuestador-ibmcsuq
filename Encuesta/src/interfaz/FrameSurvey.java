@@ -31,7 +31,7 @@ public class FrameSurvey extends JFrame implements ActionListener{
     JXLabel labPreg;
     
 
-    public FrameSurvey(int lang){
+    public FrameSurvey(int lang/*,ArrayList <String> datoEnc,String nameEncuesta*/){
     foo=lang;
     strTemp[0]="Encuesta X";strTemp[1]="SurveyX";strTemp[2]="";strTemp[3]="";
     this.setTitle(strTemp[foo]);
