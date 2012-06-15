@@ -161,8 +161,8 @@ public class PanelMiembro extends JXFrame implements ActionListener{
                             strTemp[0]="Bienvenido"+taNombreUser.getText();
                             strTemp[1]="Welcome"+taNombreUser.getText();strTemp[2]="";strTemp[3]="";
                             JOptionPane.showMessageDialog(null,strTemp[foo],"MSG",JOptionPane.INFORMATION_MESSAGE);
-                            taNombreUser.setText("");
-                            taContra.setText("");
+                            FrameAdmon b= new FrameAdmon(foo,taNombreUser.getText());
+                            this.dispose();
                             break;
                         case 2:
                             strTemp[0]="Contraseña Incorrecta";
