@@ -7,6 +7,7 @@ package conex;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -27,7 +28,7 @@ public class OpBasicas {
 	};
     }
     
-    public void Consultar(){
+    public void Consultar(ArrayList<String>lista){
         
     }
 }

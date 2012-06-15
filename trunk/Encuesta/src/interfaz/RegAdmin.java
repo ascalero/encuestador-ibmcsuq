@@ -4,6 +4,7 @@
  */
 package interfaz;
 
+import conex.*;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -114,12 +115,16 @@ public class RegAdmin extends JXFrame implements ActionListener{
         ArrayList <String> info=new ArrayList <String>();
         if(e.getSource()==jbOk){
             if(getDatos()){
-                //jtfNombre,jtfApPat,jtfApMat,jtfNick,jtfPass;
+                OpBasicas op=new OpBasicas();
+                
                 info.add(jtfNombre.getText());
                 info.add(jtfApPat.getText());
                 info.add(jtfApMat.getText());
                 info.add(jtfNick.getText());
                 info.add(jtfPass.getText());
+                
+                PanelMiembro pm=new PanelMiembro(foo);
+                this.dispose();
             }
         }
         if(e.getSource()==jbCancelar){
