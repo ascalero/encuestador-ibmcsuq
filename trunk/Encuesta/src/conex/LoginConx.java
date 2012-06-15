@@ -59,4 +59,23 @@ public class LoginConx {
     return val;
     }
     
+    public Object[] getproy(String Id){
+    ArrayList<Object> delta= new ArrayList<>();
+        Object proyec[]=null;
+            try{
+            rs = st.executeQuery ("SELECT nombreSur FROM survey where idusuario=\""+Id+"\"");
+            rsm= rs.getMetaData();
+            
+            while(rs.next()){
+                    delta.add(rs.getString(1));
+                    //System.out.println(rs.getString(1));
+                    proyec= delta.toArray();
+            }
+            return proyec;
+            }catch(Exception e){
+                
+            };
+        return proyec;
+    
+    }
 }
