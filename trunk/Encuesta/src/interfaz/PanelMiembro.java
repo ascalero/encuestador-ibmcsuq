@@ -26,7 +26,7 @@ public class PanelMiembro extends JXFrame implements ActionListener{
     private JXPanel panelContenido,panelBotones;
     private CardLayout containerStack;
     private JXCollapsiblePane panelTMie;
-    private JButton butAdmon,butClient,butAdmonLogin,butEncuestado;
+    private JButton butAdmon,butClient,butAdmonLogin,butEncuestado,butReg;
     private JTextArea taNombreUser;
     private JPasswordField taContra;
        
@@ -89,12 +89,16 @@ public class PanelMiembro extends JXFrame implements ActionListener{
         strTemp[0]="Iniciar Sesion";strTemp[1]="Login";strTemp[2]="";strTemp[3]="";
         butAdmonLogin= new JButton(strTemp[foo]);
         butAdmonLogin.addActionListener(this);
+        strTemp[0]="Registrate";strTemp[1]="Sign Up";strTemp[2]="";strTemp[3]="";
+        butReg= new JButton(strTemp[foo]);
+        butReg.addActionListener(this);
         
         admon.add(label1);
         admon.add(taNombreUser);
         admon.add(label2);
         admon.add(taContra);
         admon.add(butAdmonLogin);
+        admon.add(butReg);
         //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Inicializacion panel Login Encuestados">
         JPanel enquest= new JPanel(new GridLayout(2,1));
@@ -132,8 +136,10 @@ public class PanelMiembro extends JXFrame implements ActionListener{
             containerStack.show(panelTMie.getContentPane(),"enq");
         }
         if(e.getSource()==butEncuestado){
-        this.setVisible(false);
-        FrameSurvey beta= new FrameSurvey(foo);
+        //this.setVisible(false);
+        //FrameSurvey beta= new FrameSurvey(foo);
+        RegEnc re=new RegEnc(foo);
+        this.dispose();
         }
         
         if(e.getSource()==butAdmonLogin){
@@ -184,6 +190,10 @@ public class PanelMiembro extends JXFrame implements ActionListener{
             
         
         
+        }
+        if(e.getSource()==butReg){
+            RegAdmin a=new RegAdmin(foo);
+            this.dispose();
         }
         
     }
