@@ -19,14 +19,15 @@ public class Comentario extends JXFrame implements ActionListener{
     
     int foo;
     String strTemp[]= new String[4];
+    String nomEnc;
     JLabel jlTxt;
     JTextArea jtaComentario;
     JButton jbOk,jbCancel;
     
-    public Comentario(int lenguaje){
+    public Comentario(int lenguaje,String nomEnc){
         foo=lenguaje;
-        strTemp[0]="Comentarios";strTemp[1]="";strTemp[2]="";strTemp[3]="";
-        this.setTitle(strTemp[foo]);
+        this.nomEnc=nomEnc;
+        this.setTitle(nomEnc);
         setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
         setLocation(10,0);
         setSize(535,340);
@@ -65,6 +66,13 @@ public class Comentario extends JXFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        if(e.getSource()==jbOk){
+            IntroFrame a = new IntroFrame();
+            this.dispose();
+        }
+        if(e.getSource()==jbCancel){
+            IntroFrame a = new IntroFrame();
+            this.dispose();
+        }
     }
 }
