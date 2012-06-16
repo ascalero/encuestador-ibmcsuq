@@ -51,11 +51,8 @@ public class FrameAdmon extends JXFrame implements ActionListener{
     setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
     setLocation(10,0);
     this.setResizable(false);
-
     setVisible (true);
     initComp();
-    //bind();
-
     }
 
     private void initComp(){
@@ -290,7 +287,6 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         todo.add(graf);
         todo.add(panelTabla2);
         todo.add(panelTabla3);
-
         panelDatos.add(todo,BorderLayout.CENTER);
         //</editor-fold>
         
@@ -305,7 +301,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         panelCard.add(panelDatos,"Datos");
         setLayout(null);
         setSize(1,1);
-        setSize(1240,720);
+        setSize(1100,550);
         add(panelTareas);
         add(panelCard);
         }
