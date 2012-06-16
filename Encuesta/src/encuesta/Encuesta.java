@@ -4,12 +4,9 @@
  */
 package encuesta;
 
-import interfaz.*;
-
-
 /**
  *
- * @author Ascalero
+ * @author Toby
  */
 public class Encuesta {
 
@@ -17,9 +14,6 @@ public class Encuesta {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        IntroFrame a = new IntroFrame();
-        
-        //
         // TODO code application logic here
     }
 }
