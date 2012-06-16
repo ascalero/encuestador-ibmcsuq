@@ -17,16 +17,8 @@ public class Encuesta {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //IntroFrame a = new IntroFrame();
-        //RegAdmin a=new RegAdmin(0);
-        //RegEnc b=new RegEnc(0);
-        //PanelMiembro pm=new PanelMiembro(0);
-        //PanelMiembro pm=new PanelMiembro(1);
-        //Comentario c=new Comentario(0,"Encuesta112");
-        //este es un cometario de prueba
-        //hasta los comentarios se ven
-        //frameSurvey b= new FrameSurvey(1);
-        FrameAdmon s= new FrameAdmon(0, "Ascalero");
+        IntroFrame a = new IntroFrame();
+        
         //
         // TODO code application logic here
     }
