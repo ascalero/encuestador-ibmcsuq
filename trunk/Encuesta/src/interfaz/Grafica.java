@@ -29,6 +29,7 @@ public class Grafica extends javax.swing.JPanel {
        initComponents();
        img=new ImageIcon(getClass().getResource(name));
        setSize(img.getIconWidth(),img.getIconHeight());
+        System.out.println("alto:"+img.getIconWidth()+"alto :"+img.getIconHeight());
        this.max=max;
        this.min=min;
        this.prom=prom;
@@ -39,6 +40,8 @@ public class Grafica extends javax.swing.JPanel {
         this.min=min;
         this.prom=prom;
         this.repaint();
+        
+        
     }
 
     @Override            

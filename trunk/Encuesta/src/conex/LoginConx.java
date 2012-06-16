@@ -58,7 +58,6 @@ public class LoginConx {
 			};
     return val;
     }
-    
     public Object[] getproy(String Id){
     ArrayList<Object> delta= new ArrayList<>();
         Object proyec[]=null;
@@ -77,5 +76,37 @@ public class LoginConx {
             };
         return proyec;
     
+    }
+    
+    public int[][] rangos(int idEnc){
+        int val[][]= null,alpha[]=null;
+        ArrayList<int[]> delta= new ArrayList<>();
+            try{
+            rs = st.executeQuery ("SELECT q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,q13,q14,q15,q16,q17,q18,q19 FROM valores WHERE\""+idEnc+"\"");
+            rsm= rs.getMetaData();
+            System.out.println("Total de columnas"+ rsm.getColumnCount());
+            
+            while(rs.next()){
+                    alpha= new int[rsm.getColumnCount()];
+                    for(int i=0;i<rsm.getColumnCount();i++){
+                    alpha[i]=rs.getInt(i+1);
+                    System.out.print(" "+rs.getInt(i+1));
+                    }
+                    System.out.println(" ");
+                    
+                    delta.add(alpha);
+            }
+            
+            val= new int[delta.size()][];
+            int x=0;
+                for(int[] a:delta){
+                val[x]=a;
+                x++;
+            }
+            
+            }catch(Exception e){
+                e.printStackTrace();
+            };
+        return val;
     }
 }

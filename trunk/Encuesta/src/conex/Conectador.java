@@ -25,9 +25,8 @@ public class Conectador {
     	};
     
     try{
-    	conx = DriverManager.getConnection("jdbc:mysql://localhost/ibmcsuq","root","");
-        //conx = DriverManager.getConnection("jdbc:mysql://localhost/ibmcsuq","root","(@ImaginE@)");
-    	//conx = DriverManager.getConnection("jdbc:mysql://localhost/megacontrol","ascalero","(@ImginE@)");
+    	//conx = DriverManager.getConnection("jdbc:mysql://localhost/ibmcsuq","root","");
+        conx = DriverManager.getConnection("jdbc:mysql://localhost/ibmcsuq","root","(@ImaginE@)");
     	//conx = DriverManager.getConnection("jdbc:mysql://169.254.217.19/CYCLE","CCIAA","alpha1");
     	}catch(Exception e){
     System.out.println("no conecto ");
