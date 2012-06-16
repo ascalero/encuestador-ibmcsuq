@@ -22,7 +22,7 @@ public class Encuesta {
         //RegEnc b=new RegEnc(0);
         //PanelMiembro pm=new PanelMiembro(0);
         //PanelMiembro pm=new PanelMiembro(1);
-        Comentario c=new Comentario(0);
+        Comentario c=new Comentario(0,"Encuesta112");
         //este es un cometario de prueba
         //hasta los comentarios se ven
         //frameSurvey b= new FrameSurvey(1);

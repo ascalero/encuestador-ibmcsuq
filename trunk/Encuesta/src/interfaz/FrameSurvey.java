@@ -189,11 +189,12 @@ public class FrameSurvey extends JFrame implements ActionListener{
                 for(int i=0;i<answer.length;i++){
                     datoEnc.add(answer[i]+"");
                 }
+                Comentario c=new Comentario(foo,nomEnc);
                 OpBasicas op=new OpBasicas();
                 LoginConx lc=new LoginConx();
                 datoEnc.add(lc.getIdProy(nomEnc)+"");
                 op.Insertar2(datoEnc);
-                PanelMiembro pm=new PanelMiembro(foo);
+                //PanelMiembro pm=new PanelMiembro(foo);
                 this.dispose();
             }else{
                 strTemp[0]="Debes de Selecionar una Opcion";strTemp[1]="You Must select a choise";strTemp[2]="";strTemp[3]="";
