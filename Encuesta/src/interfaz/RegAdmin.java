@@ -123,6 +123,8 @@ public class RegAdmin extends JXFrame implements ActionListener{
                 info.add(jtfNick.getText());
                 info.add(jtfPass.getText());
                 
+                op.Insertar(info);
+                
                 PanelMiembro pm=new PanelMiembro(foo);
                 this.dispose();
             }
