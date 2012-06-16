@@ -4,6 +4,7 @@
  */
 package interfaz;
 
+import conex.OpBasicas;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +19,7 @@ import org.jdesktop.swingx.JXFrame;
 public class RegEnc extends JXFrame implements ActionListener{
     String[] strTemp= new String[4];
     int foo;
-    JLabel jlNick,jlEdad,jlSexo,jlEscolaridad,jlExperiencia;
+    JLabel jlNick,jlEdad,jlSexo,jlEscolaridad,jlExperiencia,jlEncuesta;
     JTextField jtfNick,jtfEdad;
     JComboBox escolaridad,experiencia,sexo,encuestas;
     JButton jbOk,jbCancelar;
@@ -44,6 +45,12 @@ public class RegEnc extends JXFrame implements ActionListener{
         contenedor.setBounds(10,10,500,200);
         strTemp[0]="Introduce tus Datos";strTemp[1]="";strTemp[2]="";strTemp[3]="";
         contenedor.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
+        
+        strTemp[0]="Seleccionar Encuesta";strTemp[1]="Select survey";strTemp[2]="";strTemp[3]="";
+        jlEncuesta=new JLabel(strTemp[foo]);
+        encuestas =new JComboBox(selectEncuesta());
+        contenedor.add(jlEncuesta);
+        contenedor.add(encuestas);
         
         strTemp[0]="Usuario";strTemp[1]="User";strTemp[2]="";strTemp[3]="";
         jlNick=new JLabel(strTemp[foo]);
@@ -121,13 +128,37 @@ public class RegEnc extends JXFrame implements ActionListener{
         }
         return sex;
     }
+    
+    public Object[] selectEncuesta(){
+        OpBasicas op=new OpBasicas();
+        Object[] encuestas;
+        encuestas=op.getproy();
+        if (encuestas==null){
+            encuestas=new Object[0];
+            switch(foo){
+                case 0 :encuestas[0]="No hay encuestas";break;
+                case 1 :encuestas[0]="No surveys";break;
+                case 2 :encuestas[0]="";break;
+                default :encuestas[0]="";break;
+            }
+        }
+        return encuestas;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         ArrayList <String> info=new ArrayList <String>();
         if(e.getSource()==jbOk){
             if(getDatos()){
-                FrameSurvey beta= new FrameSurvey(foo/*info*/);
+                info.add(jtfNick.getText());
+                info.add(jtfEdad.getText());
+                info.add(sexo.getSelectedIndex()+"");
+                info.add(escolaridad.getSelectedIndex()+"");
+                info.add(experiencia.getSelectedIndex()+"");
+                
+                String nomEnc=encuestas.getSelectedItem()+"";
+                
+                FrameSurvey beta= new FrameSurvey(foo,info,nomEnc);
                 this.dispose();
             }
         }

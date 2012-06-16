@@ -136,10 +136,10 @@ public class PanelMiembro extends JXFrame implements ActionListener{
             containerStack.show(panelTMie.getContentPane(),"enq");
         }
         if(e.getSource()==butEncuestado){
-        //this.setVisible(false);
-        //FrameSurvey beta= new FrameSurvey(foo);
-        RegEnc re=new RegEnc(foo);
-        this.dispose();
+            //this.setVisible(false);
+            //FrameSurvey beta= new FrameSurvey(foo);
+            RegEnc re=new RegEnc(foo);
+            this.dispose();
         }
         
         if(e.getSource()==butAdmonLogin){
