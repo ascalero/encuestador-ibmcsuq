@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.*;
+import sun.org.mozilla.javascript.internal.ObjArray;
 
 /**
  *
@@ -352,9 +353,11 @@ public void limpiatabla(DefaultTableModel modeloT){
                 setTitles(modeloPromP);
                 setTitles2(modeloPromedios);
                 containerStack.show(panelCard,"Datos");
+                //<editor-fold defaultstate="collapsed" desc="Inicializa Datos">         
                 LoginConx driver=new conex.LoginConx();
                 int a[][]=driver.rangos(1);
-                double[][] promP = new algoritmos.DesviacionEstandar().Calcula(a);
+                algoritmos.DesviacionEstandar h=new algoritmos.DesviacionEstandar();
+                double[][] promP = h.Calcula(a);
                 graf.setData(promP[0], promP[1], promP[2]);
                         Object[] o1=new Object[promP[0].length+1];
                             o1[0]="Max";
@@ -374,6 +377,17 @@ public void limpiatabla(DefaultTableModel modeloT){
                             o1[i+1]=promP[2][i];
                         }
                         modeloPromP.addRow(o1);
+                    
+                  //</editor-fold>         
+                    double[] promedios = h.getPromedios();
+                    double[] vars = h.getVars();
+                    for(int i=0;i<vars.length;i++){
+                        o1=new Object[3];
+                            o1[0]="Q"+(i+1);
+                            o1[1]=promedios[i];
+                            o1[2]=vars[i];
+                            modeloPromedios.addRow(o1);
+                    }
         }
 
 }
