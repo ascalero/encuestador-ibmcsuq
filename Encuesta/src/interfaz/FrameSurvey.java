@@ -5,6 +5,7 @@
 package interfaz;
 
 
+import conex.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagLayout;
@@ -29,12 +30,15 @@ public class FrameSurvey extends JFrame implements ActionListener{
     JRadioButton[] rbVal;
     ButtonGroup rbValores;
     JXLabel labPreg;
+    ArrayList <String> datoEnc;
+    String nomEnc;
     
 
-    public FrameSurvey(int lang/*,ArrayList <String> datoEnc,String nameEncuesta*/){
+    public FrameSurvey(int lang,ArrayList <String> datoEnc,String nomEnc){
     foo=lang;
-    strTemp[0]="Encuesta X";strTemp[1]="SurveyX";strTemp[2]="";strTemp[3]="";
-    this.setTitle(strTemp[foo]);
+    this.datoEnc=datoEnc;
+    this.nomEnc=nomEnc;
+    this.setTitle(this.nomEnc);
     setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
     setLocation(10,0);
     this.setResizable(true);
@@ -182,7 +186,15 @@ public class FrameSurvey extends JFrame implements ActionListener{
        }
         if(e.getSource()==butReady){
             if(checaRespuesta()){
-                //lanza validador en BD
+                for(int i=0;i<answer.length;i++){
+                    datoEnc.add(answer[i]+"");
+                }
+                OpBasicas op=new OpBasicas();
+                LoginConx lc=new LoginConx();
+                datoEnc.add(lc.getIdProy(nomEnc)+"");
+                op.Insertar2(datoEnc);
+                PanelMiembro pm=new PanelMiembro(foo);
+                this.dispose();
             }else{
                 strTemp[0]="Debes de Selecionar una Opcion";strTemp[1]="You Must select a choise";strTemp[2]="";strTemp[3]="";
                 JOptionPane.showMessageDialog(null,strTemp[foo],"Error",JOptionPane.ERROR_MESSAGE);

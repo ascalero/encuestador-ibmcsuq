@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.*;
-import sun.org.mozilla.javascript.internal.ObjArray;
 
 /**
  *
