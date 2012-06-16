@@ -42,25 +42,25 @@ public class RegAdmin extends JXFrame implements ActionListener{
         contenedor.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
         
         //<editor-fold defaultstate="collapsed" desc="Inicializacion contenido">
-        strTemp[0]="Nombre";strTemp[1]="Name";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Id Usuario";strTemp[1]="Name";strTemp[2]="";strTemp[3]="";
         jlNombre=new JLabel(strTemp[foo]);
         jtfNombre=new JTextField();
         contenedor.add(jlNombre);
         contenedor.add(jtfNombre);
         
-        strTemp[0]="Apellido Paterno";strTemp[1]="";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Nombre(s)";strTemp[1]="";strTemp[2]="";strTemp[3]="";
         jlApPat=new JLabel(strTemp[foo]);
         jtfApPat=new JTextField();
         contenedor.add(jlApPat);
         contenedor.add(jtfApPat);
         
-        strTemp[0]="Apellido Materno";strTemp[1]="";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Apellido Paterno";strTemp[1]="";strTemp[2]="";strTemp[3]="";
         jlApMat=new JLabel(strTemp[foo]);
         jtfApMat=new JTextField();
         contenedor.add(jlApMat);
         contenedor.add(jtfApMat);
         
-        strTemp[0]="Usuario";strTemp[1]="User";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Apellido Materno";strTemp[1]="User";strTemp[2]="";strTemp[3]="";
         jlNick=new JLabel(strTemp[foo]);
         jtfNick=new JTextField();
         contenedor.add(jlNick);
