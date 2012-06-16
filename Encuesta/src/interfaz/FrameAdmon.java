@@ -5,16 +5,21 @@
 package interfaz;
 
 import com.sun.corba.se.spi.ior.MakeImmutable;
+import conex.LoginConx;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.*;
 
 /**
  *
  * @author Ascalero
  */
-public class FrameAdmon extends JXFrame{
+public class FrameAdmon extends JXFrame implements ActionListener{
     private String strTemp[]= new String[4],User;
     private Font fuenteGrande=new Font("Arial",Font.BOLD,20);
     private JXPanel panelTareas,panelCard,panelEE,panelNE,panelSE,panelDatos;
@@ -24,11 +29,16 @@ public class FrameAdmon extends JXFrame{
     private JButton butOKSurvey,butOKdel,butOKsel;
     private JComboBox jcbSurvey, jcbSel;
     private Object valCombo[],valCombo2[];
-    
+    private Grafica graf;
     int foo;
     
     private JTextField nombreEnc;
     private JTextArea descrip;
+    private DefaultTableModel modeloPromedios;
+    private JTable valores2;
+    private DefaultTableModel modeloPromP;
+    private JTable valores3;
+    private JPanel todo;
 
     public FrameAdmon(int lang,String du) {
     foo=lang;
@@ -39,7 +49,7 @@ public class FrameAdmon extends JXFrame{
     setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
     setLocation(10,0);
     this.setResizable(false);
-    setSize(1240,720);
+    
     setVisible (true);
     initComp();
     //bind();
@@ -204,23 +214,69 @@ public class FrameAdmon extends JXFrame{
         strTemp[0]="Aceptar";strTemp[1]="OK";strTemp[2]="";strTemp[3]="";
         butOKsel= new JButton(strTemp[foo]);
         butOKsel.setBounds(355,380,200,100);
+        butOKsel.addActionListener(this);
         cont3.add(neTitleJL3);
         cont3.add(jcbSel);
         cont3.add(butOKsel);
+        
         panelSE.add(cont3,BorderLayout.CENTER);
         //</editor-fold >
         
+        panelDatos= new JXPanel(new BorderLayout());
+        todo = new JPanel();
+        todo.setLayout(null);
+        todo.setBorder(BorderFactory.createTitledBorder("Datos de Encuesta X"));
+        //<editor-fold defaultstate="collapsed" desc="PanelGrafica">
+        double max[]={6.73,5.98,6.66,7.54};
+        double min[]={4.02,3.07,3.9,5.12};
+        double prom[]={5.38,4.52,5.28,6.33};
+        graf= new Grafica("1.jpg", max, min, prom);
+        graf.setBounds(335, 20, graf.getWidth(), graf.getHeight());
+        //</editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="Inicializacion Panel Tabla Promedios">         
+        JPanel panelTabla2 = new JPanel();
+        panelTabla2.setLayout(new FlowLayout(FlowLayout.LEFT));
+	panelTabla2.setBorder(BorderFactory.createTitledBorder("Promedios"));
+	panelTabla2.setBounds(15,20,315,250);
+	modeloPromedios = new DefaultTableModel();
+	valores2 = new JTable(modeloPromedios);
+        valores2.setPreferredScrollableViewportSize(new Dimension(290, 220));
+		    valores2.setAutoscrolls(true);
+		    JScrollPane guarda2 = new JScrollPane(valores2);
+		    guarda2.setAutoscrolls(true);
+		    panelTabla2.add(guarda2);
+        //</editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="Inicializacion Panel Tabla Promedios de promedios">         
+        JPanel panelTabla3 = new JPanel();
+        panelTabla3.setLayout(new FlowLayout(FlowLayout.LEFT));
+	panelTabla3.setBorder(BorderFactory.createTitledBorder("Promedios Encuesta X"));
+	panelTabla3.setBounds(335,370,500,125);
+	modeloPromP = new DefaultTableModel();
+	valores3 = new JTable(modeloPromP);
+        valores3.setPreferredScrollableViewportSize(new Dimension(475,90));
+		    valores3.setAutoscrolls(true);
+		    JScrollPane guarda3 = new JScrollPane(valores3);
+		    guarda3.setAutoscrolls(true);
+		    panelTabla3.add(guarda3);
+                    
+        //</editor-fold>
+        todo.add(graf);
+        todo.add(panelTabla2);
+        todo.add(panelTabla3);
         
-        
+        panelDatos.add(todo,BorderLayout.CENTER);
         
         
         
         panelCard= new JXPanel(containerStack);
-        panelCard.setBounds(230, 10, 950 , 550);
+        panelCard.setBounds(230, 10, 850 , 500);
         panelCard.add(panelNE,"Nuevo");
         panelCard.add(panelEE,"Elimina");
         panelCard.add(panelSE,"Ver");
+        panelCard.add(panelDatos,"Datos");
         setLayout(null);
+        setSize(1,1);
+        setSize(1240,720);
         add(panelTareas);
         add(panelCard);
         }
@@ -231,7 +287,6 @@ public class FrameAdmon extends JXFrame{
     private Object[] getProy(String user){
         return new conex.LoginConx().getproy(user);
     }
-    
     private void cerrarS(){
         new PanelMiembro(foo);
         this.dispose();
@@ -240,5 +295,87 @@ public class FrameAdmon extends JXFrame{
         new IntroFrame();
         this.dispose();
     }
-        
+    
+    //<editor-fold defaultstate="collapsed" desc="Metodo Settitles PromP">         
+    public void  setTitles(DefaultTableModel c){
+			Object[] a = new Object[5];
+				a[0]=" ";
+				a[1]="Uso del Sistema";
+				a[2]="Calidad Info";
+                                a[3]="Calidad Inter";
+                                a[4]="General";
+			c.setColumnIdentifiers(a);
+    }
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Metodo Settitles Promedios">         
+    public void  setTitles2(DefaultTableModel c){
+			Object[] a = new Object[3];
+				a[0]="No.Preg";
+				a[1]="Promedio";
+				a[2]="DesvMedi";
+			c.setColumnIdentifiers(a);
+    }
+    //</editor-fold>
+    
+
+    
+    //<editor-fold defaultstate="collapsed" desc="Metodo Limpia Tabla">         
+public void limpiatabla(DefaultTableModel modeloT){
+	int nr = modeloT.getRowCount(),i=0;
+          try
+	          {
+	          	for( i=nr-1 ; i >= 0; i--) {
+	          		 modeloT.removeRow(i);
+	          	
+	          	}
+	          }
+	          catch(Exception e)
+	          {
+	          	e.printStackTrace();
+	          	 //System.out.println("nr: "+nr+ " i: "+i);
+	          	 
+	          }
+	          
+	}
+    //</editor-fold>
+@Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==butOKsel){
+                inicializaDatos();
+                }
+                
+        }
+    
+    public void inicializaDatos(){
+                limpiatabla(modeloPromedios);
+                limpiatabla(modeloPromP);
+                setTitles(modeloPromP);
+                setTitles2(modeloPromedios);
+                containerStack.show(panelCard,"Datos");
+                LoginConx driver=new conex.LoginConx();
+                int a[][]=driver.rangos(1);
+                double[][] promP = new algoritmos.DesviacionEstandar().Calcula(a);
+                graf.setData(promP[0], promP[1], promP[2]);
+                        Object[] o1=new Object[promP[0].length+1];
+                            o1[0]="Max";
+                        for(int i=0;i<promP[0].length;i++){
+                            o1[i+1]=promP[0][i];
+                        }
+                        modeloPromP.addRow(o1);
+                        o1=new Object[promP[0].length+1];
+                            o1[0]="Min";
+                        for(int i=0;i<promP[0].length;i++){
+                            o1[i+1]=promP[1][i];
+                        }
+                        modeloPromP.addRow(o1);
+                        o1=new Object[promP[0].length+1];
+                            o1[0]="promedio";
+                        for(int i=0;i<promP[0].length;i++){
+                            o1[i+1]=promP[2][i];
+                        }
+                        modeloPromP.addRow(o1);
+        }
+
 }
+        
+
