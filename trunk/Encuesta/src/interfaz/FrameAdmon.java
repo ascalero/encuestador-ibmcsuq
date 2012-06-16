@@ -4,34 +4,36 @@
  */
 package interfaz;
 
-
 import conex.LoginConx;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.*;
+import sun.awt.HorizBagLayout;
 
 /**
  *
  * @author Ascalero
  */
+@SuppressWarnings("ResultOfObjectAllocationIgnored")
 public class FrameAdmon extends JXFrame implements ActionListener{
     private String strTemp[]= new String[4],User;
+    LoginConx driver=new conex.LoginConx();
     private Font fuenteGrande=new Font("Arial",Font.BOLD,20);
     private JXPanel panelTareas,panelCard,panelEE,panelNE,panelSE,panelDatos;
-    private CardLayout containerStack = new CardLayout(); 
+    private CardLayout containerStack = new CardLayout();
     private JXTaskPane tareas,sesTask;
     private JXTaskPaneContainer contTask;
-    private JButton butOKSurvey,butOKdel,butOKsel;
-    private JComboBox jcbSurvey, jcbSel;
+    private JButton butOKSurvey,butOKdel,butOKsel,butRestric;
+    private JComboBox jcbSurveyDel, jcbSel;
+    private JComboBox jcbSexo,jcbEsc,jcbExp;
     private Object valCombo[],valCombo2[];
     private Grafica graf;
+    private JLabel labTotalEnc;
     int foo;
-    
+
     private JTextField nombreEnc;
     private JTextArea descrip;
     private DefaultTableModel modeloPromedios;
@@ -49,24 +51,24 @@ public class FrameAdmon extends JXFrame implements ActionListener{
     setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
     setLocation(10,0);
     this.setResizable(false);
-    
+
     setVisible (true);
     initComp();
     //bind();
-    
+
     }
-    
+
     private void initComp(){
         //<editor-fold defaultstate="collapsed" desc="Inicializacion panel de Tareas">
         panelTareas = new JXPanel(new BorderLayout());
         panelTareas.setBounds(10,10, 200, 500);
         strTemp[0]="Tareas Comunes";strTemp[1]="Common Task";strTemp[2]="";strTemp[3]="";
         panelTareas.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
-        
+
         contTask = new JXTaskPaneContainer();
         contTask.setLayout(new VerticalLayout(2));
         contTask.setBackground(Color.LIGHT_GRAY);
-        
+
         tareas=new JXTaskPane();
         strTemp[0]="Opciones";strTemp[1]="Options";strTemp[2]="";strTemp[3]="";
         tareas.setTitle(strTemp[foo]);
@@ -75,7 +77,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent e) {
                 containerStack.show(panelCard, "Nuevo");
-                
+
             }
         });
         strTemp[0]="Ver Projecto";strTemp[1]="Check Project";strTemp[2]="";strTemp[3]="";
@@ -86,10 +88,10 @@ public class FrameAdmon extends JXFrame implements ActionListener{
                 valCombo2=getProy(User);
                 if (valCombo2==null){
                 strTemp[0]="No tienes Proyectos";strTemp[1]="You dont have any project";strTemp[2]="";strTemp[3]="";
-                jcbSel.addItem(strTemp[0]);    
+                jcbSel.addItem(strTemp[0]);
                 }else{
                     for(Object d:valCombo2){
-                    jcbSel.addItem(d);    
+                    jcbSel.addItem(d);
                     }
                 }
                 containerStack.show(panelCard, "Ver");
@@ -99,22 +101,22 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         tareas.add(new AbstractAction(strTemp[foo]) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                eraseDataJcb(jcbSurvey);
+                eraseDataJcb(jcbSurveyDel);
                 valCombo=getProy(User);
                 if (valCombo==null){
                 strTemp[0]="No tienes Proyectos";strTemp[1]="You dont have any project";strTemp[2]="";strTemp[3]="";
-                jcbSurvey.addItem(strTemp[foo]);    
+                jcbSurveyDel.addItem(strTemp[foo]);
                 }else{
                     for(Object d:valCombo){
-                    jcbSurvey.addItem(d);    
+                    jcbSurveyDel.addItem(d);
                     }
                 }
                 containerStack.show(panelCard, "Elimina");
-                
-                
+
+
             }
         });
-        
+
         sesTask= new JXTaskPane();
         strTemp[0]="Opciones de Sesion";strTemp[1]="Session Options";strTemp[2]="";strTemp[3]="";
         sesTask.setTitle(strTemp[0]);
@@ -130,14 +132,14 @@ public class FrameAdmon extends JXFrame implements ActionListener{
                 public void actionPerformed(ActionEvent e) {
                 salir();
                 }});
-        
+
         contTask.add(tareas);
         contTask.add(sesTask);
         panelTareas.add(contTask);
         //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Inicializacion panel NuevaEncuesta">
         panelNE= new JXPanel(new BorderLayout());
-        
+
         JPanel cont1=new JPanel();
         strTemp[0]="Nuevo Projecto";strTemp[1]="New Project";strTemp[2]="";strTemp[3]="";
         cont1.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
@@ -154,7 +156,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         JLabel neDescripJL= new JLabel(strTemp[foo],JLabel.CENTER);
         neDescripJL.setBounds(118,250,237,100);
         neDescripJL.setFont(fuenteGrande);
-        
+
         nombreEnc=new JTextField(25);
         nombreEnc.setBounds(473,180,237,30);
         descrip= new JTextArea(10, 20);
@@ -164,9 +166,10 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         descrip.setAutoscrolls(true);
         strTemp[0]="Aceptar";strTemp[1]="Ok";strTemp[2]="";strTemp[3]="";
         butOKSurvey= new JButton("Aceptar");
+        butOKSurvey.addActionListener(this);
         butOKSurvey.setBounds(355,380,200,100);
-        
-        
+
+
         cont1.add(neTitleJL);
         cont1.add(neNombreJL);
         cont1.add(neDescripJL);
@@ -185,15 +188,16 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         JLabel neTitleJL2= new JLabel(strTemp[foo],JLabel.CENTER);
         neTitleJL2.setBounds(237,50,475,100);
         neTitleJL2.setFont(fuenteGrande);
-        jcbSurvey= new JComboBox();
-        jcbSurvey.setBounds(237, 250, 475, 40);
-        jcbSurvey.setFont(fuenteGrande);
+        jcbSurveyDel= new JComboBox();
+        jcbSurveyDel.setBounds(237, 250, 475, 40);
+        jcbSurveyDel.setFont(fuenteGrande);
         //jcbSurvey.setModel(null);
         strTemp[0]="Aceptar";strTemp[1]="OK";strTemp[2]="";strTemp[3]="";
         butOKdel= new JButton(strTemp[foo]);
         butOKdel.setBounds(355,380,200,100);
+        butOKdel.addActionListener(this);
         cont2.add(neTitleJL2);
-        cont2.add(jcbSurvey);
+        cont2.add(jcbSurveyDel);
         cont2.add(butOKdel);
         panelEE.add(cont2,BorderLayout.CENTER);
          //</editor-fold>
@@ -218,10 +222,10 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         cont3.add(neTitleJL3);
         cont3.add(jcbSel);
         cont3.add(butOKsel);
-        
+
         panelSE.add(cont3,BorderLayout.CENTER);
         //</editor-fold >
-        
+        //<editor-fold defaultstate="collapsed" desc="Inicializacion Panel Ver Encuestas">
         panelDatos= new JXPanel(new BorderLayout());
         todo = new JPanel();
         todo.setLayout(null);
@@ -233,7 +237,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         graf= new Grafica("1.jpg", max, min, prom);
         graf.setBounds(335, 20, graf.getWidth(), graf.getHeight());
         //</editor-fold>
-        //<editor-fold defaultstate="collapsed" desc="Inicializacion Panel Tabla Promedios">         
+        //<editor-fold defaultstate="collapsed" desc="Inicializacion Panel Tabla Promedios">
         JPanel panelTabla2 = new JPanel();
         panelTabla2.setLayout(new FlowLayout(FlowLayout.LEFT));
 	panelTabla2.setBorder(BorderFactory.createTitledBorder("Promedios"));
@@ -246,7 +250,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
 		    guarda2.setAutoscrolls(true);
 		    panelTabla2.add(guarda2);
         //</editor-fold>
-        //<editor-fold defaultstate="collapsed" desc="Inicializacion Panel Tabla Promedios de promedios">         
+        //<editor-fold defaultstate="collapsed" desc="Inicializacion Panel Tabla Promedios de promedios">
         JPanel panelTabla3 = new JPanel();
         panelTabla3.setLayout(new FlowLayout(FlowLayout.LEFT));
 	panelTabla3.setBorder(BorderFactory.createTitledBorder("Promedios Encuesta X"));
@@ -258,13 +262,38 @@ public class FrameAdmon extends JXFrame implements ActionListener{
 		    JScrollPane guarda3 = new JScrollPane(valores3);
 		    guarda3.setAutoscrolls(true);
 		    panelTabla3.add(guarda3);
-                    
+
         //</editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="Inicializacion Panel Restricciones">
+        JPanel restric= new JPanel(new VerticalLayout(4));
+        restric.setBounds(15, 270, 315, 225);
+        restric.setBorder(BorderFactory.createTitledBorder("Restricciones"));
+        jcbSexo= new JComboBox(setSexo());
+        jcbEsc= new JComboBox(setEscolaridad());
+        jcbExp= new JComboBox(setExperiancia());
+        butRestric= new JButton("Agregar Cambios");
+        butRestric.addActionListener(this);
+        jcbEsc.setSelectedIndex(3);
+        jcbExp.setSelectedIndex(3);
+        jcbSexo.setSelectedIndex(3);
+        labTotalEnc= new JLabel("",JLabel.CENTER);
+        restric.add(jcbSexo);
+        restric.add(jcbExp);
+        restric.add(jcbEsc);
+        restric.add(butRestric);
+        restric.add(labTotalEnc);
+        //</editor-fold>
+        
+        
+        
+        todo.add(restric);
         todo.add(graf);
         todo.add(panelTabla2);
         todo.add(panelTabla3);
-        
+
         panelDatos.add(todo,BorderLayout.CENTER);
+        //</editor-fold>
+        
         
         
         
@@ -280,23 +309,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         add(panelTareas);
         add(panelCard);
         }
-    
-    private void eraseDataJcb(JComboBox d){
-        d.removeAllItems();
-    }
-    private Object[] getProy(String user){
-        return new conex.LoginConx().getproy(user);
-    }
-    private void cerrarS(){
-        new PanelMiembro(foo);
-        this.dispose();
-    }
-    private void salir(){
-        new IntroFrame();
-        this.dispose();
-    }
-    
-    //<editor-fold defaultstate="collapsed" desc="Metodo Settitles PromP">         
+    //<editor-fold defaultstate="collapsed" desc="Metodo Settitles PromP">
     public void  setTitles(DefaultTableModel c){
 			Object[] a = new Object[5];
 				a[0]=" ";
@@ -305,57 +318,58 @@ public class FrameAdmon extends JXFrame implements ActionListener{
                                 a[3]="Calidad Inter";
                                 a[4]="General";
 			c.setColumnIdentifiers(a);
-    }
-    //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Metodo Settitles Promedios">         
+    }//</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Metodo Settitles Promedios">
     public void  setTitles2(DefaultTableModel c){
 			Object[] a = new Object[3];
 				a[0]="No.Preg";
 				a[1]="Promedio";
 				a[2]="DesvMedi";
 			c.setColumnIdentifiers(a);
-    }
-    //</editor-fold>
-    
-
-    
-    //<editor-fold defaultstate="collapsed" desc="Metodo Limpia Tabla">         
+    }//</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Metodo Limpia Tabla">
 public void limpiatabla(DefaultTableModel modeloT){
 	int nr = modeloT.getRowCount(),i=0;
-          try
-	          {
-	          	for( i=nr-1 ; i >= 0; i--) {
-	          		 modeloT.removeRow(i);
-	          	
-	          	}
-	          }
-	          catch(Exception e)
-	          {
-	          	e.printStackTrace();
-	          	 //System.out.println("nr: "+nr+ " i: "+i);
-	          	 
-	          }
-	          
-	}
-    //</editor-fold>
+          try{
+	     for( i=nr-1 ; i >= 0; i--) {
+                 modeloT.removeRow(i);
+             }
+             }catch(Exception e){}
+}//</editor-fold>
+
 @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==butOKsel){
-                
-                inicializaDatos(jcbSel.getSelectedItem().toString());
-                }
-                
+            if(e.getSource()==butOKsel){
+                inicializaDatos(jcbSel.getSelectedItem().toString(),"");
+            }
+            if(e.getSource()==butOKSurvey){
+                crearProy();
+            }
+            if(e.getSource()==butOKdel){
+                borraProy();
+            }
+            if(e.getSource()==butRestric){
+                setRestric();
+            }
+
+
         }
-    
-    public void inicializaDatos(String nameSur){
+
+    //<editor-fold defaultstate="collapsed" desc="Inicializa Datos">
+    public boolean inicializaDatos(String nameSur,String Atrib){
                 limpiatabla(modeloPromedios);
                 limpiatabla(modeloPromP);
                 setTitles(modeloPromP);
                 setTitles2(modeloPromedios);
+                int a[][]=driver.rangos(driver.getIdProy(nameSur),Atrib);
+                if(a==null){
+                    strTemp[0]="No ahi datos que Mostrar";strTemp[1]="";strTemp[2]="";strTemp[3]="";
+                    labTotalEnc.setText("Total de Encuestados: 0");
+                    JOptionPane.showMessageDialog(null,strTemp[foo],"MSG",JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
                 containerStack.show(panelCard,"Datos");
-                //<editor-fold defaultstate="collapsed" desc="Inicializa Datos">         
-                LoginConx driver=new conex.LoginConx();
-                int a[][]=driver.rangos(driver.getIdProy(nameSur));
+                labTotalEnc.setText("Total de Encuestados: "+a.length);
                 algoritmos.DesviacionEstandar h=new algoritmos.DesviacionEstandar();
                 double[][] promP = h.Calcula(a);
                 graf.setData(promP[0], promP[1], promP[2]);
@@ -377,8 +391,8 @@ public void limpiatabla(DefaultTableModel modeloT){
                             o1[i+1]=promP[2][i];
                         }
                         modeloPromP.addRow(o1);
-                    
-                  //</editor-fold>         
+
+
                     double[] promedios = h.getPromedios();
                     double[] vars = h.getVars();
                     for(int i=0;i<vars.length;i++){
@@ -388,8 +402,110 @@ public void limpiatabla(DefaultTableModel modeloT){
                             o1[2]=vars[i];
                             modeloPromedios.addRow(o1);
                     }
+    return true;
+    }
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Metodo limpia JCB">
+    public boolean borraProy(){
+                driver.delProy(jcbSurveyDel.getSelectedItem().toString());
+                eraseDataJcb(jcbSurveyDel);
+                eraseDataJcb(jcbSel);
+                valCombo=getProy(User);
+                if (valCombo==null){
+                strTemp[0]="No tienes Proyectos";strTemp[1]="You dont have any project";strTemp[2]="";strTemp[3]="";
+                jcbSurveyDel.addItem(strTemp[foo]);
+                jcbSel.addItem(strTemp[foo]);
+                }else{
+                    for(Object d:valCombo){
+                    jcbSurveyDel.addItem(d);
+                    jcbSel.addItem(d);
+                    }
+                    return true;
+                }
+            return false;
+    }
+    public int crearProy(){
+        if (nombreEnc.getText().equals("")){
+            nombreEnc.requestFocus();
+            strTemp[0]="Falto Nombre";strTemp[1]="";strTemp[2]="";strTemp[3]="";
+            JOptionPane.showMessageDialog(null,strTemp[foo],"MSG",JOptionPane.INFORMATION_MESSAGE);
+            return 1;
         }
+        if (descrip.getText().equals("")){
+            descrip.requestFocus();
+            strTemp[0]="falta descripcion";strTemp[1]="";strTemp[2]="";strTemp[3]="";
+            JOptionPane.showMessageDialog(null,strTemp[foo],"MSG",JOptionPane.INFORMATION_MESSAGE);
+            return 1;
+        }
+        driver.NovoPro(nombreEnc.getText(), descrip.getText(), User);
+        nombreEnc.setText("");
+        descrip.setText("");
+    return 0;
+    }
+    //</editor-fold>
+    
+    private void setRestric(){
+        String atributos="";
+        int anw=jcbEsc.getSelectedIndex();
+        if(anw!=3) atributos+= " and Escolaridad= \""+anw+"\"";
+        anw=jcbSexo.getSelectedIndex();
+        if(anw!=3) atributos+= " and Sexo = \""+anw+"\"";
+        anw=jcbExp.getSelectedIndex();
+        if(anw!=3) atributos+= " and Experiencia = \""+anw+"\"";
+        System.out.println(" attrib "+atributos);
+        inicializaDatos(jcbSel.getSelectedItem().toString(),atributos);
+    }
+    
+    private void cerrarS(){
+        new PanelMiembro(foo);
+        this.dispose();
+    }
+    
+    private void salir(){
+        new IntroFrame();
+        this.dispose();
+    }
+    private void eraseDataJcb(JComboBox d){
+        d.removeAllItems();
+    }
+    private Object[] getProy(String user){
+        return new conex.LoginConx().getproy(user);
+    }
+    //<editor-fold defaultstate="collapsed" desc="Inicializa Contenido JCBRestricciones">
+    private Object[] setEscolaridad(){
+        Object[] sex=new Object[4];
+        switch(foo){
+            case 0 :sex[0]="Sin Estudios";sex[1]="Peparatoria";sex[2]="Superior";sex[3]="Sin Delimitar Escolaridad";break;
+            case 1 :sex[0]="";sex[1]="";sex[2]="";break;
+            case 2 :sex[0]="";sex[1]="";sex[2]="";break;
+            case 3 :sex[0]="";sex[1]="";sex[2]="";sex[3]="";break;
+            default :sex[0]="";sex[1]="";sex[2]="";break;
+        }
+        return sex;
+    }
+    private Object[] setExperiancia(){
+        Object[] sex=new Object[4];
+        switch(foo){
+            case 0 :sex[0]="Poca";sex[1]="Regular";sex[2]="Mucha";sex[3]="Sin Delimitar Experiencia";break;
+            case 1 :sex[0]="";sex[1]="";sex[2]="";sex[3]="";break;
+            case 2 :sex[0]="";sex[1]="";sex[2]="";sex[3]="";break;
+            case 3 :sex[0]="";sex[1]="";sex[2]="";sex[3]="";break;
+            default :sex[0]="";sex[1]="";sex[2]="";sex[3]="";break;
+        }
+        return sex;
+    }
+    private Object[] setSexo(){
+        Object[] sex=new Object[4];
+        switch(foo){
+            case 0 :sex[0]="Hombre";sex[1]="Mujer";sex[2]="Otros";sex[3]="Sin Delimitar Sexo";break;
+            case 1 :sex[0]="Man";sex[1]="Woman";sex[2]="Others";break;
+            case 2 :sex[0]="";sex[1]="";sex[2]="";break;
+            default :sex[0]="";sex[1]="";sex[2]="";break;
+        }
+        return sex;
+    }
+    //</editor-fold>
 
 }
-        
+
 
