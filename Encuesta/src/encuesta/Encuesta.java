@@ -22,11 +22,11 @@ public class Encuesta {
         //RegEnc b=new RegEnc(0);
         //PanelMiembro pm=new PanelMiembro(0);
         //PanelMiembro pm=new PanelMiembro(1);
-        Comentario c=new Comentario(0,"Encuesta112");
+        //Comentario c=new Comentario(0,"Encuesta112");
         //este es un cometario de prueba
         //hasta los comentarios se ven
         //frameSurvey b= new FrameSurvey(1);
-        //FrameAdmon s= new FrameAdmon(0, "Ascalero");
+        FrameAdmon s= new FrameAdmon(0, "Ascalero");
         //
         // TODO code application logic here
     }
