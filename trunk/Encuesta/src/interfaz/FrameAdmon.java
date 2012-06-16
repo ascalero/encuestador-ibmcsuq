@@ -4,7 +4,7 @@
  */
 package interfaz;
 
-import com.sun.corba.se.spi.ior.MakeImmutable;
+
 import conex.LoginConx;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -44,7 +44,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
     public FrameAdmon(int lang,String du) {
     foo=lang;
     User=du;
-    strTemp[0]="Consola Administrador: Bienvenido"+User;
+    strTemp[0]="Consola Administrador: Bienvenido "+User;
     strTemp[1]="Administrator Settings: Welcome "+User; strTemp[2]="";strTemp[3]="";
     this.setTitle(strTemp[foo]);
     setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
@@ -241,7 +241,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
 	panelTabla2.setBounds(15,20,315,250);
 	modeloPromedios = new DefaultTableModel();
 	valores2 = new JTable(modeloPromedios);
-        valores2.setPreferredScrollableViewportSize(new Dimension(290, 220));
+        valores2.setPreferredScrollableViewportSize(new Dimension(280, 200));
 		    valores2.setAutoscrolls(true);
 		    JScrollPane guarda2 = new JScrollPane(valores2);
 		    guarda2.setAutoscrolls(true);
@@ -254,7 +254,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
 	panelTabla3.setBounds(335,370,500,125);
 	modeloPromP = new DefaultTableModel();
 	valores3 = new JTable(modeloPromP);
-        valores3.setPreferredScrollableViewportSize(new Dimension(475,90));
+        valores3.setPreferredScrollableViewportSize(new Dimension(475,75));
 		    valores3.setAutoscrolls(true);
 		    JScrollPane guarda3 = new JScrollPane(valores3);
 		    guarda3.setAutoscrolls(true);
@@ -342,12 +342,13 @@ public void limpiatabla(DefaultTableModel modeloT){
 @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==butOKsel){
-                inicializaDatos();
+                
+                inicializaDatos(jcbSel.getSelectedItem().toString());
                 }
                 
         }
     
-    public void inicializaDatos(){
+    public void inicializaDatos(String nameSur){
                 limpiatabla(modeloPromedios);
                 limpiatabla(modeloPromP);
                 setTitles(modeloPromP);
@@ -355,7 +356,7 @@ public void limpiatabla(DefaultTableModel modeloT){
                 containerStack.show(panelCard,"Datos");
                 //<editor-fold defaultstate="collapsed" desc="Inicializa Datos">         
                 LoginConx driver=new conex.LoginConx();
-                int a[][]=driver.rangos(1);
+                int a[][]=driver.rangos(driver.getIdProy(nameSur));
                 algoritmos.DesviacionEstandar h=new algoritmos.DesviacionEstandar();
                 double[][] promP = h.Calcula(a);
                 graf.setData(promP[0], promP[1], promP[2]);
