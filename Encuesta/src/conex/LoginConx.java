@@ -73,7 +73,7 @@ public class LoginConx {
     return val;
     }
     public Object[] getproy(String Id){
-    ArrayList<Object> delta= new ArrayList<>();
+    ArrayList<Object> delta= new ArrayList<Object>();
         Object proyec[]=null;
             try{
             rs = st.executeQuery ("SELECT nombreSur FROM survey where idusuario=\""+Id+"\"");
@@ -107,7 +107,7 @@ public class LoginConx {
     
     public int[][] rangos(int idEnc,String Attrib){
         int val[][]= null,alpha[]=null;
-        ArrayList<int[]> delta= new ArrayList<>();
+        ArrayList<int[]> delta= new ArrayList<int[]>();
             try{
                 String sta="SELECT q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,q13,q14,q15,q16,q17,q18,q19 FROM valores WHERE Codigo=\""+idEnc+"\""+Attrib;
                 //System.out.println(""+sta);
