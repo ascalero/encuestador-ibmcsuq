@@ -4,6 +4,10 @@
  */
 package encuesta;
 
+import interfaz.Grafica;
+import interfaz.IntroFrame;
+import java.awt.Frame;
+
 /**
  *
  * @author Toby
@@ -15,5 +19,6 @@ public class Encuesta {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        IntroFrame intfr=new IntroFrame();        
     }
 }

@@ -24,12 +24,14 @@ public class Grafica extends javax.swing.JPanel {
      ImageIcon img;
      Graphics2D g2;
      double max[],min[],prom[];
+     String strTemp[]=new String[4];
+     int foo;
     
-    public Grafica(String name,double[] max,double[] min,double[] prom) {
+    public Grafica(String name,double[] max,double[] min,double[] prom,int foo) {
+        this.foo=foo;
        initComponents();
        img=new ImageIcon(getClass().getResource(name));
        setSize(img.getIconWidth(),img.getIconHeight());
-        System.out.println("alto:"+img.getIconWidth()+"alto :"+img.getIconHeight());
        this.max=max;
        this.min=min;
        this.prom=prom;
@@ -65,9 +67,17 @@ public class Grafica extends javax.swing.JPanel {
         g2.drawLine(50,300,450,300);//horizontal
         for(int i=0;i<4;i++,k+=100)
             g2.drawLine(k,295,k,305);
-        
-        g2.drawString("Uso del              Calida de la           Calidad de la              General", 80, 320);
-        g2.drawString("Sistema              Información                Interfaz", 80, 335);
+        //interface de qualité
+        strTemp[0]="Uso del              Calida de la           Calidad de la              General";
+        strTemp[1]="Use of                   Quality of                  Quality                  General";
+        strTemp[2]="Verwendung          Qualität der              Qualität                  General";
+        strTemp[3]="L'utilisation           Qualité de                  Interface                Général";
+        g2.drawString(strTemp[foo], 80, 320);
+        strTemp[0]="Sistema              Información                Interfaz";
+        strTemp[1]="the System           Information              Interface";
+        strTemp[2]="des Systems          Informationen      Schnittstelle";
+        strTemp[3]="du Système           L'information            de Qualité";
+        g2.drawString(strTemp[foo], 80, 335);
         
         k=100;
         for(int i=0;i<4;i++,k+=100){

@@ -231,7 +231,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         double max[]={6.73,5.98,6.66,7.54};
         double min[]={4.02,3.07,3.9,5.12};
         double prom[]={5.38,4.52,5.28,6.33};
-        graf= new Grafica("1.jpg", max, min, prom);
+        graf= new Grafica("1.jpg", max, min, prom,foo);
         graf.setBounds(335, 20, graf.getWidth(), graf.getHeight());
         //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Inicializacion Panel Tabla Promedios">
