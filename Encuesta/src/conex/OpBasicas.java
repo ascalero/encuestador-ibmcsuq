@@ -33,11 +33,12 @@ public class OpBasicas {
     
     public void Insertar(ArrayList<String>datos){
         try {
-            String query="INSERT INTO ibmcsuq.valores (idvals ,nombre ,edad ,sexo ,Escolaridad ,experiencia,q1 ,q2 ,q3 ,q4 ,q5 ,q6 ,q7 ,q8 ,q9 ,q10 ,q11 ,q12 ,q13 ,q14 ,q15 ,q16,q17,q18,q19,Codigo) VALUES (";
+            String query="INSERT INTO ibmcsuq.user (idUser,nombre,apeP,apeM,pass) VALUES (";
             for(int i=0;i<datos.size();i++){
                 query+="'"+datos.get(i)+"'";
                 if(i<datos.size()-1){query+=",";}
             }query+=");";
+            System.out.println(query);
             st.execute(query);
         } catch (SQLException ex) {
             Logger.getLogger(OpBasicas.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,6 +53,15 @@ public class OpBasicas {
                 if(i<datos.size()-1){query+=",";}
             }query+=");";
             st.execute(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(OpBasicas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     
+    public void InsertCommit(String commit,int id){
+        try {
+            String query="INSERT INTO ibmcsuq.coment (Id ,comen ,idProy) VALUES (NULL , '"+commit+"', '"+id+"');";
+                st.execute(query);
         } catch (SQLException ex) {
             Logger.getLogger(OpBasicas.class.getName()).log(Level.SEVERE, null, ex);
         }
