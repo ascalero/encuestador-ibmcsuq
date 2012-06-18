@@ -58,7 +58,7 @@ public class OpBasicas {
     }
      
     public Object[] getproy(){
-        ArrayList<Object> delta= new ArrayList<>();
+        ArrayList<Object> delta= new ArrayList<Object>();
         Object proyec[]=null;
         try{
             rs = st.executeQuery ("SELECT nombreSur FROM survey");

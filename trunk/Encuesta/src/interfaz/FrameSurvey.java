@@ -24,7 +24,7 @@ import org.jdesktop.swingx.JXLabel;
 public class FrameSurvey extends JFrame implements ActionListener{
     int foo,cont,answer[]=new int[19];
     String strTemp[]= new String[4];
-    ArrayList <String> pregunta= new ArrayList<>();
+    ArrayList <String> pregunta= new ArrayList<String>();
     JPanel panelPreg,panelOption,panelbotones;
     JButton butNext,butReady;
     JRadioButton[] rbVal;
@@ -115,11 +115,11 @@ public class FrameSurvey extends JFrame implements ActionListener{
                 pregunta.add("8. Creo que me converti productivo rapidamente con el sistema");
                 pregunta.add("9. El sistema da mensajes de error que claramente me digan como solucionar los problemas ");
                 pregunta.add("10. Cada vez que cometo un error al utilizar el sistema, se puede recuperar facil y rapidamente");
-                pregunta.add("11. La informacionn (como la ayuda en línea, los mensajes en pantalla, y otra documentación), proporcionada con el sistema es clara");
-                pregunta.add("12. Es fácil encontrar la información que necesito");
-                pregunta.add("13. La información proporcionada por el sistema es fácil de entender");
-                pregunta.add("14. La información es eficaz para ayudar a completar las tareas");
-                pregunta.add("15. La organización de la información en las pantallas del sistema está clara");
+                pregunta.add("11. La informacionn (como la ayuda en linea, los mensajes en pantalla, y otra documentacion), proporcionada con el sistema es clara");
+                pregunta.add("12. Es facil encontrar la informacion que necesito");
+                pregunta.add("13. La informacion proporcionada por el sistema es facil de entender");
+                pregunta.add("14. La informacion es eficaz para ayudar a completar las tareas");
+                pregunta.add("15. La organizacion de la informacion en las pantallas del sistema esta clara");
                 pregunta.add("16. La interfaz del sistema es agradable");
                 pregunta.add("17. Me gusta usar la interfaz del sistema");
                 pregunta.add("18. Este sistema tiene todas las funciones y capacidades que espero que tenga");
