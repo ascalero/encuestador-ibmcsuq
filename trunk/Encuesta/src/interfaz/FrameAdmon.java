@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.*;
-import sun.awt.HorizBagLayout;
 
 /**
  *
@@ -46,7 +45,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
     foo=lang;
     User=du;
     strTemp[0]="Consola Administrador: Bienvenido "+User;
-    strTemp[1]="Administrator Settings: Welcome "+User; strTemp[2]="";strTemp[3]="";
+    strTemp[1]="Administrator Settings: Welcome "+User; strTemp[2]="Administratoreinstellungen: Willkommen";strTemp[3]="Réglages Administrateur: Bienvenue";
     this.setTitle(strTemp[foo]);
     setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
     setLocation(10,0);
@@ -59,7 +58,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         //<editor-fold defaultstate="collapsed" desc="Inicializacion panel de Tareas">
         panelTareas = new JXPanel(new BorderLayout());
         panelTareas.setBounds(10,10, 200, 500);
-        strTemp[0]="Tareas Comunes";strTemp[1]="Common Task";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Tareas Comunes";strTemp[1]="Common Task";strTemp[2]="Gemeinsame Aufgabe";strTemp[3]="tâche commune ";
         panelTareas.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
 
         contTask = new JXTaskPaneContainer();
@@ -69,7 +68,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         tareas=new JXTaskPane();
         strTemp[0]="Opciones";strTemp[1]="Options";strTemp[2]="";strTemp[3]="";
         tareas.setTitle(strTemp[foo]);
-        strTemp[0]="Crear nuevo Proyecto";strTemp[1]="Make new Project";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Crear nuevo Proyecto";strTemp[1]="Make new Project";strTemp[2]="Optionen";strTemp[3]="options de";
         tareas.add(new AbstractAction(strTemp[foo]) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -77,14 +76,16 @@ public class FrameAdmon extends JXFrame implements ActionListener{
 
             }
         });
-        strTemp[0]="Ver Projecto";strTemp[1]="Check Project";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Ver Projecto";strTemp[1]="Check Project";strTemp[2]="Projekt prüfen";strTemp[3]="Vérifier le projet";
         tareas.add(new AbstractAction(strTemp[foo]) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 eraseDataJcb(jcbSel);
                 valCombo2=getProy(User);
                 if (valCombo2==null){
-                strTemp[0]="No tienes Proyectos";strTemp[1]="You dont have any project";strTemp[2]="";strTemp[3]="";
+                strTemp[0]="No tienes Proyectos";strTemp[1]="You dont have any project";
+                strTemp[2]="Sie müssen nicht jedes Projekt";
+                strTemp[3]="Vous n'avez pas de projet";
                 jcbSel.addItem(strTemp[0]);
                 }else{
                     for(Object d:valCombo2){
@@ -94,14 +95,16 @@ public class FrameAdmon extends JXFrame implements ActionListener{
                 containerStack.show(panelCard, "Ver");
             }
         });
-        strTemp[0]="Borrar Proyecto";strTemp[1]="Delete Project";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Borrar Proyecto";strTemp[1]="Delete Project";strTemp[2]="Projekt löschen";strTemp[3]="supprimer le projet";
         tareas.add(new AbstractAction(strTemp[foo]) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 eraseDataJcb(jcbSurveyDel);
                 valCombo=getProy(User);
                 if (valCombo==null){
-                strTemp[0]="No tienes Proyectos";strTemp[1]="You dont have any project";strTemp[2]="";strTemp[3]="";
+                strTemp[0]="No tienes Proyectos";strTemp[1]="You dont have any project";
+                strTemp[2]="Sie müssen nicht jedes Projekt";
+                strTemp[3]="Vous n'avez pas de projet";
                 jcbSurveyDel.addItem(strTemp[foo]);
                 }else{
                     for(Object d:valCombo){
@@ -115,15 +118,15 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         });
 
         sesTask= new JXTaskPane();
-        strTemp[0]="Opciones de Sesion";strTemp[1]="Session Options";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Opciones de Sesion";strTemp[1]="Session Options";strTemp[2]="Session Options";strTemp[3]="options de session";
         sesTask.setTitle(strTemp[0]);
-        strTemp[0]="Cerrar Sesion";strTemp[1]="Logout";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Cerrar Sesion";strTemp[1]="Logout";strTemp[2]="Abmeldung";strTemp[3]="déconnexion";
         sesTask.add(new AbstractAction(strTemp[foo]){
                 @Override
                 public void actionPerformed(ActionEvent e) {
                 cerrarS();
                 }});
-        strTemp[0]="Salir";strTemp[1]="Close";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Salir";strTemp[1]="Close";strTemp[2]="schließen";strTemp[3]="fermer";
         sesTask.add(new AbstractAction(strTemp[foo]){
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -138,18 +141,18 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         panelNE= new JXPanel(new BorderLayout());
 
         JPanel cont1=new JPanel();
-        strTemp[0]="Nuevo Projecto";strTemp[1]="New Project";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Nuevo Projecto";strTemp[1]="New Project";strTemp[2]="neues Projekt";strTemp[3]="Nouveau projet";
         cont1.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
         cont1.setLayout(null);
-        strTemp[0]="Crear Nuevo Projecto";strTemp[1]="Create New Project";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Crear Nuevo Projecto";strTemp[1]="Create New Project";strTemp[2]="Neues Projekt";strTemp[3]="Créer un projet";
         JLabel neTitleJL= new JLabel(strTemp[foo],JLabel.CENTER);
         neTitleJL.setBounds(237,50,475,100);
         neTitleJL.setFont(fuenteGrande);
-        strTemp[0]="Nombre del Proyecto";strTemp[1]="Project's Name";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Nombre del Proyecto";strTemp[1]="Project's Name";strTemp[2]="Projekt-Name";strTemp[3]="Projet Nom";
         JLabel neNombreJL= new JLabel(strTemp[foo],JLabel.CENTER);
         neNombreJL.setBounds(118,150,237,100);
         neNombreJL.setFont(fuenteGrande);
-        strTemp[0]="Descripcion";strTemp[1]="Description";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Descripcion";strTemp[1]="Description";strTemp[2]="Beschreibung";strTemp[3]="Description";
         JLabel neDescripJL= new JLabel(strTemp[foo],JLabel.CENTER);
         neDescripJL.setBounds(118,250,237,100);
         neDescripJL.setFont(fuenteGrande);
@@ -161,8 +164,8 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         descrip.setWrapStyleWord(true);
         descrip.setLineWrap(true);
         descrip.setAutoscrolls(true);
-        strTemp[0]="Aceptar";strTemp[1]="Ok";strTemp[2]="";strTemp[3]="";
-        butOKSurvey= new JButton("Aceptar");
+        strTemp[0]="Aceptar";strTemp[1]="Ok";strTemp[2]="Ok";strTemp[3]="Ok";
+        butOKSurvey= new JButton(strTemp[foo]);
         butOKSurvey.addActionListener(this);
         butOKSurvey.setBounds(355,380,200,100);
 
@@ -179,9 +182,9 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         panelEE= new JXPanel(new BorderLayout());
         JPanel cont2= new JPanel();
         cont2.setLayout(null);
-        strTemp[0]="Borrar Proyecto";strTemp[1]="Delete Project";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Borrar Proyecto";strTemp[1]="Delete Project";strTemp[2]="Projekt löschen";strTemp[3]="supprimer le projet";
         cont2.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
-        strTemp[0]="Selecione projecto a eliminar";strTemp[1]="Select Project to delete";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Selecione projecto a eliminar";strTemp[1]="Select Project to delete";strTemp[2]="Wählen Sie Projekt zu löschen";strTemp[3]="Sélectionner le projet de supprimer";
         JLabel neTitleJL2= new JLabel(strTemp[foo],JLabel.CENTER);
         neTitleJL2.setBounds(237,50,475,100);
         neTitleJL2.setFont(fuenteGrande);
@@ -189,7 +192,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         jcbSurveyDel.setBounds(237, 250, 475, 40);
         jcbSurveyDel.setFont(fuenteGrande);
         //jcbSurvey.setModel(null);
-        strTemp[0]="Aceptar";strTemp[1]="OK";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Aceptar";strTemp[1]="OK";strTemp[2]="Ok";strTemp[3]="Ok";
         butOKdel= new JButton(strTemp[foo]);
         butOKdel.setBounds(355,380,200,100);
         butOKdel.addActionListener(this);
@@ -202,9 +205,9 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         panelSE= new JXPanel(new BorderLayout());
         JPanel cont3= new JPanel();
         cont3.setLayout(null);
-        strTemp[0]="Revisar Datos de la Encuesta";strTemp[1]="Check survey's Info";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Revisar Datos de la Encuesta";strTemp[1]="Check survey's Info";strTemp[2]="Überprüfen Umfragen Info";strTemp[3]="Vérifiez Infos enquêtes";
         cont3.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
-        strTemp[0]="Seleccionar el Proyecto a revisar";strTemp[1]="Select projects to check";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Seleccionar el Proyecto a revisar";strTemp[1]="Select projects to check";strTemp[2]="Auswahl der Projekte zu überprüfen,";strTemp[3]="Sélectionner les projets à vérifier";
         JLabel neTitleJL3= new JLabel(strTemp[foo],JLabel.CENTER);
         neTitleJL3.setBounds(237,50,475,100);
         neTitleJL3.setFont(fuenteGrande);
@@ -212,7 +215,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         jcbSel.setBounds(237, 250, 475, 40);
         jcbSel.setFont(fuenteGrande);
         //jcbSurvey.setModel(null);
-        strTemp[0]="Aceptar";strTemp[1]="OK";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Aceptar";strTemp[1]="OK";strTemp[2]="Ok";strTemp[3]="Ok";
         butOKsel= new JButton(strTemp[foo]);
         butOKsel.setBounds(355,380,200,100);
         butOKsel.addActionListener(this);
@@ -226,7 +229,8 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         panelDatos= new JXPanel(new BorderLayout());
         todo = new JPanel();
         todo.setLayout(null);
-        todo.setBorder(BorderFactory.createTitledBorder("Datos de Encuesta X"));
+        strTemp[0]="Datos de Encuesta";strTemp[1]="Survey's data";strTemp[2]="Umfragedaten";strTemp[3]="Les données d'enquête";
+        todo.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
         //<editor-fold defaultstate="collapsed" desc="PanelGrafica">
         double max[]={6.73,5.98,6.66,7.54};
         double min[]={4.02,3.07,3.9,5.12};
@@ -237,7 +241,8 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         //<editor-fold defaultstate="collapsed" desc="Inicializacion Panel Tabla Promedios">
         JPanel panelTabla2 = new JPanel();
         panelTabla2.setLayout(new FlowLayout(FlowLayout.LEFT));
-	panelTabla2.setBorder(BorderFactory.createTitledBorder("Promedios"));
+        strTemp[0]="Promedios";strTemp[1]="Averages";strTemp[2]="Durchschnitts-";strTemp[3]="Moyennes";
+	panelTabla2.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
 	panelTabla2.setBounds(15,20,315,250);
 	modeloPromedios = new DefaultTableModel();
 	valores2 = new JTable(modeloPromedios);
@@ -250,7 +255,8 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         //<editor-fold defaultstate="collapsed" desc="Inicializacion Panel Tabla Promedios de promedios">
         JPanel panelTabla3 = new JPanel();
         panelTabla3.setLayout(new FlowLayout(FlowLayout.LEFT));
-	panelTabla3.setBorder(BorderFactory.createTitledBorder("Promedios Encuesta X"));
+        strTemp[0]="Promedios por Pregunta";strTemp[1]="Averages per Question";strTemp[2]="Durchschnittswerte pro Frage";strTemp[3]="Moyennes par Question";
+	panelTabla3.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
 	panelTabla3.setBounds(335,370,500,125);
 	modeloPromP = new DefaultTableModel();
 	valores3 = new JTable(modeloPromP);
@@ -264,11 +270,13 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         //<editor-fold defaultstate="collapsed" desc="Inicializacion Panel Restricciones">
         JPanel restric= new JPanel(new VerticalLayout(4));
         restric.setBounds(15, 270, 315, 225);
-        restric.setBorder(BorderFactory.createTitledBorder("Restricciones"));
+        strTemp[0]="Restricciones";strTemp[1]="Restrictions";strTemp[2]="Einschränkungen";strTemp[3]="Restrictions";
+        restric.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
         jcbSexo= new JComboBox(setSexo());
         jcbEsc= new JComboBox(setEscolaridad());
         jcbExp= new JComboBox(setExperiancia());
-        butRestric= new JButton("Agregar Cambios");
+        strTemp[0]="Agregar Cambios";strTemp[1]="add changes";strTemp[2]="Änderungen hinzufügen";strTemp[3]="ajouter les changements";
+        butRestric= new JButton(strTemp[foo]);
         butRestric.addActionListener(this);
         jcbEsc.setSelectedIndex(3);
         jcbExp.setSelectedIndex(3);
@@ -307,21 +315,81 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         }
     //<editor-fold defaultstate="collapsed" desc="Metodo Settitles PromP">
     public void  setTitles(DefaultTableModel c){
-			Object[] a = new Object[5];
+        Object[] a;		
+                        switch(foo){
+                            case 0:
+                                a = new Object[5];
 				a[0]=" ";
 				a[1]="Uso del Sistema";
-				a[2]="Calidad Info";
-                                a[3]="Calidad Inter";
+				a[2]="Calidad Informacion";
+                                a[3]="Calidad Interface";
                                 a[4]="General";
-			c.setColumnIdentifiers(a);
+                                c.setColumnIdentifiers(a);
+                            break;
+                            case 1:
+                                a = new Object[5];
+				a[0]=" ";
+				a[1]="Usability";
+				a[2]="Information Dialog";
+                                a[3]="Interface";
+                                a[4]="General";
+                                c.setColumnIdentifiers(a);
+                            break;
+                            case 2:
+                                a = new Object[5];
+				a[0]=" ";
+				a[1]="Nutzbarkeit";
+				a[2]="Information Dialog";
+                                a[3]="Schnittstelle";
+                                a[4]="allgemein";
+                                c.setColumnIdentifiers(a);
+                            break;
+                            case 3:
+                                a = new Object[5];
+				a[0]=" ";
+				a[1]="Usabilité";
+				a[2]="de dialogue de l'information";
+                                a[3]="Infinterface";
+                                a[4]="général";
+                                c.setColumnIdentifiers(a);
+                            break;
+                        
+                        }
     }//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Metodo Settitles Promedios">
     public void  setTitles2(DefaultTableModel c){
-			Object[] a = new Object[3];
-				a[0]="No.Preg";
-				a[1]="Promedio";
-				a[2]="DesvMedi";
-			c.setColumnIdentifiers(a);
+        Object[] a;                        
+                switch(foo){
+                    case 0:
+                    a = new Object[3];
+                            a[0]="No.Preg";
+                            a[1]="Promedio";
+                            a[2]="DesvMedi";
+                    c.setColumnIdentifiers(a);
+                        break;
+                    case 1:
+                    a = new Object[3];
+                            a[0]="Question #";
+                            a[1]="average";
+                            a[2]="standard deviation";
+                    c.setColumnIdentifiers(a);
+                        break;
+                    case 2:
+                    a = new Object[3];
+                            a[0]="Frage Nr.";
+                            a[1]="Durchschnitt";
+                            a[2]="Standardabweichung";
+                    c.setColumnIdentifiers(a);
+                        break;
+                    case 3:
+                    a = new Object[3];
+                            a[0]="question n °";
+                            a[1]="moyenne";
+                            a[2]="écart-type";
+                    c.setColumnIdentifiers(a);
+                        break;
+                        
+                }
     }//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Metodo Limpia Tabla">
 public void limpiatabla(DefaultTableModel modeloT){
@@ -359,13 +427,15 @@ public void limpiatabla(DefaultTableModel modeloT){
                 setTitles2(modeloPromedios);
                 int a[][]=driver.rangos(driver.getIdProy(nameSur),Atrib);
                 if(a==null){
+                    strTemp[0]="Total Encuestados: 0";strTemp[1]="Surveyed : 0";strTemp[2]="befragten: 0";strTemp[3]="Interrogés :0";
+                    labTotalEnc.setText(strTemp[foo]);
                     strTemp[0]="No ahi datos que Mostrar";strTemp[1]="";strTemp[2]="";strTemp[3]="";
-                    labTotalEnc.setText("Total de Encuestados: 0");
                     JOptionPane.showMessageDialog(null,strTemp[foo],"MSG",JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
                 containerStack.show(panelCard,"Datos");
-                labTotalEnc.setText("Total de Encuestados: "+a.length);
+                strTemp[0]="Total Encuestados: ";strTemp[1]="Surveyed : ";strTemp[2]="befragten: ";strTemp[3]="Interrogés: ";
+                labTotalEnc.setText(strTemp[foo]+""+a.length);
                 algoritmos.DesviacionEstandar h=new algoritmos.DesviacionEstandar();
                 double[][] promP = h.Calcula(a);
                 graf.setData(promP[0], promP[1], promP[2]);
@@ -382,7 +452,8 @@ public void limpiatabla(DefaultTableModel modeloT){
                         }
                         modeloPromP.addRow(o1);
                         o1=new Object[promP[0].length+1];
-                            o1[0]="promedio";
+                            strTemp[0]="Promedios";strTemp[1]="Average";strTemp[2]="Durchschnitt";strTemp[3]="Moyenne";
+                            o1[0]=strTemp[foo];
                         for(int i=0;i<promP[0].length;i++){
                             o1[i+1]=promP[2][i];
                         }
@@ -408,7 +479,9 @@ public void limpiatabla(DefaultTableModel modeloT){
                 eraseDataJcb(jcbSel);
                 valCombo=getProy(User);
                 if (valCombo==null){
-                strTemp[0]="No tienes Proyectos";strTemp[1]="You dont have any project";strTemp[2]="";strTemp[3]="";
+                strTemp[0]="No tienes Proyectos";strTemp[1]="You dont have any project";
+                strTemp[2]="Sie müssen nicht jedes Projekt";
+                strTemp[3]="Vous n'avez pas de projet";
                 jcbSurveyDel.addItem(strTemp[foo]);
                 jcbSel.addItem(strTemp[foo]);
                 }else{
@@ -423,13 +496,13 @@ public void limpiatabla(DefaultTableModel modeloT){
     public int crearProy(){
         if (nombreEnc.getText().equals("")){
             nombreEnc.requestFocus();
-            strTemp[0]="Falto Nombre";strTemp[1]="";strTemp[2]="";strTemp[3]="";
+                strTemp[0]="Falto Nombre";strTemp[1]="Miss Name";strTemp[2]="Fräulein Name";strTemp[3]="Mlle Nom";
             JOptionPane.showMessageDialog(null,strTemp[foo],"MSG",JOptionPane.INFORMATION_MESSAGE);
             return 1;
         }
         if (descrip.getText().equals("")){
             descrip.requestFocus();
-            strTemp[0]="falta descripcion";strTemp[1]="";strTemp[2]="";strTemp[3]="";
+            strTemp[0]="falta descripcion";strTemp[1]="Description missed";strTemp[2]="Beschreibung verpasst";strTemp[3]="Description de manquer";
             JOptionPane.showMessageDialog(null,strTemp[foo],"MSG",JOptionPane.INFORMATION_MESSAGE);
             return 1;
         }
@@ -472,9 +545,9 @@ public void limpiatabla(DefaultTableModel modeloT){
         Object[] sex=new Object[4];
         switch(foo){
             case 0 :sex[0]="Sin Estudios";sex[1]="Peparatoria";sex[2]="Superior";sex[3]="Sin Delimitar Escolaridad";break;
-            case 1 :sex[0]="";sex[1]="";sex[2]="";break;
-            case 2 :sex[0]="";sex[1]="";sex[2]="";break;
-            case 3 :sex[0]="";sex[1]="";sex[2]="";sex[3]="";break;
+            case 1 :sex[0]="without studies";sex[1]="High School";sex[2]="University";sex[3]="level of education";break;
+            case 2 :sex[0]="ohne Studium";sex[1]="Mittelschule";sex[2]="Hochschule";sex[3]="Bildungsniveau";break;
+            case 3 :sex[0]="sans que des études";sex[1]="Lycée";sex[2]="université";sex[3]="niveau de l'éducation";break;
             default :sex[0]="";sex[1]="";sex[2]="";break;
         }
         return sex;
@@ -483,10 +556,10 @@ public void limpiatabla(DefaultTableModel modeloT){
         Object[] sex=new Object[4];
         switch(foo){
             case 0 :sex[0]="Poca";sex[1]="Regular";sex[2]="Mucha";sex[3]="Sin Delimitar Experiencia";break;
-            case 1 :sex[0]="";sex[1]="";sex[2]="";sex[3]="";break;
-            case 2 :sex[0]="";sex[1]="";sex[2]="";sex[3]="";break;
-            case 3 :sex[0]="";sex[1]="";sex[2]="";sex[3]="";break;
-            default :sex[0]="";sex[1]="";sex[2]="";sex[3]="";break;
+            case 1 :sex[0]="few";sex[1]="Regular";sex[2]="Many";sex[3]="No Anchor Experience";break;
+            case 2 :sex[0]="";sex[1]="regelmäßig";sex[2]="viele";sex[3]="Kein Anchor Experience";break;
+            case 3 :sex[0]="peu";sex[1]="normal";sex[2]="beaucoup";sex[3]="Aucune expérience d'ancrage";break;
+            default :sex[0]="wenige";sex[1]="Many";sex[2]="";sex[3]="";break;
         }
         return sex;
     }
@@ -494,9 +567,9 @@ public void limpiatabla(DefaultTableModel modeloT){
         Object[] sex=new Object[4];
         switch(foo){
             case 0 :sex[0]="Hombre";sex[1]="Mujer";sex[2]="Otros";sex[3]="Sin Delimitar Sexo";break;
-            case 1 :sex[0]="Man";sex[1]="Woman";sex[2]="Others";break;
-            case 2 :sex[0]="";sex[1]="";sex[2]="";break;
-            default :sex[0]="";sex[1]="";sex[2]="";break;
+            case 1 :sex[0]="Man";sex[1]="Woman";sex[2]="Others";sex[3]="Gender";break;
+            case 2 :sex[0]="Mann";sex[1]="Frauen";sex[2]="andere";sex[3]="Geschlecht";break;
+            case 3 :sex[0]="homme";sex[1]="femmes";sex[2]="Geschlecht";sex[3]="d'autres";break;
         }
         return sex;
     }
