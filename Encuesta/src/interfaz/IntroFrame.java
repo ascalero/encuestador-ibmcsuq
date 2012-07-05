@@ -63,8 +63,7 @@ public class IntroFrame extends JFrame implements ActionListener{
         flagsJP.add(flagBut[i]);
         }
               
-        
-        
+         
         
         setLayout(null);
         
