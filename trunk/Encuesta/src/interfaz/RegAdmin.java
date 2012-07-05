@@ -23,6 +23,7 @@ public class RegAdmin extends JXFrame implements ActionListener{
     JLabel jlNombre,jlApPat,jlApMat,jlNick,jlPass;
     JTextField jtfNombre,jtfApPat,jtfApMat,jtfNick,jtfPass;
     JButton jbOk,jbCancelar;
+    JPanel contenedor;
     
     public RegAdmin(int lenguaje){
         foo=lenguaje;
@@ -35,8 +36,29 @@ public class RegAdmin extends JXFrame implements ActionListener{
         initComp();
     }
     
+    public void setIdioma(int foobar){
+        this.foo=foobar;
+        strTemp[0]="Introduce tus Datos";strTemp[1]="Enter your Details";strTemp[2]="Geben Sie Ihre Daten";strTemp[3]="Entrez vos Coordonnées";
+        contenedor.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
+        
+        strTemp[0]="Id Usuario";strTemp[1]="Name";strTemp[2]="Name";strTemp[3]="Nom";
+        jlNombre.setText(strTemp[foo]);
+        strTemp[0]="Nombre(s)";strTemp[1]="Name(s)";strTemp[2]="Namen";strTemp[3]="Nom(s)";
+        jlApPat.setText(strTemp[foo]);
+        strTemp[0]="Apellido Paterno";strTemp[1]="Last Name";strTemp[2]="Nachname";strTemp[3]="Nom de Famille";
+        jlApMat.setText(strTemp[foo]);
+        strTemp[0]="Apellido Materno";strTemp[1]="Second Last Name";strTemp[2]="Mädchenname der Mutter";strTemp[3]="Nom de Jeune Fille de la Mère";
+        jlNick.setText(strTemp[foo]);
+        strTemp[0]="Contraseña";strTemp[1]="Password";strTemp[2]="Passwort";strTemp[3]="Mot de Passe";
+        jlPass.setText(strTemp[foo]);
+        strTemp[0]="Aceptar";strTemp[1]="Accept";strTemp[2]="Akzeptieren";strTemp[3]="Accepter";
+        jbOk.setText(strTemp[foo]);
+        strTemp[0]="Cancelar";strTemp[1]="Cancel";strTemp[2]="Stornieren";strTemp[3]="Annuler";
+        jbCancelar.setText(strTemp[foo]);
+    }
+    
     private void initComp(){
-        JPanel contenedor=new JPanel(new GridLayout(0, 2));
+        contenedor=new JPanel(new GridLayout(0, 2));
         contenedor.setBounds(10,10,500,200);
         strTemp[0]="Introduce tus Datos";strTemp[1]="Enter your Details";strTemp[2]="Geben Sie Ihre Daten";strTemp[3]="Entrez vos Coordonnées";
         contenedor.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));

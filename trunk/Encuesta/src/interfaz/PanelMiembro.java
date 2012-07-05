@@ -29,12 +29,11 @@ public class PanelMiembro extends JXFrame implements ActionListener{
     private JButton butAdmon,butClient,butAdmonLogin,butEncuestado,butReg;
     private JTextArea taNombreUser;
     private JPasswordField taContra;
+    private JLabel jlBienvenida,label1,label2,label3;
        
     public PanelMiembro(int lenguaje){
     foo=lenguaje;
-    strTemp[0]="Selecciona el tipo de Usuario que eres";strTemp[1]="Select the type of user you are";
-    strTemp[2]="Wählen Sie die Art der Benutzer Sie sind";strTemp[3]="Sélectionnez le type d'usager que vous êtes";
-    this.setTitle(strTemp[foo]);
+    
     setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
     setLocation(10,0);
     this.setResizable(true);
@@ -42,6 +41,36 @@ public class PanelMiembro extends JXFrame implements ActionListener{
     setVisible (true);
     initComp();
     bind();
+    }
+    
+    public void setIdioma(int foobar){
+        this.foo=foobar;
+        strTemp[0]="Selecciona el tipo de Usuario que eres";strTemp[1]="Select the type of user you are";
+        strTemp[2]="Wählen Sie die Art der Benutzer Sie sind";strTemp[3]="Sélectionnez le type d'usager que vous êtes";
+        this.setTitle(strTemp[foo]);
+        strTemp[0]="Administrador";strTemp[1]="Administrator";strTemp[2]="Administrator";strTemp[3]="administrateur";
+        butAdmon.setText(strTemp[foo]);
+        strTemp[0]="Encuestado";strTemp[1]="tester";strTemp[2]="Tester";strTemp[3]="testeur";
+        butClient.setText(strTemp[foo]);
+        strTemp[0]="inicio";strTemp[1]="Login";strTemp[2]="Login";strTemp[3]="Login";
+        panelContenido.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
+        strTemp[0]="Bienvenido ";strTemp[1]="Welcome ";strTemp[2]="Willkommen";strTemp[3]="Accueil ";
+        jlBienvenida.setText(strTemp[foo]);
+        
+        strTemp[0]="Nombre De Usuario";strTemp[1]="Nickname";strTemp[2]="Spitzname";strTemp[3]="surnom";
+        label1.setText(strTemp[foo]);
+        strTemp[0]="Contraseña";strTemp[1]="Password";strTemp[2]="Password";strTemp[3]="mot de passe";
+        label2.setText(strTemp[foo]);
+        
+        strTemp[0]="inicio";strTemp[1]="Login";strTemp[2]="Login";strTemp[3]="Login";
+        butAdmonLogin.setText(strTemp[foo]);
+        strTemp[0]="Registrate";strTemp[1]="Sign Up";strTemp[2]="Registrieren";strTemp[3]="Signer";
+        butReg.setText(strTemp[foo]);
+        
+        strTemp[0]="Empezar Encuesta?";strTemp[1]="Start Survey?";strTemp[2]="Start Umfrage?";strTemp[3]="Début Enquête?";
+        label3.setText(strTemp[foo]);
+        strTemp[0]="Aceptar";strTemp[1]="OK";strTemp[2]="OK";strTemp[3]="OK";
+        butEncuestado.setText(strTemp[foo]);
     }
     
     private void initComp(){
@@ -70,7 +99,8 @@ public class PanelMiembro extends JXFrame implements ActionListener{
         panelTMie.setCollapsed(true);
         panelTMie.setAnimated(true);
         strTemp[0]="Bienvenido ";strTemp[1]="Welcome ";strTemp[2]="Willkommen";strTemp[3]="Accueil ";
-        panelContenido.add(new JLabel(strTemp[foo], JLabel.CENTER));
+        jlBienvenida=new JLabel(strTemp[foo], JLabel.CENTER);
+        panelContenido.add(jlBienvenida);
         panelContenido.add(panelTMie,BorderLayout.SOUTH);
         containerStack = new CardLayout(); 
         
@@ -82,12 +112,12 @@ public class PanelMiembro extends JXFrame implements ActionListener{
         //<editor-fold defaultstate="collapsed" desc="Inicializacion panel Login Admon">
         JPanel admon= new JPanel(new GridLayout(3, 0));
         strTemp[0]="Nombre De Usuario";strTemp[1]="Nickname";strTemp[2]="Spitzname";strTemp[3]="surnom";
-        JLabel label1= new JLabel(strTemp[foo], JLabel.CENTER);
+        label1= new JLabel(strTemp[foo], JLabel.CENTER);
         strTemp[0]="Contraseña";strTemp[1]="Password";strTemp[2]="Password";strTemp[3]="mot de passe";
-        JLabel label2= new JLabel(strTemp[foo], JLabel.CENTER);
+        label2= new JLabel(strTemp[foo], JLabel.CENTER);
         taNombreUser= new JTextArea();
         taContra= new JPasswordField();
-         strTemp[0]="inicio";strTemp[1]="Login";strTemp[2]="Login";strTemp[3]="Login";
+        strTemp[0]="inicio";strTemp[1]="Login";strTemp[2]="Login";strTemp[3]="Login";
         butAdmonLogin= new JButton(strTemp[foo]);
         butAdmonLogin.addActionListener(this);
         strTemp[0]="Registrate";strTemp[1]="Sign Up";strTemp[2]="Registrieren";strTemp[3]="Signer";
@@ -104,7 +134,7 @@ public class PanelMiembro extends JXFrame implements ActionListener{
         //<editor-fold defaultstate="collapsed" desc="Inicializacion panel Login Encuestados">
         JPanel enquest= new JPanel(new GridLayout(2,1));
         strTemp[0]="Empezar Encuesta?";strTemp[1]="Start Survey?";strTemp[2]="Start Umfrage?";strTemp[3]="Début Enquête?";
-        JLabel label3= new JLabel(strTemp[foo], JLabel.CENTER);
+        label3= new JLabel(strTemp[foo], JLabel.CENTER);
         strTemp[0]="Aceptar";strTemp[1]="OK";strTemp[2]="OK";strTemp[3]="OK";
         butEncuestado= new JButton(strTemp[foo]);
         butEncuestado.addActionListener(this);
@@ -113,10 +143,9 @@ public class PanelMiembro extends JXFrame implements ActionListener{
         panelTMie.add(admon, "admon");
         panelTMie.add(enquest, "enq");
         //</editor-fold>
-       setLayout(null);
+        setLayout(null);
         add(panelBotones);
         add(panelContenido);
-    
     }
 
    
@@ -168,8 +197,8 @@ public class PanelMiembro extends JXFrame implements ActionListener{
                             this.dispose();
                             break;
                         case 2:
-                            strTemp[0]="Contraseña Incorrecta";
-                            strTemp[1]="Wrong Password"; strTemp[2]="Falsches Passwort";strTemp[3]="Mot de passe incorrect";
+                            strTemp[0]="Contraseña Incorrecta";strTemp[1]="Wrong Password";
+                            strTemp[2]="Falsches Passwort";strTemp[3]="Mot de passe incorrect";
                             JOptionPane.showMessageDialog(null,strTemp[foo],"Error",JOptionPane.ERROR_MESSAGE);
                             taContra.setText("");
                             break;
@@ -185,16 +214,9 @@ public class PanelMiembro extends JXFrame implements ActionListener{
                         default:
                             break;
                     }
-                    
-                    //System.out.println("valor: "+h);
-                    
                 }
             }
             
-            
-            
-        
-        
         }
         if(e.getSource()==butReg){
             RegAdmin a=new RegAdmin(foo);
