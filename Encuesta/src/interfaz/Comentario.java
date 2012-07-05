@@ -24,6 +24,7 @@ public class Comentario extends JXFrame implements ActionListener{
     JLabel jlTxt;
     JTextArea jtaComentario;
     JButton jbOk,jbCancel;
+    JPanel coment;
     
     public Comentario(int lenguaje,String nomEnc){
         foo=lenguaje;
@@ -36,8 +37,21 @@ public class Comentario extends JXFrame implements ActionListener{
         initComp();
     }
     
+    public void setIdioma(int foobar){
+        this.foo=foobar;
+        strTemp[0]="Por ultimo deja un comentario del proyecto.";strTemp[1]="Finally the project leave a comment.";
+        strTemp[2]="Schließlich wird das Projekt um einen Kommentar.";strTemp[3]="Enfin, le projet laisser un commentaire.";
+        coment.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
+        
+        strTemp[0]="Aceptar";strTemp[1]="Ok";strTemp[2]="Akzeptieren";strTemp[3]="Accepter";
+        jbOk.setText(strTemp[foo]);
+        
+        strTemp[0]="Cancelar";strTemp[1]="Cancel";strTemp[2]="Annullieren";strTemp[3]="Annuler";
+        jbCancel.setText(strTemp[foo]);
+    }
+    
     public void initComp(){
-        JPanel coment=new JPanel(new GridLayout(0, 1));
+        coment=new JPanel(new GridLayout(0, 1));
         coment.setBounds(10,10,500,250);
         strTemp[0]="Por ultimo deja un comentario del proyecto.";strTemp[1]="Finally the project leave a comment.";
         strTemp[2]="Schließlich wird das Projekt um einen Kommentar.";strTemp[3]="Enfin, le projet laisser un commentaire.";
