@@ -38,6 +38,9 @@ public class RegAdmin extends JXFrame implements ActionListener{
     
     public void setIdioma(int foobar){
         this.foo=foobar;
+        strTemp[0]="Registro Administrador";strTemp[1]="Registration Administrator";strTemp[2]="Registrierung Administrator";strTemp[3]="D'enregistrement Administrateur";
+        this.setTitle(strTemp[foo]);
+        
         strTemp[0]="Introduce tus Datos";strTemp[1]="Enter your Details";strTemp[2]="Geben Sie Ihre Daten";strTemp[3]="Entrez vos Coordonnées";
         contenedor.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
         
