@@ -8,6 +8,7 @@ import conex.LoginConx;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.*;
@@ -40,7 +41,21 @@ public class FrameAdmon extends JXFrame implements ActionListener{
     private DefaultTableModel modeloPromP;
     private JTable valores3;
     private JPanel todo;
-
+    
+    private AbstractAction aaNewProy;
+    //variables panel Nueva encuesta
+    JPanel cont1,cont2,cont3,restric;
+    JLabel neTitleJL,neNombreJL,neDescripJL,neTitleJL2,neTitleJL3;
+    //variables del panel de encuesta
+    JPanel panelTabla2,panelTabla3;
+            
+    //<editor-fold defaultstate="collapsed" desc="Variables Menu">
+    JMenuBar menuBar;
+    JMenu menu;
+    JMenuItem menuItem;
+    JRadioButtonMenuItem rbMILang[];
+    
+    //</editor-fold>
     public FrameAdmon(int lang,String du) {
     foo=lang;
     User=du;
@@ -52,6 +67,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
     this.setResizable(false);
     setVisible (true);
     initComp();
+    menuCharger();
     }
 
     private void initComp(){
@@ -66,16 +82,20 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         contTask.setBackground(Color.LIGHT_GRAY);
 
         tareas=new JXTaskPane();
-        strTemp[0]="Opciones";strTemp[1]="Options";strTemp[2]="";strTemp[3]="";
+        strTemp[0]="Opciones";strTemp[1]="Options";strTemp[2]="Optionen";strTemp[3]="options de";
         tareas.setTitle(strTemp[foo]);
-        strTemp[0]="Crear nuevo Proyecto";strTemp[1]="Make new Project";strTemp[2]="Optionen";strTemp[3]="options de";
-        tareas.add(new AbstractAction(strTemp[foo]) {
+        strTemp[0]="Crear nuevo Proyecto";strTemp[1]="Make new Project";strTemp[2]="Finde neue Projekt";strTemp[3]="Assurez nouveau projet";
+        
+        aaNewProy=new AbstractAction(strTemp[foo]) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 containerStack.show(panelCard, "Nuevo");
 
             }
-        });
+        };
+        
+        
+        tareas.add(aaNewProy);
         strTemp[0]="Ver Projecto";strTemp[1]="Check Project";strTemp[2]="Projekt prüfen";strTemp[3]="Vérifier le projet";
         tareas.add(new AbstractAction(strTemp[foo]) {
             @Override
@@ -140,20 +160,20 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         //<editor-fold defaultstate="collapsed" desc="Inicializacion panel NuevaEncuesta">
         panelNE= new JXPanel(new BorderLayout());
 
-        JPanel cont1=new JPanel();
+        cont1=new JPanel();
         strTemp[0]="Nuevo Projecto";strTemp[1]="New Project";strTemp[2]="neues Projekt";strTemp[3]="Nouveau projet";
         cont1.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
         cont1.setLayout(null);
         strTemp[0]="Crear Nuevo Projecto";strTemp[1]="Create New Project";strTemp[2]="Neues Projekt";strTemp[3]="Créer un projet";
-        JLabel neTitleJL= new JLabel(strTemp[foo],JLabel.CENTER);
+        neTitleJL= new JLabel(strTemp[foo],JLabel.CENTER);
         neTitleJL.setBounds(237,50,475,100);
         neTitleJL.setFont(fuenteGrande);
         strTemp[0]="Nombre del Proyecto";strTemp[1]="Project's Name";strTemp[2]="Projekt-Name";strTemp[3]="Projet Nom";
-        JLabel neNombreJL= new JLabel(strTemp[foo],JLabel.CENTER);
+        neNombreJL= new JLabel(strTemp[foo],JLabel.CENTER);
         neNombreJL.setBounds(118,150,237,100);
         neNombreJL.setFont(fuenteGrande);
         strTemp[0]="Descripcion";strTemp[1]="Description";strTemp[2]="Beschreibung";strTemp[3]="Description";
-        JLabel neDescripJL= new JLabel(strTemp[foo],JLabel.CENTER);
+        neDescripJL= new JLabel(strTemp[foo],JLabel.CENTER);
         neDescripJL.setBounds(118,250,237,100);
         neDescripJL.setFont(fuenteGrande);
 
@@ -180,12 +200,12 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Inicializacion panel Borrar Encuestas">
         panelEE= new JXPanel(new BorderLayout());
-        JPanel cont2= new JPanel();
+        cont2= new JPanel();
         cont2.setLayout(null);
         strTemp[0]="Borrar Proyecto";strTemp[1]="Delete Project";strTemp[2]="Projekt löschen";strTemp[3]="supprimer le projet";
         cont2.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
         strTemp[0]="Selecione projecto a eliminar";strTemp[1]="Select Project to delete";strTemp[2]="Wählen Sie Projekt zu löschen";strTemp[3]="Sélectionner le projet de supprimer";
-        JLabel neTitleJL2= new JLabel(strTemp[foo],JLabel.CENTER);
+        neTitleJL2= new JLabel(strTemp[foo],JLabel.CENTER);
         neTitleJL2.setBounds(237,50,475,100);
         neTitleJL2.setFont(fuenteGrande);
         jcbSurveyDel= new JComboBox();
@@ -203,12 +223,12 @@ public class FrameAdmon extends JXFrame implements ActionListener{
          //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Inicializacion panel Selecionar Encuesta">
         panelSE= new JXPanel(new BorderLayout());
-        JPanel cont3= new JPanel();
+        cont3= new JPanel();
         cont3.setLayout(null);
         strTemp[0]="Revisar Datos de la Encuesta";strTemp[1]="Check survey's Info";strTemp[2]="Überprüfen Umfragen Info";strTemp[3]="Vérifiez Infos enquêtes";
         cont3.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
         strTemp[0]="Seleccionar el Proyecto a revisar";strTemp[1]="Select projects to check";strTemp[2]="Auswahl der Projekte zu überprüfen,";strTemp[3]="Sélectionner les projets à vérifier";
-        JLabel neTitleJL3= new JLabel(strTemp[foo],JLabel.CENTER);
+        neTitleJL3= new JLabel(strTemp[foo],JLabel.CENTER);
         neTitleJL3.setBounds(237,50,475,100);
         neTitleJL3.setFont(fuenteGrande);
         jcbSel= new JComboBox();
@@ -239,7 +259,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         graf.setBounds(335, 20, graf.getWidth(), graf.getHeight());
         //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Inicializacion Panel Tabla Promedios">
-        JPanel panelTabla2 = new JPanel();
+        panelTabla2 = new JPanel();
         panelTabla2.setLayout(new FlowLayout(FlowLayout.LEFT));
         strTemp[0]="Promedios";strTemp[1]="Averages";strTemp[2]="Durchschnitts-";strTemp[3]="Moyennes";
 	panelTabla2.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
@@ -253,7 +273,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
 		    panelTabla2.add(guarda2);
         //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Inicializacion Panel Tabla Promedios de promedios">
-        JPanel panelTabla3 = new JPanel();
+        panelTabla3 = new JPanel();
         panelTabla3.setLayout(new FlowLayout(FlowLayout.LEFT));
         strTemp[0]="Promedios por Pregunta";strTemp[1]="Averages per Question";strTemp[2]="Durchschnittswerte pro Frage";strTemp[3]="Moyennes par Question";
 	panelTabla3.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
@@ -268,13 +288,16 @@ public class FrameAdmon extends JXFrame implements ActionListener{
 
         //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Inicializacion Panel Restricciones">
-        JPanel restric= new JPanel(new VerticalLayout(4));
+        restric= new JPanel(new VerticalLayout(4));
         restric.setBounds(15, 270, 315, 225);
         strTemp[0]="Restricciones";strTemp[1]="Restrictions";strTemp[2]="Einschränkungen";strTemp[3]="Restrictions";
         restric.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
-        jcbSexo= new JComboBox(setSexo());
-        jcbEsc= new JComboBox(setEscolaridad());
-        jcbExp= new JComboBox(setExperiancia());
+        jcbSexo= new JComboBox();
+        setSexo(jcbSexo);
+        jcbEsc= new JComboBox();
+        setEscolaridad(jcbEsc);
+        jcbExp= new JComboBox();
+        setExperiancia(jcbExp);
         strTemp[0]="Agregar Cambios";strTemp[1]="add changes";strTemp[2]="Änderungen hinzufügen";strTemp[3]="ajouter les changements";
         butRestric= new JButton(strTemp[foo]);
         butRestric.addActionListener(this);
@@ -415,10 +438,21 @@ public void limpiatabla(DefaultTableModel modeloT){
             if(e.getSource()==butRestric){
                 setRestric();
             }
+            
+            for(int i=0;i<4;i++){
+                if(e.getSource()==rbMILang[i]){
+                    for(int j=0;j<4;j++){
+                        rbMILang[j].setSelected(false);
+                    }
+                    rbMILang[i].setSelected(true);
+                    setIdioma(i);
+                }
+            
+            
+        }
 
 
         }
-
     //<editor-fold defaultstate="collapsed" desc="Inicializa Datos">
     public boolean inicializaDatos(String nameSur,String Atrib){
                 limpiatabla(modeloPromedios);
@@ -532,8 +566,8 @@ public void limpiatabla(DefaultTableModel modeloT){
     
     private void salir(){
         new IntroFrame();
-        this.dispose();
     }
+    
     private void eraseDataJcb(JComboBox d){
         d.removeAllItems();
     }
@@ -541,8 +575,10 @@ public void limpiatabla(DefaultTableModel modeloT){
         return new conex.LoginConx().getproy(user);
     }
     //<editor-fold defaultstate="collapsed" desc="Inicializa Contenido JCBRestricciones">
-    private Object[] setEscolaridad(){
+    private void setEscolaridad(JComboBox jcb){
+        eraseDataJcb(jcb);
         Object[] sex=new Object[4];
+        
         switch(foo){
             case 0 :sex[0]="Sin Estudios";sex[1]="Peparatoria";sex[2]="Superior";sex[3]="Sin Delimitar Escolaridad";break;
             case 1 :sex[0]="without studies";sex[1]="High School";sex[2]="University";sex[3]="level of education";break;
@@ -550,9 +586,12 @@ public void limpiatabla(DefaultTableModel modeloT){
             case 3 :sex[0]="sans que des études";sex[1]="Lycée";sex[2]="université";sex[3]="niveau de l'éducation";break;
             default :sex[0]="";sex[1]="";sex[2]="";break;
         }
-        return sex;
+        for(Object a:sex){
+            jcb.addItem(a);
+        }
     }
-    private Object[] setExperiancia(){
+    private void setExperiancia(JComboBox jcb){
+        eraseDataJcb(jcb);
         Object[] sex=new Object[4];
         switch(foo){
             case 0 :sex[0]="Poca";sex[1]="Regular";sex[2]="Mucha";sex[3]="Sin Delimitar Experiencia";break;
@@ -561,19 +600,178 @@ public void limpiatabla(DefaultTableModel modeloT){
             case 3 :sex[0]="peu";sex[1]="normal";sex[2]="beaucoup";sex[3]="Aucune expérience d'ancrage";break;
             default :sex[0]="wenige";sex[1]="Many";sex[2]="";sex[3]="";break;
         }
-        return sex;
+        for(Object a:sex){
+            jcb.addItem(a);
+        }
     }
-    private Object[] setSexo(){
+    private void setSexo(JComboBox jcb){
+        eraseDataJcb(jcb);
         Object[] sex=new Object[4];
+        
         switch(foo){
+            
             case 0 :sex[0]="Hombre";sex[1]="Mujer";sex[2]="Otros";sex[3]="Sin Delimitar Sexo";break;
             case 1 :sex[0]="Man";sex[1]="Woman";sex[2]="Others";sex[3]="Gender";break;
             case 2 :sex[0]="Mann";sex[1]="Frauen";sex[2]="andere";sex[3]="Geschlecht";break;
             case 3 :sex[0]="homme";sex[1]="femmes";sex[2]="Geschlecht";sex[3]="d'autres";break;
         }
-        return sex;
+        for(Object a:sex){
+            jcb.addItem(a);
+        }
+        
     }
     //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Cambio Idioma Actions Panel">
+    private void resetActions(){
+        tareas.removeAll();
+        sesTask.removeAll();
+    strTemp[0]="Crear nuevo Proyecto";strTemp[1]="Make new Project";strTemp[2]="Finde neue Projekt";strTemp[3]="Assurez nouveau projet";
+        
+        aaNewProy=new AbstractAction(strTemp[foo]) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                containerStack.show(panelCard, "Nuevo");
+
+            }
+        };
+       tareas.add(aaNewProy);
+       
+       strTemp[0]="Ver Projecto";strTemp[1]="Check Project";strTemp[2]="Projekt prüfen";strTemp[3]="Vérifier le projet";
+        tareas.add(new AbstractAction(strTemp[foo]) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eraseDataJcb(jcbSel);
+                valCombo2=getProy(User);
+                if (valCombo2==null){
+                strTemp[0]="No tienes Proyectos";strTemp[1]="You dont have any project";
+                strTemp[2]="Sie müssen nicht jedes Projekt";
+                strTemp[3]="Vous n'avez pas de projet";
+                jcbSel.addItem(strTemp[0]);
+                }else{
+                    for(Object d:valCombo2){
+                    jcbSel.addItem(d);
+                    }
+                }
+                containerStack.show(panelCard, "Ver");
+            }
+        });
+        strTemp[0]="Borrar Proyecto";strTemp[1]="Delete Project";strTemp[2]="Projekt löschen";strTemp[3]="supprimer le projet";
+        tareas.add(new AbstractAction(strTemp[foo]) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eraseDataJcb(jcbSurveyDel);
+                valCombo=getProy(User);
+                if (valCombo==null){
+                strTemp[0]="No tienes Proyectos";strTemp[1]="You dont have any project";
+                strTemp[2]="Sie müssen nicht jedes Projekt";
+                strTemp[3]="Vous n'avez pas de projet";
+                jcbSurveyDel.addItem(strTemp[foo]);
+                }else{
+                    for(Object d:valCombo){
+                    jcbSurveyDel.addItem(d);
+                    }
+                }
+                containerStack.show(panelCard, "Elimina");
+
+
+            }
+        });
+        strTemp[0]="Cerrar Sesion";strTemp[1]="Logout";strTemp[2]="Abmeldung";strTemp[3]="déconnexion";
+        sesTask.add(new AbstractAction(strTemp[foo]){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                cerrarS();
+                }});
+        strTemp[0]="Salir";strTemp[1]="Close";strTemp[2]="schließen";strTemp[3]="fermer";
+        sesTask.add(new AbstractAction(strTemp[foo]){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                salir();
+                }});
+   }
+    //</editor-fold>
+    
+    private void setIdioma(int foobar){
+    this.foo=foobar;
+    
+    strTemp[0]="Consola Administrador: Bienvenido "+User;
+    strTemp[1]="Administrator Settings: Welcome "+User; strTemp[2]="Administratoreinstellungen: Willkommen";strTemp[3]="Réglages Administrateur: Bienvenue";
+    this.setTitle(strTemp[foo]);
+    
+    strTemp[0]="Tareas Comunes";strTemp[1]="Common Task";strTemp[2]="Gemeinsame Aufgabe";strTemp[3]="tâche commune ";
+    panelTareas.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
+    
+    strTemp[0]="Opciones";strTemp[1]="Options";strTemp[2]="Optionen";strTemp[3]="options de";
+    tareas.setTitle(strTemp[foo]);
+    strTemp[0]="Opciones de Sesion";strTemp[1]="Session Options";strTemp[2]="Session Options";strTemp[3]="options de session";
+    sesTask.setTitle(strTemp[0]);
+    resetActions();
+    strTemp[0]="Nuevo Projecto";strTemp[1]="New Project";strTemp[2]="neues Projekt";strTemp[3]="Nouveau projet";
+    cont1.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
+    strTemp[0]="Nombre del Proyecto";strTemp[1]="Project's Name";strTemp[2]="Projekt-Name";strTemp[3]="Projet Nom";
+    neNombreJL.setText(strTemp[foo]);
+    strTemp[0]="Crear Nuevo Projecto";strTemp[1]="Create New Project";strTemp[2]="Neues Projekt";strTemp[3]="Créer un projet";
+     neTitleJL.setText(strTemp[foo]);
+     
+    //PANEÑ BORRA PROYECTO
+     strTemp[0]="Borrar Proyecto";strTemp[1]="Delete Project";strTemp[2]="Projekt löschen";strTemp[3]="supprimer le projet";
+     cont2.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
+     strTemp[0]="Selecione projecto a eliminar";strTemp[1]="Select Project to delete";strTemp[2]="Wählen Sie Projekt zu löschen";strTemp[3]="Sélectionner le projet de supprimer";
+     neTitleJL2.setText(strTemp[foo]);
+     strTemp[0]="Aceptar";strTemp[1]="OK";strTemp[2]="Ok";strTemp[3]="Ok";
+     butOKdel.setText(strTemp[foo]);
+     //panel datos de encuenesta
+     strTemp[0]="Revisar Datos de la Encuesta";strTemp[1]="Check survey's Info";strTemp[2]="Überprüfen Umfragen Info";strTemp[3]="Vérifiez Infos enquêtes";
+     cont3.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
+     strTemp[0]="Seleccionar el Proyecto a revisar";strTemp[1]="Select projects to check";strTemp[2]="Auswahl der Projekte zu überprüfen,";strTemp[3]="Sélectionner les projets à vérifier";
+     neTitleJL3.setText(strTemp[foo]);
+     //panel ver encuestas
+     strTemp[0]="Datos de Encuesta";strTemp[1]="Survey's data";strTemp[2]="Umfragedaten";strTemp[3]="Les données d'enquête";
+     todo.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
+     strTemp[0]="Promedios";strTemp[1]="Averages";strTemp[2]="Durchschnitts-";strTemp[3]="Moyennes";
+     panelTabla2.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
+    
+     strTemp[0]="Promedios por Pregunta";strTemp[1]="Averages per Question";strTemp[2]="Durchschnittswerte pro Frage";strTemp[3]="Moyennes par Question";
+     panelTabla3.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
+     strTemp[0]="Restricciones";strTemp[1]="Restrictions";strTemp[2]="Einschränkungen";strTemp[3]="Restrictions";
+     restric.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
+     strTemp[0]="Agregar Cambios";strTemp[1]="add changes";strTemp[2]="Änderungen hinzufügen";strTemp[3]="ajouter les changements";
+     butRestric.setText(strTemp[foo]);
+     setSexo(jcbSexo);
+     setExperiancia(jcbExp);
+     setEscolaridad(jcbEsc);
+    }
+    
+    public void menuCharger(){
+    menuBar=new JMenuBar();
+    menu = new JMenu();
+    menu.setText("Idioma");
+    menuBar.add(Box.createHorizontalGlue());
+    menuBar.add(menu);
+    menuItem = new JMenuItem("Selecciona un idioma");
+    menuItem.setEnabled(false);
+    menu.add(menuItem);
+    menu.addSeparator();
+    rbMILang= new JRadioButtonMenuItem[4];
+    rbMILang[0]= new JRadioButtonMenuItem("Español");
+    rbMILang[1]= new JRadioButtonMenuItem("Ingles");
+    rbMILang[2]= new JRadioButtonMenuItem("Aleman");
+    rbMILang[3]= new JRadioButtonMenuItem("Frances");
+    rbMILang[foo].setSelected(true);
+    menu.addSeparator();
+    for(int i=0;i<4;i++){
+        menu.add(rbMILang[i]);
+        rbMILang[i].addActionListener(this);
+    }
+    
+    
+    
+    
+    this.setJMenuBar(menuBar);
+        //this.add(menuBar);
+    }
+
 
 }
 
