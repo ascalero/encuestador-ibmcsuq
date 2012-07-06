@@ -23,6 +23,7 @@ public class RegEnc extends JXFrame implements ActionListener{
     JTextField jtfNick,jtfEdad;
     JComboBox escolaridad,experiencia,sexo,encuestas;
     JButton jbOk,jbCancelar;
+    JPanel contenedor;
     
     public RegEnc(int lenguaje){
         foo=lenguaje;
@@ -35,13 +36,43 @@ public class RegEnc extends JXFrame implements ActionListener{
         initComp();
     }
     
+    public void setIdioma(int foobar){
+        this.foo=foobar;
+        strTemp[0]="Registro Usuario";strTemp[1]="User Registration";strTemp[2]="Benutzer Anmelden";strTemp[3]="Enregistrement de l'utilisateur";
+        this.setTitle(strTemp[foo]);
+        
+        strTemp[0]="Introduce tus Datos";strTemp[1]="Enter your Details";strTemp[2]="Geben Sie Ihre Daten";strTemp[3]="Entrez vos Coordonnées";
+        contenedor.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
+        
+        strTemp[0]="Seleccionar Encuesta";strTemp[1]="Select survey";strTemp[2]="Wählen Umfrage";strTemp[3]="Sélectionnez l'enquête";
+        jlEncuesta.setText(strTemp[foo]);
+        strTemp[0]="Usuario";strTemp[1]="User";strTemp[2]="Benutzer";strTemp[3]="Utilisateur";
+        jlNick.setText(strTemp[foo]);
+        strTemp[0]="Edad";strTemp[1]="Age";strTemp[2]="Alter";strTemp[3]="âge";
+        jlEdad.setText(strTemp[foo]);
+        strTemp[0]="Sexo";strTemp[1]="Sex";strTemp[2]="Sex";strTemp[3]="Sexe";
+        jlSexo.setText(strTemp[foo]);
+        strTemp[0]="Escolaridad";strTemp[1]="Schooling";strTemp[2]="Schulung";strTemp[3]="Scolarité";
+        jlEscolaridad.setText(strTemp[foo]);
+        strTemp[0]="Experiencia";strTemp[1]="Experience";strTemp[2]="Erfahrung";strTemp[3]="Expérience";
+        jlExperiencia.setText(strTemp[foo]);
+        strTemp[0]="Aceptar";strTemp[1]="Accept";strTemp[2]="Akzeptieren";strTemp[3]="Accepter";
+        jbOk.setText(strTemp[foo]);
+        strTemp[0]="Cancelar";strTemp[1]="Cancel";strTemp[2]="Stornieren";strTemp[3]="Annuler";
+        jbCancelar.setText(strTemp[foo]);
+        
+        setSexo(sexo);
+        setExperiancia(experiencia);
+        setEscolaridad(escolaridad);
+    }
+    
     private void initComp(){
         JPanel jpEnc=new JPanel(new GridLayout(0, 2));
         jpEnc.setBounds(10,10,100,200);
         
         
         //<editor-fold defaultstate="collapsed" desc="Inicializacion contenido">
-        JPanel contenedor=new JPanel(new GridLayout(0, 2));
+        contenedor=new JPanel(new GridLayout(0, 2));
         contenedor.setBounds(10,10,500,200);
         strTemp[0]="Introduce tus Datos";strTemp[1]="Enter your Details";strTemp[2]="Geben Sie Ihre Daten";strTemp[3]="Entrez vos Coordonnées";
         contenedor.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
@@ -66,19 +97,22 @@ public class RegEnc extends JXFrame implements ActionListener{
         
         strTemp[0]="Sexo";strTemp[1]="Sex";strTemp[2]="Sex";strTemp[3]="Sexe";
         jlSexo=new JLabel(strTemp[foo]);
-        sexo =new JComboBox(selectSexo());
+        sexo =new JComboBox();
+        setSexo(sexo);
         contenedor.add(jlSexo);
         contenedor.add(sexo);
         
         strTemp[0]="Escolaridad";strTemp[1]="Schooling";strTemp[2]="Schulung";strTemp[3]="Scolarité";
         jlEscolaridad=new JLabel(strTemp[foo]);
-        escolaridad =new JComboBox(selectEscolaridad());
+        escolaridad =new JComboBox();
+        setEscolaridad(escolaridad);
         contenedor.add(jlEscolaridad);
         contenedor.add(escolaridad);
         
         strTemp[0]="Experiencia";strTemp[1]="Experience";strTemp[2]="Erfahrung";strTemp[3]="Expérience";
         jlExperiencia=new JLabel(strTemp[foo]);
-        experiencia =new JComboBox(selectExperiancia());
+        experiencia =new JComboBox();
+        setExperiancia(experiencia);
         contenedor.add(jlExperiencia);
         contenedor.add(experiencia);
         
@@ -96,7 +130,8 @@ public class RegEnc extends JXFrame implements ActionListener{
         add(contenedor);
     }
     
-    private Object[] selectSexo(){
+    private void setSexo(JComboBox jcb){
+        eraseDataJcb(jcb);
         Object[] sex=new Object[3];
         switch(foo){
             case 0 :sex[0]="Hombre";sex[1]="Mujer";sex[2]="Otros";break;
@@ -104,29 +139,37 @@ public class RegEnc extends JXFrame implements ActionListener{
             case 2 :sex[0]="Mann";sex[1]="Frau";sex[2]="Andere";break;
             default :sex[0]="Homme";sex[1]="Femme";sex[2]="D'autres";break;
         }
-        return sex;
+        for(Object a:sex){
+            jcb.addItem(a);
+        }
     }
     
-    private Object[] selectEscolaridad(){
-        Object[] sex=new Object[3];
+    private void setEscolaridad(JComboBox jcb){
+        eraseDataJcb(jcb);
+        Object[] grado=new Object[3];
         switch(foo){
-            case 0 :sex[0]="Sin Estudios";sex[1]="Peparatoria";sex[2]="Superior";break;
-            case 1 :sex[0]="No Education";sex[1]="Preparatory";sex[2]="High School";break;
-            case 2 :sex[0]="Keine Erziehung";sex[1]="Vorbereitende";sex[2]="Hochschule";break;
-            default :sex[0]="Pas de l'éducation";sex[1]="Préparatoire";sex[2]="Université";break;
+            case 0 :grado[0]="Sin Estudios";grado[1]="Peparatoria";grado[2]="Superior";break;
+            case 1 :grado[0]="No Education";grado[1]="Preparatory";grado[2]="High School";break;
+            case 2 :grado[0]="Keine Erziehung";grado[1]="Vorbereitende";grado[2]="Hochschule";break;
+            default :grado[0]="Pas de l'éducation";grado[1]="Préparatoire";grado[2]="Université";break;
         }
-        return sex;
+        for(Object a:grado){
+            jcb.addItem(a);
+        }
     }
     
-    private Object[] selectExperiancia(){
-        Object[] sex=new Object[3];
+    private void setExperiancia(JComboBox jcb){
+        eraseDataJcb(jcb);
+        Object[] exp=new Object[3];
         switch(foo){
-            case 0 :sex[0]="Poca";sex[1]="Regular";sex[2]="Mucha";break;
-            case 1 :sex[0]="Little";sex[1]="Regular";sex[2]="Much";break;
-            case 2 :sex[0]="Wenig";sex[1]="Regelmäßig";sex[2]="Viel";break;
-            default :sex[0]="Peu";sex[1]="Ordinaire";sex[2]="Beaucoup";break;
+            case 0 :exp[0]="Poca";exp[1]="Regular";exp[2]="Mucha";break;
+            case 1 :exp[0]="Little";exp[1]="Regular";exp[2]="Much";break;
+            case 2 :exp[0]="Wenig";exp[1]="Regelmäßig";exp[2]="Viel";break;
+            default :exp[0]="Peu";exp[1]="Ordinaire";exp[2]="Beaucoup";break;
         }
-        return sex;
+        for(Object a:exp){
+            jcb.addItem(a);
+        }
     }
     
     public Object[] selectEncuesta(){
@@ -178,5 +221,9 @@ public class RegEnc extends JXFrame implements ActionListener{
             JOptionPane.showMessageDialog(null,strTemp[foo],"MSG",JOptionPane.INFORMATION_MESSAGE);
             return false;}
         return true;
+    }
+    
+    private void eraseDataJcb(JComboBox d){
+        d.removeAllItems();
     }
 }
