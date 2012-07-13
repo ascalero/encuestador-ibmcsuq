@@ -42,10 +42,13 @@ public class Grafica extends javax.swing.JPanel {
         this.min=min;
         this.prom=prom;
         this.repaint();
-        
-        
     }
 
+    private void setIdioma(int foobar){
+        this.foo=foobar;
+        this.repaint();
+    }
+    
     @Override            
     protected void paintComponent(Graphics g) {
         Dimension d=getSize();
