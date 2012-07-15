@@ -25,6 +25,15 @@ public class Comentario extends JXFrame implements ActionListener{
     JTextArea jtaComentario;
     JButton jbOk,jbCancel;
     JPanel coment;
+            
+    //<editor-fold defaultstate="collapsed" desc="Variables Menu">
+    JMenuBar menuBar;
+    JMenu menu;
+    JMenuItem menuItem;
+    JRadioButtonMenuItem rbMILang[];
+    
+    //</editor-fold>
+    
     
     public Comentario(int lenguaje,String nomEnc){
         foo=lenguaje;
@@ -92,5 +101,45 @@ public class Comentario extends JXFrame implements ActionListener{
             IntroFrame a = new IntroFrame();
             this.dispose();
         }
+        for(int i=0;i<4;i++){
+                if(e.getSource()==rbMILang[i]){
+                    for(int j=0;j<4;j++){
+                        rbMILang[j].setSelected(false);
+                    }
+                    rbMILang[i].setSelected(true);
+                    setIdioma(i);
+                }
+        }
+        
     }
+    
+   
+    public void menuCharger(){
+    menuBar=new JMenuBar();
+    menu = new JMenu();
+    strTemp[0]="Idioma";strTemp[1]="Language";strTemp[2]="Sprache";strTemp[3]="langue";
+    menu.setText(strTemp[foo]);
+    menuBar.add(Box.createHorizontalGlue());
+    menuBar.add(menu);
+    strTemp[0]="Selecciona tu idioma";strTemp[1]="Select your language";strTemp[2]="Wählen Sie Ihre Sprache";strTemp[3]="Choisissez votre langue";
+    menuItem = new JMenuItem(strTemp[foo]);
+    menuItem.setEnabled(false);
+    menu.add(menuItem);
+    menu.addSeparator();
+    rbMILang= new JRadioButtonMenuItem[4];
+    rbMILang[0]= new JRadioButtonMenuItem("Español");
+    rbMILang[1]= new JRadioButtonMenuItem("English");
+    rbMILang[2]= new JRadioButtonMenuItem("Deutsh");
+    rbMILang[3]= new JRadioButtonMenuItem("Française");
+    rbMILang[foo].setSelected(true);
+    menu.addSeparator();
+    for(int i=0;i<4;i++){
+        menu.add(rbMILang[i]);
+        rbMILang[i].addActionListener(this);
+    }
+    this.setJMenuBar(menuBar);
+        //this.add(menuBar);
+    }
+
+
 }
