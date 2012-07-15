@@ -56,6 +56,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
     JRadioButtonMenuItem rbMILang[];
     
     //</editor-fold>
+    
     public FrameAdmon(int lang,String du) {
     foo=lang;
     User=du;
@@ -68,6 +69,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
     setVisible (true);
     initComp();
     menuCharger();
+    setIdioma(foo);
     }
 
     private void initComp(){
@@ -446,7 +448,7 @@ public void limpiatabla(DefaultTableModel modeloT){
                     }
                     rbMILang[i].setSelected(true);
                     setIdioma(i);
-                }
+            }
             
             
         }
@@ -556,7 +558,12 @@ public void limpiatabla(DefaultTableModel modeloT){
         anw=jcbExp.getSelectedIndex();
         if(anw!=3) atributos+= " and Experiencia = \""+anw+"\"";
         System.out.println(" attrib "+atributos);
-        inicializaDatos(jcbSel.getSelectedItem().toString(),atributos);
+        try {
+            inicializaDatos(jcbSel.getSelectedItem().toString(),atributos);
+        } catch (NullPointerException e) {
+            
+        }
+        
     }
     
     private void cerrarS(){
@@ -566,6 +573,7 @@ public void limpiatabla(DefaultTableModel modeloT){
     
     private void salir(){
         new IntroFrame();
+        this.dispose();
     }
     
     private void eraseDataJcb(JComboBox d){
@@ -596,9 +604,9 @@ public void limpiatabla(DefaultTableModel modeloT){
         switch(foo){
             case 0 :sex[0]="Poca";sex[1]="Regular";sex[2]="Mucha";sex[3]="Sin Delimitar Experiencia";break;
             case 1 :sex[0]="few";sex[1]="Regular";sex[2]="Many";sex[3]="No Anchor Experience";break;
-            case 2 :sex[0]="";sex[1]="regelmäßig";sex[2]="viele";sex[3]="Kein Anchor Experience";break;
-            case 3 :sex[0]="peu";sex[1]="normal";sex[2]="beaucoup";sex[3]="Aucune expérience d'ancrage";break;
-            default :sex[0]="wenige";sex[1]="Many";sex[2]="";sex[3]="";break;
+            case 2 :sex[0]="peu";sex[1]="regelmäßig";sex[2]="viele";sex[3]="Kein Anchor Experience";break;
+            case 3 :sex[0]="wenige";sex[1]="normal";sex[2]="beaucoup";sex[3]="Aucune expérience d'ancrage";break;
+            default :sex[0]="";sex[1]="";sex[2]="";sex[3]="";break;
         }
         for(Object a:sex){
             jcb.addItem(a);
@@ -614,6 +622,7 @@ public void limpiatabla(DefaultTableModel modeloT){
             case 1 :sex[0]="Man";sex[1]="Woman";sex[2]="Others";sex[3]="Gender";break;
             case 2 :sex[0]="Mann";sex[1]="Frauen";sex[2]="andere";sex[3]="Geschlecht";break;
             case 3 :sex[0]="homme";sex[1]="femmes";sex[2]="Geschlecht";sex[3]="d'autres";break;
+            default :sex[0]="";sex[1]="";sex[2]="";sex[3]="";break;
         }
         for(Object a:sex){
             jcb.addItem(a);
@@ -738,36 +747,49 @@ public void limpiatabla(DefaultTableModel modeloT){
      restric.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
      strTemp[0]="Agregar Cambios";strTemp[1]="add changes";strTemp[2]="Änderungen hinzufügen";strTemp[3]="ajouter les changements";
      butRestric.setText(strTemp[foo]);
+     int bar = jcbSexo.getSelectedIndex();
      setSexo(jcbSexo);
+     jcbSexo.setSelectedIndex(bar);
+     bar = jcbExp.getSelectedIndex();
      setExperiancia(jcbExp);
+     jcbExp.setSelectedIndex(bar);
+     bar = jcbEsc.getSelectedIndex();
      setEscolaridad(jcbEsc);
+     jcbEsc.setSelectedIndex(bar);
+     setRestric();
+     graf.setIdioma(foo);
+     
+     //idioma en el menu
+     strTemp[0]="Idioma";strTemp[1]="Language";strTemp[2]="Sprache";strTemp[3]="langue";
+     menu.setText(strTemp[foo]);
+     strTemp[0]="Selecciona tu idioma";strTemp[1]="Select your language";strTemp[2]="Wählen Sie Ihre Sprache";strTemp[3]="Choisissez votre langue";
+     menuItem.setText(strTemp[foo]);
+        
     }
     
     public void menuCharger(){
     menuBar=new JMenuBar();
     menu = new JMenu();
-    menu.setText("Idioma");
+    strTemp[0]="Idioma";strTemp[1]="Language";strTemp[2]="Sprache";strTemp[3]="langue";
+    menu.setText(strTemp[foo]);
     menuBar.add(Box.createHorizontalGlue());
     menuBar.add(menu);
-    menuItem = new JMenuItem("Selecciona un idioma");
+    strTemp[0]="Selecciona tu idioma";strTemp[1]="Select your language";strTemp[2]="Wählen Sie Ihre Sprache";strTemp[3]="Choisissez votre langue";
+    menuItem = new JMenuItem(strTemp[foo]);
     menuItem.setEnabled(false);
     menu.add(menuItem);
     menu.addSeparator();
     rbMILang= new JRadioButtonMenuItem[4];
     rbMILang[0]= new JRadioButtonMenuItem("Español");
-    rbMILang[1]= new JRadioButtonMenuItem("Ingles");
-    rbMILang[2]= new JRadioButtonMenuItem("Aleman");
-    rbMILang[3]= new JRadioButtonMenuItem("Frances");
+    rbMILang[1]= new JRadioButtonMenuItem("English");
+    rbMILang[2]= new JRadioButtonMenuItem("Deutsh");
+    rbMILang[3]= new JRadioButtonMenuItem("Française");
     rbMILang[foo].setSelected(true);
     menu.addSeparator();
     for(int i=0;i<4;i++){
         menu.add(rbMILang[i]);
         rbMILang[i].addActionListener(this);
     }
-    
-    
-    
-    
     this.setJMenuBar(menuBar);
         //this.add(menuBar);
     }

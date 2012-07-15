@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package encuesta;
+package estructuras;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -87,7 +87,8 @@ public class IntroFrame extends JFrame implements ActionListener{
     
     void marqueeLaunch(){
     while(true){
-            String[] foo={"Selecciona tu Idioma","Select your Language","Text1","Text2"};
+        
+            String[] foo={"Selecciona tu idioma","Select your language","Wählen Sie Ihre Sprache","Choisissez votre langue"};
             for(int i=0;i<4;i++){
                 marquee.setText(foo[i]);
                 bannerJP.setImagen("../ima/encuesta.jpg");

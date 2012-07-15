@@ -44,7 +44,7 @@ public class Grafica extends javax.swing.JPanel {
         this.repaint();
     }
 
-    private void setIdioma(int foobar){
+    public void setIdioma(int foobar){
         this.foo=foobar;
         this.repaint();
     }

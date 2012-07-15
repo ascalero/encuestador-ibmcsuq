@@ -31,6 +31,15 @@ String [] min= new String[4];
 String [] max= new String[4];
 String imaDir;
 int noPreg=0;
+        
+//<editor-fold defaultstate="collapsed" desc="Variables Menu">
+    JMenuBar menuBar;
+    JMenu menu;
+    JMenuItem menuItem;
+    JRadioButtonMenuItem rbMILang[];
+    
+    //</editor-fold>
+    
 
     public InterfazQuestions() {
     	super("Crea Encuesta");
@@ -187,5 +196,6 @@ int noPreg=0;
     	InterfazQuestions encuesta= new InterfazQuestions();
     	encuesta.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 }
+    
     
 }
