@@ -44,6 +44,7 @@ public class Comentario extends JXFrame implements ActionListener{
         setSize(535,340);
         setVisible (true);
         initComp();
+        menuCharger();
     }
     
     public void setIdioma(int foobar){

@@ -13,6 +13,14 @@ private String []imaDir;
     }
     
     public String  [] getDir(){
-    	return imaDir;
+        return imaDir;
     }
+
+    @Override
+    public String getQuest(int idioma) {
+        return super.getQuest(idioma);
+    }
+    
+    
+    
 }

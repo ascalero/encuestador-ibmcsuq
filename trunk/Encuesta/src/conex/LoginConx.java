@@ -4,8 +4,11 @@
  */
 package conex;
 import java.sql.*;
+
+//import java.sql.ResultSet;
 import java.util.ArrayList;
 /**
+ * 
  *
  * @author Ascalero
  */
@@ -14,7 +17,7 @@ public class LoginConx {
         Conectador conexion =null;
 	Statement st= null;
 	ResultSet rs= null;
-        final String S_N_P= "INSERT INTO survey (idsurvey,nombreSur,descripcion,idusuario) VALUES ";
+        final String S_N_P= "INSERT INTO survey (idsurvey,nombreSur,descripcion,idusuario,infosurvey) VALUES ";
     public LoginConx(){
     conexion= new Conectador();
                 try{
@@ -28,7 +31,7 @@ public class LoginConx {
     public void NovoPro(String nP,String dP,String Usu){
 		
 		try{
-                   String ax= S_N_P+"(NULL,'"+nP+"','"+dP+"','"+Usu+"');"; 
+                   String ax= S_N_P+"(NULL,'"+nP+"','"+dP+"','"+Usu+"',NULL);"; 
                     //System.out.println("" +ax);
                     st.executeUpdate(ax);
         			}catch(Exception e){

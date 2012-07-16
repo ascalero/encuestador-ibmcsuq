@@ -23,5 +23,11 @@ private String []max;
     public String getmax(int idioma){
     	return max[idioma];
     }
+
+    @Override
+    public String getQuest(int idioma) {
+        return super.getQuest(idioma);
+    }
+    
       
 }

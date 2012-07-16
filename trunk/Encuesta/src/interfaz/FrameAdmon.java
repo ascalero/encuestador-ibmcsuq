@@ -23,6 +23,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
     LoginConx driver=new conex.LoginConx();
     private Font fuenteGrande=new Font("Arial",Font.BOLD,20);
     private JXPanel panelTareas,panelCard,panelEE,panelNE,panelSE,panelDatos;
+    private panelNewOpenQuiz panelOpen;
     private CardLayout containerStack = new CardLayout();
     private JXTaskPane tareas,sesTask;
     private JXTaskPaneContainer contTask;
@@ -322,6 +323,9 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         todo.add(panelTabla3);
         panelDatos.add(todo,BorderLayout.CENTER);
         //</editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="Inicializacion Encuestalibre">
+        panelOpen=new panelNewOpenQuiz();
+        //</editor-fold>
         
         
         
@@ -332,6 +336,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         panelCard.add(panelEE,"Elimina");
         panelCard.add(panelSE,"Ver");
         panelCard.add(panelDatos,"Datos");
+        panelCard.add(panelOpen,"open");
         setLayout(null);
         setSize(1,1);
         setSize(1250,730);
