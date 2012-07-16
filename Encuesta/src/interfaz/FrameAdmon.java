@@ -161,7 +161,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Inicializacion panel NuevaEncuesta">
         panelNE= new JXPanel(new BorderLayout());
-
+        
         cont1=new JPanel();
         strTemp[0]="Nuevo Projecto";strTemp[1]="New Project";strTemp[2]="neues Projekt";strTemp[3]="Nouveau projet";
         cont1.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
@@ -327,14 +327,14 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         
         
         panelCard= new JXPanel(containerStack);
-        panelCard.setBounds(230, 10, 850 , 500);
+        panelCard.setBounds(230, 10, 1000 , 640);
         panelCard.add(panelNE,"Nuevo");
         panelCard.add(panelEE,"Elimina");
         panelCard.add(panelSE,"Ver");
         panelCard.add(panelDatos,"Datos");
         setLayout(null);
         setSize(1,1);
-        setSize(1100,550);
+        setSize(1250,730);
         add(panelTareas);
         add(panelCard);
         }

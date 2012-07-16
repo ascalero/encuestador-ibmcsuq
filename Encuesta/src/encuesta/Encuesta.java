@@ -20,7 +20,7 @@ public class Encuesta {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        //IntroFrame intfr=new IntroFrame();
+        //IntroFrame intfr=new IntroFrame();       
         FrameAdmon lol= new FrameAdmon(1, "ascalero");
         
     }

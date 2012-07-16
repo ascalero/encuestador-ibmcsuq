@@ -11,7 +11,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * and open the template in the editor.
  */
 
-/**
+/*
  *
  * @author Shadow
  */
