@@ -16,6 +16,12 @@ private int tipo;
     super(preg);
     this.dir=dir;	
     }
+
+    @Override
+    public String getQuest(int idioma) {
+        return super.getQuest(idioma);
+    }
+    
     
     public String getDir(){
     return dir;	
