@@ -6,12 +6,14 @@ package estructuras;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Ascalero
  */
-public class Survey implements Serializable{
+public class Survey implements Serializable,Cloneable{
     String folder;
     String Name;
     transient int actual=0;
@@ -22,51 +24,48 @@ public class Survey implements Serializable{
     ArrayList<StructLikeIt> StLI = new ArrayList<StructLikeIt>();
     ArrayList<StructQuestGrid> StQG = new ArrayList<StructQuestGrid>();
 
-    public Survey(String folder, String Name) {
-        this.folder = folder;
-        this.Name = Name;
+    public Survey(String name) {
+        this.Name = name;
+        this.folder= "c:/enques/data/"+name;
         for(int a:actQuest){a=0;}
     }
     
     public int getNext(){
-        actual++;
-        return SeqSurvey.get(actual-1);
+        return SeqSurvey.get(actual++);
     }
     public int getPrev(){ 
         if (actual==0) return -1;
-        actual--;
-        return SeqSurvey.get(actual+1);
+        return SeqSurvey.get(actual--);
     }
+    public int getActSize(){
+    return SeqSurvey.size();
+    }
+    
     public StructQuest getNextStq(){
-        actQuest[0]++;
-        return StQ.get(actQuest[0]-1);
-    }
-    public StructImaQ getNextStIQ(){
-        actQuest[1]++;
-        return StIQ.get(actQuest[1]-1);
+        int val=actQuest[0]++;
+        System.out.println("netxstq val:"+val);
+        return StQ.get(val);
     }
     public StructLikeIt getNextLI(){
-        actQuest[2]++;
-        return StLI.get(actQuest[2]-1);
+        return StLI.get(actQuest[1]++);
+    }
+    public StructImaQ getNextStIQ(){
+        return StIQ.get(actQuest[2]++);
     }
     public StructQuestGrid getNextQG(){
-        actQuest[3]++;
-        return StQG.get(actQuest[3]-1);
+        return StQG.get(actQuest[3]++);
     }
     public StructQuest getPrevStq(){
-        actQuest[0]--;
-        return StQ.get(actQuest[0]+1);
+        return StQ.get(actQuest[0]--);
+    }
+    public StructLikeIt getPrevLI(){
+        return StLI.get(actQuest[1]--);
     }
     public StructImaQ getPrevStIQ(){
-        actQuest[1]--;
-        return StIQ.get(actQuest[1]+1);}
-    public StructLikeIt getPrevLI(){
-        actQuest[2]--;
-        return StLI.get(actQuest[2]+1);
+        return StIQ.get(actQuest[2]--);
     }
     public StructQuestGrid getPrevQG(){
-        actQuest[3]--;
-        return StQG.get(actQuest[3]+1);
+        return StQG.get(actQuest[3]--);
     }
 
     public String getFolder() {
@@ -80,13 +79,13 @@ public class Survey implements Serializable{
     //bloque adds
     public void addStQ(String[] quest){
         StructQuest temp= new StructQuest(quest);
-        StQ.add(null);
+        StQ.add(temp);
         SeqSurvey.add(0);
     }
     public void addStIQ(String [] quest,String [] ImadiR){
         StructImaQ temp= new StructImaQ(quest, ImadiR);
         StIQ.add(temp);
-        SeqSurvey.add(1);
+        SeqSurvey.add(2);
     }
     public void addStLI(String[]... preg){
         StructLikeIt temp;
@@ -96,11 +95,47 @@ public class Survey implements Serializable{
          temp = new StructLikeIt(preg[0],preg[1],preg[2]);
         }
         StLI.add(temp);
-        SeqSurvey.add(2);
+        SeqSurvey.add(1);
     }
     
     public void addStQG (){
-        SeqSurvey.add(4);
+        SeqSurvey.add(2);
     }
+    
+    public boolean isEmpy(){
+    return SeqSurvey.isEmpty();
+    }
+    public boolean islast(){
+        if((actual)==SeqSurvey.size())return true;
+        return false;
+    }
+    
+    public void resetActuales(){
+    actual=0;
+    for(int i=0;i<actQuest.length;i++){
+    actQuest[i]=0;
+    }
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+    
+    public Survey cloneSurvey(){
+        try {
+            return (Survey)clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Survey.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public void printvalseq(){
+    for (int a:SeqSurvey){
+        System.out.print("valiter"+a);
+    }
+    }
+    
     
 }

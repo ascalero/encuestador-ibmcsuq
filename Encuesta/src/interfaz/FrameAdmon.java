@@ -5,6 +5,7 @@
 package interfaz;
 
 import conex.LoginConx;
+import estructuras.Survey;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -79,7 +80,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         panelTareas.setBounds(10,10, 200, 500);
         strTemp[0]="Tareas Comunes";strTemp[1]="Common Task";strTemp[2]="Gemeinsame Aufgabe";strTemp[3]="tâche commune ";
         panelTareas.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
-
+        
         contTask = new JXTaskPaneContainer();
         contTask.setLayout(new VerticalLayout(2));
         contTask.setBackground(Color.LIGHT_GRAY);
@@ -87,75 +88,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         tareas=new JXTaskPane();
         strTemp[0]="Opciones";strTemp[1]="Options";strTemp[2]="Optionen";strTemp[3]="options de";
         tareas.setTitle(strTemp[foo]);
-        strTemp[0]="Crear nuevo Proyecto";strTemp[1]="Make new Project";strTemp[2]="Finde neue Projekt";strTemp[3]="Assurez nouveau projet";
-        
-        aaNewProy=new AbstractAction(strTemp[foo]) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                containerStack.show(panelCard, "Nuevo");
-
-            }
-        };
-        
-        
-        tareas.add(aaNewProy);
-        strTemp[0]="Ver Projecto";strTemp[1]="Check Project";strTemp[2]="Projekt prüfen";strTemp[3]="Vérifier le projet";
-        tareas.add(new AbstractAction(strTemp[foo]) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                eraseDataJcb(jcbSel);
-                valCombo2=getProy(User);
-                if (valCombo2==null){
-                strTemp[0]="No tienes Proyectos";strTemp[1]="You dont have any project";
-                strTemp[2]="Sie müssen nicht jedes Projekt";
-                strTemp[3]="Vous n'avez pas de projet";
-                jcbSel.addItem(strTemp[0]);
-                }else{
-                    for(Object d:valCombo2){
-                    jcbSel.addItem(d);
-                    }
-                }
-                containerStack.show(panelCard, "Ver");
-            }
-        });
-        strTemp[0]="Borrar Proyecto";strTemp[1]="Delete Project";strTemp[2]="Projekt löschen";strTemp[3]="supprimer le projet";
-        tareas.add(new AbstractAction(strTemp[foo]) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                eraseDataJcb(jcbSurveyDel);
-                valCombo=getProy(User);
-                if (valCombo==null){
-                strTemp[0]="No tienes Proyectos";strTemp[1]="You dont have any project";
-                strTemp[2]="Sie müssen nicht jedes Projekt";
-                strTemp[3]="Vous n'avez pas de projet";
-                jcbSurveyDel.addItem(strTemp[foo]);
-                }else{
-                    for(Object d:valCombo){
-                    jcbSurveyDel.addItem(d);
-                    }
-                }
-                containerStack.show(panelCard, "Elimina");
-
-
-            }
-        });
-
         sesTask= new JXTaskPane();
-        strTemp[0]="Opciones de Sesion";strTemp[1]="Session Options";strTemp[2]="Session Options";strTemp[3]="options de session";
-        sesTask.setTitle(strTemp[0]);
-        strTemp[0]="Cerrar Sesion";strTemp[1]="Logout";strTemp[2]="Abmeldung";strTemp[3]="déconnexion";
-        sesTask.add(new AbstractAction(strTemp[foo]){
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                cerrarS();
-                }});
-        strTemp[0]="Salir";strTemp[1]="Close";strTemp[2]="schließen";strTemp[3]="fermer";
-        sesTask.add(new AbstractAction(strTemp[foo]){
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                salir();
-                }});
-
         contTask.add(tareas);
         contTask.add(sesTask);
         panelTareas.add(contTask);
@@ -324,19 +257,19 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         panelDatos.add(todo,BorderLayout.CENTER);
         //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Inicializacion Encuestalibre">
-        panelOpen=new panelNewOpenQuiz();
+        panelOpen=new panelNewOpenQuiz(foo);
         //</editor-fold>
         
         
         
         
         panelCard= new JXPanel(containerStack);
-        panelCard.setBounds(230, 10, 1000 , 640);
+        panelCard.setBounds(230, 10, 1000 , 670);
         panelCard.add(panelNE,"Nuevo");
         panelCard.add(panelEE,"Elimina");
         panelCard.add(panelSE,"Ver");
         panelCard.add(panelDatos,"Datos");
-        panelCard.add(panelOpen,"open");
+        panelCard.add(panelOpen,"Open");
         setLayout(null);
         setSize(1,1);
         setSize(1250,730);
@@ -650,6 +583,18 @@ public void limpiatabla(DefaultTableModel modeloT){
             }
         };
        tareas.add(aaNewProy);
+       strTemp[0]="Crear Encuesta Libre";strTemp[1]="Make Open Survey";strTemp[2]="";strTemp[3]="";
+        
+        aaNewProy=new AbstractAction(strTemp[foo]) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panelOpen.setSruct(new Survey("Text1"));
+                panelOpen.limpiapanel();
+                containerStack.show(panelCard, "Open");
+                
+            }
+        };
+       tareas.add(aaNewProy);
        
        strTemp[0]="Ver Projecto";strTemp[1]="Check Project";strTemp[2]="Projekt prüfen";strTemp[3]="Vérifier le projet";
         tareas.add(new AbstractAction(strTemp[foo]) {
@@ -719,7 +664,7 @@ public void limpiatabla(DefaultTableModel modeloT){
     strTemp[0]="Opciones";strTemp[1]="Options";strTemp[2]="Optionen";strTemp[3]="options de";
     tareas.setTitle(strTemp[foo]);
     strTemp[0]="Opciones de Sesion";strTemp[1]="Session Options";strTemp[2]="Session Options";strTemp[3]="options de session";
-    sesTask.setTitle(strTemp[0]);
+    sesTask.setTitle(strTemp[foo]);
     resetActions();
     strTemp[0]="Nuevo Projecto";strTemp[1]="New Project";strTemp[2]="neues Projekt";strTemp[3]="Nouveau projet";
     cont1.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
@@ -728,7 +673,7 @@ public void limpiatabla(DefaultTableModel modeloT){
     strTemp[0]="Crear Nuevo Projecto";strTemp[1]="Create New Project";strTemp[2]="Neues Projekt";strTemp[3]="Créer un projet";
      neTitleJL.setText(strTemp[foo]);
      
-    //PANEÑ BORRA PROYECTO
+    //PANEl BORRA PROYECTO
      strTemp[0]="Borrar Proyecto";strTemp[1]="Delete Project";strTemp[2]="Projekt löschen";strTemp[3]="supprimer le projet";
      cont2.setBorder(BorderFactory.createTitledBorder(strTemp[foo]));
      strTemp[0]="Selecione projecto a eliminar";strTemp[1]="Select Project to delete";strTemp[2]="Wählen Sie Projekt zu löschen";strTemp[3]="Sélectionner le projet de supprimer";
@@ -761,8 +706,9 @@ public void limpiatabla(DefaultTableModel modeloT){
      bar = jcbEsc.getSelectedIndex();
      setEscolaridad(jcbEsc);
      jcbEsc.setSelectedIndex(bar);
-     setRestric();
      graf.setIdioma(foo);
+     
+     panelOpen.setIdioma(foo);
      
      //idioma en el menu
      strTemp[0]="Idioma";strTemp[1]="Language";strTemp[2]="Sprache";strTemp[3]="langue";

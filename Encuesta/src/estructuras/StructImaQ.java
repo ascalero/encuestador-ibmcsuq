@@ -4,7 +4,7 @@ import java.io.*;
 import java.lang.*;
 import java.util.*;
 
-public class StructImaQ extends StructQuest implements Serializable{
+public class StructImaQ extends StructQuest implements Serializable,Cloneable{
 private String []imaDir;
     
     public StructImaQ(String []preg,String []imDir) {
