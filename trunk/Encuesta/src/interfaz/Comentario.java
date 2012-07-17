@@ -41,7 +41,7 @@ public class Comentario extends JXFrame implements ActionListener{
         this.setTitle(nomEnc);
         setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
         setLocation(10,0);
-        setSize(535,340);
+        setSize(535,350);
         setVisible (true);
         initComp();
         menuCharger();
@@ -91,12 +91,13 @@ public class Comentario extends JXFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==jbOk){
-            OpBasicas op=new OpBasicas();
-            LoginConx lc=new LoginConx();
-            op.InsertCommit(jtaComentario.getText(),lc.getIdProy(nomEnc));
+            if(jtaComentario.getText()!=null){
+                OpBasicas op=new OpBasicas();
+                LoginConx lc=new LoginConx();
+                op.InsertCommit(jtaComentario.getText(),lc.getIdProy(nomEnc));
+            }
             IntroFrame a = new IntroFrame();
             this.dispose();
-            
         }
         if(e.getSource()==jbCancel){
             IntroFrame a = new IntroFrame();
@@ -116,30 +117,29 @@ public class Comentario extends JXFrame implements ActionListener{
     
    
     public void menuCharger(){
-    menuBar=new JMenuBar();
-    menu = new JMenu();
-    strTemp[0]="Idioma";strTemp[1]="Language";strTemp[2]="Sprache";strTemp[3]="langue";
-    menu.setText(strTemp[foo]);
-    menuBar.add(Box.createHorizontalGlue());
-    menuBar.add(menu);
-    strTemp[0]="Selecciona tu idioma";strTemp[1]="Select your language";strTemp[2]="Wählen Sie Ihre Sprache";strTemp[3]="Choisissez votre langue";
-    menuItem = new JMenuItem(strTemp[foo]);
-    menuItem.setEnabled(false);
-    menu.add(menuItem);
-    menu.addSeparator();
-    rbMILang= new JRadioButtonMenuItem[4];
-    rbMILang[0]= new JRadioButtonMenuItem("Español");
-    rbMILang[1]= new JRadioButtonMenuItem("English");
-    rbMILang[2]= new JRadioButtonMenuItem("Deutsh");
-    rbMILang[3]= new JRadioButtonMenuItem("Française");
-    rbMILang[foo].setSelected(true);
-    menu.addSeparator();
-    for(int i=0;i<4;i++){
-        menu.add(rbMILang[i]);
-        rbMILang[i].addActionListener(this);
-    }
-    this.setJMenuBar(menuBar);
-        //this.add(menuBar);
+        menuBar=new JMenuBar();
+        menu = new JMenu();
+        strTemp[0]="Idioma";strTemp[1]="Language";strTemp[2]="Sprache";strTemp[3]="langue";
+        menu.setText(strTemp[foo]);
+        menuBar.add(Box.createHorizontalGlue());
+        menuBar.add(menu);
+        strTemp[0]="Selecciona tu idioma";strTemp[1]="Select your language";strTemp[2]="Wählen Sie Ihre Sprache";strTemp[3]="Choisissez votre langue";
+        menuItem = new JMenuItem(strTemp[foo]);
+        menuItem.setEnabled(false);
+        menu.add(menuItem);
+        menu.addSeparator();
+        rbMILang= new JRadioButtonMenuItem[4];
+        rbMILang[0]= new JRadioButtonMenuItem("Español");
+        rbMILang[1]= new JRadioButtonMenuItem("English");
+        rbMILang[2]= new JRadioButtonMenuItem("Deutsh");
+        rbMILang[3]= new JRadioButtonMenuItem("Française");
+        rbMILang[foo].setSelected(true);
+        menu.addSeparator();
+        for(int i=0;i<4;i++){
+            menu.add(rbMILang[i]);
+            rbMILang[i].addActionListener(this);
+        }
+        this.setJMenuBar(menuBar);
     }
 
 

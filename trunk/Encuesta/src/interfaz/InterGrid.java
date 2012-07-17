@@ -14,7 +14,7 @@ public class InterGrid extends JPanel implements ActionListener{
 	int noPregunta;
 	
 	public InterGrid() {
-		setSize(1000,640);
+		setSize(1000,670);
 		initComponents();
 	}
 	public void initComponents(){

@@ -28,8 +28,6 @@ public class Survey implements Serializable{
         for(int a:actQuest){a=0;}
     }
     
-    
-    
     public int getNext(){
         actual++;
         return SeqSurvey.get(actual-1);
@@ -79,8 +77,6 @@ public class Survey implements Serializable{
         return Name;
     }
     
-    
-    
     //bloque adds
     public void addStQ(String[] quest){
         StructQuest temp= new StructQuest(quest);
@@ -104,7 +100,7 @@ public class Survey implements Serializable{
     }
     
     public void addStQG (){
-     SeqSurvey.add(4);
+        SeqSurvey.add(4);
     }
     
 }

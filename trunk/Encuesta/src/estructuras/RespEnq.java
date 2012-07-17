@@ -19,17 +19,11 @@ public class RespEnq implements Serializable {
     private ArrayList <Integer> yImaTra= new ArrayList<Integer>();
     private ArrayList <String> resCommen= new ArrayList<String>();
     private ArrayList <Integer> selIMA= new ArrayList<Integer>();
-    
-    
-    
-    
-    
-    
+        
     public RespEnq(int [] res) {
         seriepre=res;
     
     }
-    
     
     public ArrayList <Integer> getRLI(){
         return resLikeIt;
@@ -80,18 +74,16 @@ public class RespEnq implements Serializable {
      resCommen.add(var);    
      }
     public void setRLISI(int var,int type){
-     
-     switch(type){
-         case 1:
-             resLikeIt.add(var);
-             break;
-         case 2:
-             selIMA.add(var);
-             break;
-         default:
-             break;
-     }
-        
+        switch(type){
+            case 1:
+                resLikeIt.add(var);
+                break;
+            case 2:
+                selIMA.add(var);
+                break;
+            default:
+                break;
+        }
      }
      
     public void  setMine(){

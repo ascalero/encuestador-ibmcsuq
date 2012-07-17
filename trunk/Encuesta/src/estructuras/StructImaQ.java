@@ -9,7 +9,7 @@ private String []imaDir;
     
     public StructImaQ(String []preg,String []imDir) {
     super (preg);
-    this.imaDir=imaDir;	
+    this.imaDir=imDir;	
     }
     
     public String  [] getDir(){
