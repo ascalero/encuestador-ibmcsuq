@@ -98,7 +98,7 @@ public class FrameSurvey extends JFrame implements ActionListener{
     
     
     JPanel paneBotones= new JPanel(new GridLayout(1,2));
-    String temp="../ima/next1.png";
+    String temp="../ima/next.png";
     butNext= new JButton(new ImageIcon(getClass().getResource(temp)));
     butNext.addActionListener(this);
     strTemp[0]="Finalizar";strTemp[1]="Finish";strTemp[2]="Fertig stellen";strTemp[3]="Terminer";

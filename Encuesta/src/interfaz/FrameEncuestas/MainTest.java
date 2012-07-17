@@ -14,11 +14,12 @@ public class MainTest {
     public static void main(String args[]){
         Survey s=new Survey("ja");
         int[] x=new int[2];
-        x[0]=1;
-        x[1]=2;
+        x[0]=1;x[1]=2;
         RespEnq re=new RespEnq(x);
-        //FrameComent fc=new FrameComent(0,s,re);
-        //FrameMT mt=new FrameMT(0,s,re);
-        FrameImaQ imq=new FrameImaQ(0,s,re);
+       
+        //FrameAskFree fc=new FrameAskFree(0,s,re);
+        //FrameMouseTraking mt= new FrameMouseTraking(0,s,re);
+        //FrameImaQ imq=new FrameImaQ(0,s,re);
+        FrameLikeIt li=new FrameLikeIt(0,s,re);
     }
 }
