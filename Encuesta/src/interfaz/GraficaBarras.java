@@ -1,9 +1,10 @@
 package interfaz;
 
-
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
+import javax.swing.JPanel;
+import org.jfree.chart.*;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 /*
@@ -21,8 +22,8 @@ public class GraficaBarras extends JPanelConFondo{
     private String nameProy;
     
     public GraficaBarras(String nameProy) {
-        dataset = new DefaultCategoryDataset(); 
         this.nameProy=nameProy;
+        dataset = new DefaultCategoryDataset();
     }
     
     public void setDatos(ArrayList<String> nameEnc,int[] answer,String name){
@@ -40,7 +41,8 @@ public class GraficaBarras extends JPanelConFondo{
                 true,                      //mostrar tooltips 
                 true);
         
-        this.setImagen(graficoBarras.createBufferedImage(640,480));
+            this.setImagen(graficoBarras.createBufferedImage(640,480));
         }
     }
 }
+
