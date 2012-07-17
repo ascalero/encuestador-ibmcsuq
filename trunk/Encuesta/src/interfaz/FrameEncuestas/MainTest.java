@@ -12,7 +12,7 @@ import estructuras.*;
  */
 public class MainTest {
     public static void main(String args[]){
-        Survey s=new Survey("tempo","ja");
+        Survey s=new Survey("ja");
         int[] x=new int[2];
         x[0]=1;
         x[1]=2;

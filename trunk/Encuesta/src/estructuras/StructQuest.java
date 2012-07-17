@@ -4,7 +4,7 @@ import java.lang.*;
 import java.io.*;
 import java.util.*;
 
-public class StructQuest implements Serializable {
+public class StructQuest implements Serializable,Cloneable{
 private String [] preguntas;
     
     public StructQuest(String [] preg) {

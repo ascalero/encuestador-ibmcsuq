@@ -4,7 +4,7 @@ import java.io.*;
 import java.lang.*;
 import java.util.*;
 
-public class StructQuestGrid extends StructQuest implements Serializable {
+public class StructQuestGrid extends StructQuest implements Serializable,Cloneable {
 private String dir;
 private int tipo;
 

@@ -4,7 +4,7 @@ import java.io.*;
 import java.lang.*;
 import java.util.*;
 
-public class StructLikeIt extends StructQuest implements Serializable {
+public class StructLikeIt extends StructQuest implements Serializable ,Cloneable{
 private String []min;
 private String []max;
 
