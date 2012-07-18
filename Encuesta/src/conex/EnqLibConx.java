@@ -9,7 +9,7 @@ package conex;
 
 
 
-import estructuras.Survey;
+import estructuras.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,6 +17,8 @@ import java.io.ObjectOutputStream;
 //import java.sql.ResultSet;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -63,6 +65,27 @@ public class EnqLibConx extends LoginConx {
         } catch (Exception e) {
             e.printStackTrace();
             
+        }
+    }
+    
+    public void setRes(RespEnq alpha,ArrayList <String> datos,String nomEnc){
+        ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+        ObjectOutputStream oos;
+        try{
+            oos = new ObjectOutputStream(byteArray);
+            oos.writeObject(alpha);
+        }catch(IOException a){
+            a.printStackTrace();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        try {
+            String query="INSERT INTO ibmcsuq.valores (idvals, nombre, edad, sexo, Escolaridad, experiencia, datosblob, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15, q16, q17, q18, q19, Codigo) VALUES (NULL, '";
+            query+=datos.get(0)+"','"+datos.get(1)+"','"+datos.get(2)+"','"+datos.get(3)+"','"+datos.get(4) +"','"+byteArray.toByteArray()+"',";
+            query+="NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '"+this.getIdProy(nomEnc) +"')";            
+            st.execute(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(OpBasicas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
