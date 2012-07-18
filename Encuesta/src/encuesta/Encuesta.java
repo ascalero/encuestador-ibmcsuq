@@ -5,11 +5,13 @@
 package encuesta;
 
 import conex.EnqLibConx;
+import estructuras.RespEnq;
 import estructuras.Survey;
 import interfaz.FrameAdmon;
 import interfaz.Grafica;
 import interfaz.IntroFrame;
 import java.awt.Frame;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,8 +24,8 @@ public class Encuesta {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        IntroFrame intfr=new IntroFrame();       
-       //FrameAdmon lol= new FrameAdmon(1, "ascalero");
-       
+       //IntroFrame intfr=new IntroFrame();       
+       FrameAdmon lol= new FrameAdmon(1, "ascalero");
+    
     }
 }

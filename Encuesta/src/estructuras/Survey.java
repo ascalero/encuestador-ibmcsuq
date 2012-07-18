@@ -45,6 +45,23 @@ public class Survey implements Serializable,Cloneable{
     public ArrayList<Integer> getSeq(){
     return SeqSurvey;
     }
+
+    public ArrayList<StructImaQ> getStIQ() {
+        return StIQ;
+    }
+
+    public ArrayList<StructLikeIt> getStLI() {
+        return StLI;
+    }
+
+    public ArrayList<StructQuest> getStQ() {
+        return StQ;
+    }
+
+    public ArrayList<StructQuestGrid> getStQG() {
+        return StQG;
+    }
+    
     
     public StructQuest getNextStq(){
         int val=actQuest[0]++;
@@ -122,9 +139,10 @@ public class Survey implements Serializable,Cloneable{
     
     public void resetActuales(){
     actual=0;
-    for(int i=0;i<actQuest.length;i++){
-    actQuest[i]=0;
-    }
+    actQuest[0]=0;
+    actQuest[1]=0;
+    actQuest[2]=0;
+    actQuest[3]=0;
     }
 
     @Override

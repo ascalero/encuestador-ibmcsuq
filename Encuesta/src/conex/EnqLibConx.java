@@ -80,10 +80,22 @@ public class EnqLibConx extends LoginConx {
             e.printStackTrace();
         }
         try {
-            String query="INSERT INTO ibmcsuq.valores (idvals, nombre, edad, sexo, Escolaridad, experiencia, datosblob, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15, q16, q17, q18, q19, Codigo) VALUES (NULL, '";
-            query+=datos.get(0)+"','"+datos.get(1)+"','"+datos.get(2)+"','"+datos.get(3)+"','"+datos.get(4) +"','"+byteArray.toByteArray()+"',";
+            /*String query="INSERT INTO valores (idvals, nombre, edad, sexo, Escolaridad, experiencia, datosblob, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15, q16, q17, q18, q19, Codigo) VALUES (NULL, '";
+            query+=datos.get(0)+"','"+datos.get(1)+"','"+datos.get(2)+"','"+datos.get(3)+"','"+datos.get(4) +"','"+byteArray.toByteArray().toString()+"',";
             query+="NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '"+this.getIdProy(nomEnc) +"')";            
-            st.execute(query);
+            st.execute(query);*/
+            ps=conexion.conx.prepareStatement("INSERT INTO valores(idvals, nombre, edad, sexo, Escolaridad, experiencia,datosblob,Codigo) values(null,?,?,?,?,?,?,?)");
+            System.out.println("calquery"+ps.toString());
+            ps.setString(1, datos.get(0));
+            int xy=Integer.parseInt(datos.get(1));
+            ps.setInt(2, xy);
+           // ps.setString(2, datos.get(1));
+            ps.setString(3, datos.get(2));
+            ps.setString(4, datos.get(3));
+            ps.setString(5, datos.get(4));
+            ps.setBytes(6, byteArray.toByteArray());
+            ps.setInt(7, getIdProy(nomEnc));
+            ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(OpBasicas.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -104,6 +116,27 @@ public class EnqLibConx extends LoginConx {
             };
             return alpha;
     }
+    
+    public Respuestas getRespuestas(int idEnc,String Attrib){
+        Respuestas valores= new Respuestas();
+         try{
+                String sta="SELECT nombre,datosblob FROM valores WHERE Codigo=\""+idEnc+"\""+Attrib;
+                rs = st.executeQuery (sta);
+                while(rs.next()){
+                    valores.addUser(rs.getString(1));
+                    Blob blb= rs.getBlob(2);
+                    if (blb==null)return null;
+                    ObjectInputStream dos= new ObjectInputStream(blb.getBinaryStream());
+                    RespEnq beta=(RespEnq)dos.readObject();
+                    valores.addRespEnq(beta);
+                }
+                
+            }catch(Exception e){
+                e.printStackTrace();
+            };
+        return valores;
+    }
+
 
     @Override
     public Object[] getproy(String Id) {
