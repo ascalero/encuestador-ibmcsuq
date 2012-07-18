@@ -4,6 +4,7 @@
  */
 package interfaz.FrameEncuestas;
 
+import conex.EnqLibConx;
 import estructuras.*;
 import interfaz.PanelMiembro;
 import java.awt.event.ActionEvent;
@@ -128,6 +129,8 @@ public class FrameAskFree extends javax.swing.JFrame implements ActionListener{
                     default:break;
                 }
             }else{
+                EnqLibConx eLC=new EnqLibConx();
+                eLC.setRes(re, datoEnc, s.getName());
                 strTemp[0]="Gracias por Participar";strTemp[1]="Write your Answer";
                 strTemp[2]="Schreiben Sie Ihre Antwort";strTemp[3]="Ecrivez votre réponse";
                 JOptionPane.showMessageDialog(null,strTemp[foo]);

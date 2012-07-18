@@ -4,6 +4,7 @@
  */
 package interfaz.FrameEncuestas;
 
+import conex.EnqLibConx;
 import estructuras.*;
 import interfaz.JPanelConFondo;
 import interfaz.PanelMiembro;
@@ -131,6 +132,8 @@ public class FrameMouseTraking extends javax.swing.JFrame implements ActionListe
                     default:break;
                 }
             }else{
+                EnqLibConx eLC=new EnqLibConx();
+                eLC.setRes(re, datoEnc, s.getName());
                 strTemp[0]="Gracias por Participar";strTemp[1]="Write your Answer";
                 strTemp[2]="Schreiben Sie Ihre Antwort";strTemp[3]="Ecrivez votre réponse";
                 JOptionPane.showMessageDialog(null,strTemp[foo]);
