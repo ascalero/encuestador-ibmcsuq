@@ -6,6 +6,7 @@ package interfaz.FrameEncuestas;
 
 import estructuras.*;
 import interfaz.JPanelConFondo;
+import interfaz.PanelMiembro;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
@@ -172,12 +173,20 @@ public class FrameImaQ extends javax.swing.JFrame {
     private void jbNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNextActionPerformed
         if(select()){
             re.setRLISI(opSelect(), 2);
-            switch(s.getNext()){
-                case 0:new FrameAskFree(foo,s,re,datoEnc,s.getNextStq());break;
-                case 1:new FrameLikeIt(foo,s,re,datoEnc,s.getNextLI());break;
-                case 2:new FrameImaQ(foo,s,re,datoEnc,s.getNextStIQ());break;
-                case 3:new FrameMouseTraking(foo,s,re,datoEnc,s.getNextQG());
-                default:break;
+            if(!s.islast()){
+                switch(s.getNext()){
+                    case 0:new FrameAskFree(foo,s,re,datoEnc,s.getNextStq());break;
+                    case 1:new FrameLikeIt(foo,s,re,datoEnc,s.getNextLI());break;
+                    case 2:new FrameImaQ(foo,s,re,datoEnc,s.getNextStIQ());break;
+                    case 3:new FrameMouseTraking(foo,s,re,datoEnc,s.getNextQG());
+                    default:break;
+                }
+            }
+            else{
+                strTemp[0]="Gracias por Participar";strTemp[1]="Write your Answer";
+                strTemp[2]="Schreiben Sie Ihre Antwort";strTemp[3]="Ecrivez votre réponse";
+                JOptionPane.showMessageDialog(null,strTemp[foo]);
+                new PanelMiembro(foo);
             }
             this.dispose();
         }else{

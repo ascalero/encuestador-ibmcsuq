@@ -15,14 +15,13 @@ import java.util.ArrayList;
 public class RespEnq implements Serializable {
     int [] seriepre;
     private ArrayList <Integer> resLikeIt= new ArrayList<Integer>();
-    private ArrayList<Point[]> puntos;
-    private ArrayList<Point> clicks;
+    private ArrayList<Point[]> puntos=new ArrayList<Point[]>();
+    private ArrayList<Point> clicks=new ArrayList<Point>();
     private ArrayList <String> resCommen= new ArrayList<String>();
     private ArrayList <Integer> selIMA= new ArrayList<Integer>();
         
     public RespEnq(int [] res) {
         seriepre=res;
-    
     }
     
     public ArrayList <Integer> getRLI(){
@@ -62,7 +61,13 @@ public class RespEnq implements Serializable {
     }
     
     public void setSIT(ArrayList<Point> var,Point click){
-        puntos.add((Point[])var.toArray());
+        Point []tem=new Point[var.size()];
+        int i=0;
+        for(Point a:var){
+            tem[i]=var.get(i);
+            i++;
+        }
+        puntos.add(tem);
         clicks.add(click);
     }
     public void setCom(String var){
