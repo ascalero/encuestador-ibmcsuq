@@ -25,6 +25,9 @@ public class GraficaBarras extends JPanelConFondo{
         this.nameProy=nameProy;
         dataset = new DefaultCategoryDataset();
     }
+    public void setTittle(String tmp){
+    nameProy=tmp;
+    }
     
     public void setDatos(ArrayList<String> nameEnc,int[] answer,String name){
         if (nameEnc!=null){

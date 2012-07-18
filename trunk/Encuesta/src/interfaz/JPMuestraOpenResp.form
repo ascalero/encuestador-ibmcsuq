@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.4" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[980, 640]"/>
@@ -114,6 +114,11 @@
                   <Dimension value="[640, 480]"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GraficaBarras(&quot;Temp&quot;)"/>
+                <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="*/private GraficaBarras jPGbarra;"/>
+                <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/*"/>
+              </AuxValues>
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -233,6 +238,11 @@
                   <Dimension value="[640, 480]"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MouseTrakingAnswer(&quot;../../ima/cuadricula.png&quot;)"/>
+                <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="*/private MouseTrakingAnswer jPRMT;"/>
+                <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/*"/>
+              </AuxValues>
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -646,6 +656,9 @@
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
                       </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTable1.setModel(modeloTabla);"/>
+                      </AuxValues>
                     </Component>
                   </SubComponents>
                 </Container>
