@@ -89,7 +89,7 @@ public class FrameMouseTraking extends javax.swing.JFrame {
             re.setSIT(((MouseTraking)jpMouseT).getPoints(),
                     ((MouseTraking)jpMouseT).getClick());
             switch(s.getNext()){
-                case 0:new FrameAskFree(0,s,re);break;
+                case 0:/*new FrameAskFree(0,s,re)*/;break;
                 case 1:new FrameLikeIt(0,s,re);break;
                 case 2:new FrameImaQ(0,s,re);break;
                 case 3:new FrameMouseTraking(0,s,re);

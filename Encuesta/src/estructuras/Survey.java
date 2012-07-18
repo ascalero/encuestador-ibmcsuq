@@ -41,6 +41,10 @@ public class Survey implements Serializable,Cloneable{
     return SeqSurvey.size();
     }
     
+    public ArrayList<Integer> getSeq(){
+    return SeqSurvey;
+    }
+    
     public StructQuest getNextStq(){
         int val=actQuest[0]++;
         System.out.println("netxstq val:"+val);
@@ -74,6 +78,9 @@ public class Survey implements Serializable,Cloneable{
 
     public String getName() {
         return Name;
+    }
+    public int getActual(){
+        return actual;
     }
     
     //bloque adds
@@ -137,6 +144,16 @@ public class Survey implements Serializable,Cloneable{
     for (int a:SeqSurvey){
         System.out.print("valiter"+a);
     }
+    }
+    
+    public void prinTstatus(){
+        System.out.println("Tamaño:" +getActSize());
+        System.out.println("tam SeqSurvey:"+ SeqSurvey.size());
+        System.out.println("tam Stq:"+ StQ.size());
+        System.out.println("tam StLIKE:"+ StLI.size());
+        System.out.println("tam StImaQ:"+ StIQ.size());
+        System.out.println("tam StQG:"+ StQG.size());
+        System.out.println("fin estatus \n\n");
     }
     
     

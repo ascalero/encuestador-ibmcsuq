@@ -179,7 +179,7 @@ public class FrameLikeIt extends javax.swing.JFrame {
         if(select()){
             re.setRLISI(opSelect(), 1);
             switch(s.getNext()){
-                case 0:new FrameAskFree(0,s,re);break;
+                case 0:/*new FrameAskFree(0,s,re)*/;break;
                 case 1:new FrameLikeIt(0,s,re);break;
                 case 2:new FrameImaQ(0,s,re);break;
                 case 3:new FrameMouseTraking(0,s,re);

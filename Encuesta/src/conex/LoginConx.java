@@ -3,6 +3,8 @@
  * and open the template in the editor.
  */
 package conex;
+import estructuras.Survey;
+import java.io.ObjectInputStream;
 import java.sql.*;
 
 //import java.sql.ResultSet;
@@ -106,6 +108,23 @@ public class LoginConx {
             e.printStackTrace();    
             };
         return 0;
+    }
+    public Survey getBLOBProy(String a){
+        int id =getIdProy(a);
+        Survey info=null;
+        try{
+            rs = st.executeQuery ("SELECT infosurvey FROM survey where nombreSur=\""+a+"\" and idsurvey=\""+id+"\"");
+            while(rs.next()){
+                Blob blb= rs.getBlob(1);
+                if (blb==null){return null;}
+                ObjectInputStream dos= new ObjectInputStream(blb.getBinaryStream());
+                info= (Survey)dos.readObject();
+                return info;
+            }
+            }catch(Exception e){
+            e.printStackTrace();    
+            };
+        return null;
     }
     
     public int[][] rangos(int idEnc,String Attrib){
