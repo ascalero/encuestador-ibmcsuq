@@ -48,6 +48,11 @@ public class MouseTraking extends JPanelConFondo implements MouseMotionListener,
     public boolean isEmpty(){
         return datos.isEmpty();
     }
+
+    @Override
+    public void setImagen(Image nuevaImagen) {
+        super.setImagen(nuevaImagen);
+    }
     
     @Override
     public void mouseMoved(MouseEvent e) {

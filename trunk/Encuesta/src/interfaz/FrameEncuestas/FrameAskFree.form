@@ -84,15 +84,12 @@
     <Component class="javax.swing.JButton" name="jbNext">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="strTemp[foo]" type="code"/>
+          <Connection code="&quot;&quot;" type="code"/>
         </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbNextActionPerformed"/>
       </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="strTemp[0]=&quot;Siguiente&quot;;strTemp[1]=&quot;Next&quot;;strTemp[2]=&quot;N&#xe4;chste&quot;;strTemp[3]=&quot;Prochain&quot;;"/>
-      </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="150" y="300" width="-1" height="-1"/>

@@ -7,7 +7,10 @@ package interfaz.FrameEncuestas;
 import estructuras.*;
 import interfaz.JPanelConFondo;
 import interfaz.PanelMiembro;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.*;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
@@ -15,7 +18,7 @@ import javax.swing.WindowConstants;
  *
  * @author Shadow
  */
-public class FrameImaQ extends javax.swing.JFrame {
+public class FrameImaQ extends javax.swing.JFrame implements ActionListener{
 
     private int foo;
     private String strTemp[]=new String[4];
@@ -25,6 +28,14 @@ public class FrameImaQ extends javax.swing.JFrame {
     private RespEnq re;
     private StructImaQ strucImaQ;
     ArrayList <String> datoEnc;
+    
+    //<editor-fold defaultstate="collapsed" desc="Variables Menu">
+    JMenuBar menuBar;
+    JMenu menu;
+    JMenuItem menuItem;
+    JRadioButtonMenuItem rbMILang[];
+    
+    //</editor-fold>
     
     public FrameImaQ(int foo,Survey s,RespEnq re,ArrayList<String> datoEnc,StructImaQ forma){
         this.foo=foo;
@@ -36,18 +47,35 @@ public class FrameImaQ extends javax.swing.JFrame {
         setTitle(s.getName());
         
         initComponents();
+        menuCharger();
         setIdioma(foo);
         
         setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
         setLocation(10,20);
-        setSize(410, 500);
+        setSize(410, 520);
         setVisible (true);
     }
     
     public void setIdioma(int foo){
+        this.foo=foo;
         strTemp[0]="Pregunta"+s.getActual();strTemp[1]="Question"+s.getActual();strTemp[2]="Frage"+s.getActSize();strTemp[3]="Question"+s.getActSize();
-        jlNumAsk.setText(strTemp[0]);
+        jlNumAsk.setText(strTemp[foo]);
         jlAsk.setText(strucImaQ.getQuest(foo));
+        strTemp[0]="Siguiente";strTemp[1]="Next";strTemp[2]="Nächste";strTemp[3]="Prochain";
+        jbNext.setText(strTemp[foo]);
+        
+        String ima[]=strucImaQ.getDir();
+        jpIma1.setImagen(ima[0]);
+        jpIma2.setImagen(ima[1]);
+        jpIma3.setImagen(ima[2]);
+        jpIma4.setImagen(ima[3]);
+        
+        //idioma en el menu
+        strTemp[0]="Idioma";strTemp[1]="Language";strTemp[2]="Sprache";strTemp[3]="langue";
+        menu.setText(strTemp[foo]);
+        strTemp[0]="Selecciona tu idioma";strTemp[1]="Select your language";strTemp[2]="Wählen Sie Ihre Sprache";strTemp[3]="Choisissez votre langue";
+        menuItem.setText(strTemp[foo]);
+
     }
 
     /**
@@ -62,9 +90,9 @@ public class FrameImaQ extends javax.swing.JFrame {
         rbGroup = new javax.swing.ButtonGroup();
         jlNumAsk = new javax.swing.JLabel();
         jlAsk = new javax.swing.JLabel();
-        jpIma3 = new JPanelConFondo("../ima/cuadricula.png");
-        jpIma2 = new JPanelConFondo("../ima/cuadricula.png");
         jpIma1 = new JPanelConFondo("../ima/cuadricula.png");
+        jpIma2 = new JPanelConFondo("../ima/cuadricula.png");
+        jpIma3 = new JPanelConFondo("../ima/cuadricula.png");
         jpIma4 = new JPanelConFondo("../ima/cuadricula.png");
         jbNext = new javax.swing.JButton();
         jrbIma1 = new javax.swing.JRadioButton();
@@ -80,10 +108,10 @@ public class FrameImaQ extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jlNumAsk.setText("1");
+        jlNumAsk.setText("");
         getContentPane().add(jlNumAsk, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        jlAsk.setText(s.getNextStIQ().getQuest(foo));
+        jlAsk.setText("");
         getContentPane().add(jlAsk, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         //new JpanelConFondo(dirIma[2]);
@@ -99,7 +127,7 @@ public class FrameImaQ extends javax.swing.JFrame {
             .addGap(0, 140, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jpIma3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 140, 140));
+        getContentPane().add(jpIma3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 140, 140));
 
         //new JpanelConFondo(dirIma[1]);
 
@@ -146,8 +174,7 @@ public class FrameImaQ extends javax.swing.JFrame {
 
         getContentPane().add(jpIma4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 240, -1, -1));
 
-        strTemp[0]="Siguiente";strTemp[1]="Next";strTemp[2]="Nächste";strTemp[3]="Prochain";
-        jbNext.setText(strTemp[foo]);
+        jbNext.setText("");
         jbNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNextActionPerformed(evt);
@@ -214,18 +241,58 @@ public class FrameImaQ extends javax.swing.JFrame {
         return op;
     }
     
+    public void menuCharger(){
+    menuBar=new JMenuBar();
+    menu = new JMenu();
+    strTemp[0]="Idioma";strTemp[1]="Language";strTemp[2]="Sprache";strTemp[3]="langue";
+    menu.setText(strTemp[foo]);
+    menuBar.add(Box.createHorizontalGlue());
+    menuBar.add(menu);
+    strTemp[0]="Selecciona tu idioma";strTemp[1]="Select your language";strTemp[2]="Wählen Sie Ihre Sprache";strTemp[3]="Choisissez votre langue";
+    menuItem = new JMenuItem(strTemp[foo]);
+    menuItem.setEnabled(false);
+    menu.add(menuItem);
+    menu.addSeparator();
+    rbMILang= new JRadioButtonMenuItem[4];
+    rbMILang[0]= new JRadioButtonMenuItem("Español");
+    rbMILang[1]= new JRadioButtonMenuItem("English");
+    rbMILang[2]= new JRadioButtonMenuItem("Deutsh");
+    rbMILang[3]= new JRadioButtonMenuItem("Française");
+    rbMILang[foo].setSelected(true);
+    menu.addSeparator();
+    for(int i=0;i<4;i++){
+        menu.add(rbMILang[i]);
+        rbMILang[i].addActionListener(this);//
+    }
+    this.setJMenuBar(menuBar);
+        //this.add(menuBar);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbNext;
     private javax.swing.JLabel jlAsk;
     private javax.swing.JLabel jlNumAsk;
-    private javax.swing.JPanel jpIma1;
-    private javax.swing.JPanel jpIma2;
-    private javax.swing.JPanel jpIma3;
-    private javax.swing.JPanel jpIma4;
+    private JPanelConFondo jpIma1;
+    private JPanelConFondo jpIma2;
+    private JPanelConFondo jpIma3;
+    private JPanelConFondo jpIma4;
     private javax.swing.JRadioButton jrbIma1;
     private javax.swing.JRadioButton jrbIma2;
     private javax.swing.JRadioButton jrbIma3;
     private javax.swing.JRadioButton jrbIma4;
     private javax.swing.ButtonGroup rbGroup;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        for(int i=0;i<4;i++){
+            if(e.getSource()==rbMILang[i]){
+                for(int j=0;j<4;j++){
+                    rbMILang[j].setSelected(false);
+                }
+                rbMILang[i].setSelected(true);
+                setIdioma(i);
+            }
+        }
+    }
 }

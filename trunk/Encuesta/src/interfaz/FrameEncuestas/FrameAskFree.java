@@ -6,7 +6,10 @@ package interfaz.FrameEncuestas;
 
 import estructuras.*;
 import interfaz.PanelMiembro;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.*;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
@@ -14,7 +17,7 @@ import javax.swing.WindowConstants;
  *
  * @author Shadow
  */
-public class FrameAskFree extends javax.swing.JFrame {
+public class FrameAskFree extends javax.swing.JFrame implements ActionListener{
 
     private int foo;
     private String strTemp[]=new String[4];
@@ -23,6 +26,14 @@ public class FrameAskFree extends javax.swing.JFrame {
     private RespEnq re;
     private StructQuest struc;
     ArrayList <String> datoEnc;
+    
+    //<editor-fold defaultstate="collapsed" desc="Variables Menu">
+    JMenuBar menuBar;
+    JMenu menu;
+    JMenuItem menuItem;
+    JRadioButtonMenuItem rbMILang[];
+    
+    //</editor-fold>
     
     public FrameAskFree(int foo,Survey s,RespEnq re,ArrayList <String> datos,StructQuest forma) {
         this.foo=foo;
@@ -34,18 +45,28 @@ public class FrameAskFree extends javax.swing.JFrame {
         setTitle(s.getName());
         
         initComponents();
+        menuCharger();
         setIdioma(foo);
         
         setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
         setLocation(10,20);
-        setSize(420, 380);
+        setSize(420, 400);
         setVisible (true);
     }
     
     public void setIdioma(int foo){
+        this.foo=foo;
         strTemp[0]="Pregunta"+s.getActual();strTemp[1]="Question"+s.getActual();strTemp[2]="Frage"+s.getActSize();strTemp[3]="Question"+s.getActSize();
-        jlNumAsk.setText(strTemp[0]);
+        jlNumAsk.setText(strTemp[foo]);
         jlAsk.setText(struc.getQuest(foo));
+        strTemp[0]="Siguiente";strTemp[1]="Next";strTemp[2]="Nächste";strTemp[3]="Prochain";
+        jbNext.setText(strTemp[foo]);
+        //idioma en el menu
+        strTemp[0]="Idioma";strTemp[1]="Language";strTemp[2]="Sprache";strTemp[3]="langue";
+        menu.setText(strTemp[foo]);
+        strTemp[0]="Selecciona tu idioma";strTemp[1]="Select your language";strTemp[2]="Wählen Sie Ihre Sprache";strTemp[3]="Choisissez votre langue";
+        menuItem.setText(strTemp[foo]);
+
     }
 
     /**
@@ -84,8 +105,7 @@ public class FrameAskFree extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 380, 230));
 
-        strTemp[0]="Siguiente";strTemp[1]="Next";strTemp[2]="Nächste";strTemp[3]="Prochain";
-        jbNext.setText(strTemp[foo]);
+        jbNext.setText("");
         jbNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNextActionPerformed(evt);
@@ -121,6 +141,33 @@ public class FrameAskFree extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbNextActionPerformed
     
+    public void menuCharger(){
+    menuBar=new JMenuBar();
+    menu = new JMenu();
+    strTemp[0]="Idioma";strTemp[1]="Language";strTemp[2]="Sprache";strTemp[3]="langue";
+    menu.setText(strTemp[foo]);
+    menuBar.add(Box.createHorizontalGlue());
+    menuBar.add(menu);
+    strTemp[0]="Selecciona tu idioma";strTemp[1]="Select your language";strTemp[2]="Wählen Sie Ihre Sprache";strTemp[3]="Choisissez votre langue";
+    menuItem = new JMenuItem(strTemp[foo]);
+    menuItem.setEnabled(false);
+    menu.add(menuItem);
+    menu.addSeparator();
+    rbMILang= new JRadioButtonMenuItem[4];
+    rbMILang[0]= new JRadioButtonMenuItem("Español");
+    rbMILang[1]= new JRadioButtonMenuItem("English");
+    rbMILang[2]= new JRadioButtonMenuItem("Deutsh");
+    rbMILang[3]= new JRadioButtonMenuItem("Française");
+    rbMILang[foo].setSelected(true);
+    menu.addSeparator();
+    for(int i=0;i<4;i++){
+        menu.add(rbMILang[i]);
+        rbMILang[i].addActionListener(this);
+    }
+    this.setJMenuBar(menuBar);
+        //this.add(menuBar);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -130,4 +177,17 @@ public class FrameAskFree extends javax.swing.JFrame {
     private javax.swing.JLabel jlNumAsk;
     private javax.swing.JTextArea jtaComent;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        for(int i=0;i<4;i++){
+            if(e.getSource()==rbMILang[i]){
+                for(int j=0;j<4;j++){
+                    rbMILang[j].setSelected(false);
+                }
+                rbMILang[i].setSelected(true);
+                setIdioma(i);
+            }
+        }
+    }
 }

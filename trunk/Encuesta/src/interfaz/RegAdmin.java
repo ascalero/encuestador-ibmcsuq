@@ -40,7 +40,7 @@ public class RegAdmin extends JXFrame implements ActionListener{
         this.setTitle(strTemp[foo]);
         setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
         setLocation(10,0);
-        setSize(535,255);
+        setSize(535,275);
         setVisible (true);
         initComp();
         menuCharger();
