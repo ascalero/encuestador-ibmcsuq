@@ -230,10 +230,10 @@ public class RegEnc extends JXFrame implements ActionListener{
         RespEnq re=new RespEnq(temp);
         sur.resetActuales();
         switch(sur.getNext()){
-                case 0:new FrameAskFree(0,sur,re,datos,sur.getNextStq());break;
-                case 1:new FrameLikeIt(0,sur,re);break;
-                case 2:new FrameImaQ(0,sur,re);break;
-                case 3:new FrameMouseTraking(0,sur,re);
+                case 0:new FrameAskFree(foo,sur,re,datos,sur.getNextStq());break;
+                case 1:new FrameLikeIt(foo,sur,re,datos,sur.getNextLI());break;
+                case 2:new FrameImaQ(foo,sur,re,datos,sur.getNextStIQ());break;
+                case 3:new FrameMouseTraking(foo,sur,re,datos,sur.getNextQG());
                 default:break;
             }
             this.dispose();

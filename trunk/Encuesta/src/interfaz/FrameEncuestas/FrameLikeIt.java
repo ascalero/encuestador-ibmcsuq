@@ -5,6 +5,8 @@
 package interfaz.FrameEncuestas;
 
 import estructuras.*;
+import interfaz.PanelMiembro;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.WindowConstants;
 
@@ -19,15 +21,20 @@ public class FrameLikeIt extends javax.swing.JFrame {
     
     private Survey s;
     private RespEnq re;
+    private StructLikeIt strucLikeIt;
+    ArrayList <String> datoEnc;
     
-    public FrameLikeIt(int foo,Survey s,RespEnq re) {
+    public FrameLikeIt(int foo,Survey s,RespEnq re,ArrayList<String> datoEnc,StructLikeIt forma) {
         this.foo=foo;
         this.s=s;
         this.re=re;
+        this.datoEnc=datoEnc;
+        this.strucLikeIt=forma;
         
-        //setTitle(s.getName());
-        setTitle("Name Enc");
+        setTitle(s.getName());
+        
         initComponents();
+        setIdioma(foo);
         
         setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
         setLocation(10,20);
@@ -35,6 +42,11 @@ public class FrameLikeIt extends javax.swing.JFrame {
         setVisible (true);
     }
 
+    public void setIdioma(int foo){
+        strTemp[0]="Pregunta"+s.getActual();strTemp[1]="Question"+s.getActual();strTemp[2]="Frage"+s.getActSize();strTemp[3]="Question"+s.getActSize();
+        jlNumAsk.setText(strTemp[0]);
+        jlAsk.setText(strucLikeIt.getQuest(foo));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -178,13 +190,21 @@ public class FrameLikeIt extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(select()){
             re.setRLISI(opSelect(), 1);
-            switch(s.getNext()){
-                case 0:/*new FrameAskFree(0,s,re)*/;break;
-                case 1:new FrameLikeIt(0,s,re);break;
-                case 2:new FrameImaQ(0,s,re);break;
-                case 3:new FrameMouseTraking(0,s,re);
-                default:break;
+            if(!s.islast()){
+                switch(s.getNext()){
+                    case 0:new FrameAskFree(0,s,re,datoEnc,s.getNextStq());break;
+                    case 1:new FrameLikeIt(0,s,re,datoEnc,s.getNextLI());break;
+                    case 2:new FrameImaQ(0,s,re,datoEnc,s.getNextStIQ());break;
+                    case 3:new FrameMouseTraking(0,s,re,datoEnc,s.getNextQG());
+                    default:break;
+                }
+            }else{
+                strTemp[0]="Gracias por Participar";strTemp[1]="Write your Answer";
+                strTemp[2]="Schreiben Sie Ihre Antwort";strTemp[3]="Ecrivez votre réponse";
+                JOptionPane.showMessageDialog(null,strTemp[foo]);
+                new PanelMiembro(foo);
             }
+            
             this.dispose();
         }else{
             strTemp[0]="Debes de Seleccionar una Opcion";strTemp[1]="You Must select a choise";
