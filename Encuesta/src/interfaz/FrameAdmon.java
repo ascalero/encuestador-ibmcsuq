@@ -56,7 +56,6 @@ public class FrameAdmon extends JXFrame implements ActionListener{
     JMenu menu;
     JMenuItem menuItem;
     JRadioButtonMenuItem rbMILang[];
-    
     //</editor-fold>
     
     public FrameAdmon(int lang,String du) {

@@ -6,6 +6,8 @@ package interfaz.FrameEncuestas;
 
 import estructuras.*;
 import interfaz.PanelMiembro;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.WindowConstants;
@@ -14,7 +16,7 @@ import javax.swing.WindowConstants;
  *
  * @author Shadow
  */
-public class FrameLikeIt extends javax.swing.JFrame {
+public class FrameLikeIt extends javax.swing.JFrame implements ActionListener{
 
     private int foo;
     private String strTemp[]=new String[4];
@@ -23,6 +25,14 @@ public class FrameLikeIt extends javax.swing.JFrame {
     private RespEnq re;
     private StructLikeIt strucLikeIt;
     ArrayList <String> datoEnc;
+    
+    //<editor-fold defaultstate="collapsed" desc="Variables Menu">
+    JMenuBar menuBar;
+    JMenu menu;
+    JMenuItem menuItem;
+    JRadioButtonMenuItem rbMILang[];
+    
+    //</editor-fold>
     
     public FrameLikeIt(int foo,Survey s,RespEnq re,ArrayList<String> datoEnc,StructLikeIt forma) {
         this.foo=foo;
@@ -34,18 +44,35 @@ public class FrameLikeIt extends javax.swing.JFrame {
         setTitle(s.getName());
         
         initComponents();
+        menuCharger();
         setIdioma(foo);
         
         setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
         setLocation(10,20);
-        setSize(600, 220);
+        setSize(630, 240);
         setVisible (true);
     }
 
     public void setIdioma(int foo){
+        this.foo=foo;
         strTemp[0]="Pregunta"+s.getActual();strTemp[1]="Question"+s.getActual();strTemp[2]="Frage"+s.getActSize();strTemp[3]="Question"+s.getActSize();
-        jlNumAsk.setText(strTemp[0]);
+        jlNumAsk.setText(strTemp[foo]);
         jlAsk.setText(strucLikeIt.getQuest(foo));
+        strTemp[0]="Totalmente Deacuerdo";strTemp[1]="Strongly Agree";
+        strTemp[2]="Trifft Uneingeschränkt Zu";strTemp[3]="Entièrement D'accord";
+        jlMostL.setText(strTemp[foo]);
+        strTemp[0]="Totalmente en Desacuerdo";strTemp[1]="Strongly Desagree";
+        strTemp[2]="Trifft überhaupt nicht zu";strTemp[3]="Fortement en désaccord";
+        jlLessL.setText(strTemp[foo]);
+        
+        strTemp[0]="Siguiente";strTemp[1]="Next";strTemp[2]="Nächste";strTemp[3]="Prochain";
+        jButton1.setText(strTemp[foo]);
+        
+        //idioma en el menu
+        strTemp[0]="Idioma";strTemp[1]="Language";strTemp[2]="Sprache";strTemp[3]="langue";
+        menu.setText(strTemp[foo]);
+        strTemp[0]="Selecciona tu idioma";strTemp[1]="Select your language";strTemp[2]="Wählen Sie Ihre Sprache";strTemp[3]="Choisissez votre langue";
+        menuItem.setText(strTemp[foo]);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,7 +86,7 @@ public class FrameLikeIt extends javax.swing.JFrame {
         rbGroup = new javax.swing.ButtonGroup();
         jlAsk = new javax.swing.JLabel();
         jlNumAsk = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jlMostL = new javax.swing.JLabel();
         jrb1 = new javax.swing.JRadioButton();
         jrb2 = new javax.swing.JRadioButton();
         jrb3 = new javax.swing.JRadioButton();
@@ -67,7 +94,7 @@ public class FrameLikeIt extends javax.swing.JFrame {
         jrb5 = new javax.swing.JRadioButton();
         jrb6 = new javax.swing.JRadioButton();
         jrb7 = new javax.swing.JRadioButton();
-        jLabel2 = new javax.swing.JLabel();
+        jlLessL = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         rbGroup.add(jrb1);
@@ -84,7 +111,7 @@ public class FrameLikeIt extends javax.swing.JFrame {
 
         jlNumAsk.setText("jLabel2");
 
-        jLabel1.setText("jLabel1");
+        jlMostL.setText("jLabel1");
 
         jrb1.setText("1");
 
@@ -105,10 +132,9 @@ public class FrameLikeIt extends javax.swing.JFrame {
 
         jrb7.setText("7");
 
-        jLabel2.setText("jLabel2");
+        jlLessL.setText("jLabel2");
 
-        strTemp[0]="Siguiente";strTemp[1]="Next";strTemp[2]="Nächste";strTemp[3]="Prochain";
-        jButton1.setText(strTemp[foo]);
+        jButton1.setText("");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -120,40 +146,39 @@ public class FrameLikeIt extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlNumAsk)
-                    .addComponent(jlAsk))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlNumAsk)
+                            .addComponent(jlAsk)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(120, 120, 120)
-                                .addComponent(jrb1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jrb2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jrb3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jrb4)
-                                .addGap(18, 18, 18)
-                                .addComponent(jrb5)
-                                .addGap(18, 18, 18)
-                                .addComponent(jrb6)
-                                .addGap(18, 18, 18)
-                                .addComponent(jrb7))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(245, 245, 245)
-                                .addComponent(jButton1)))
-                        .addContainerGap(147, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(105, 105, 105))))
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(120, 120, 120)
+                                        .addComponent(jrb1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jrb2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jrb3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jrb4)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jrb5)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jrb6))
+                                    .addComponent(jlMostL))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlLessL)
+                                    .addComponent(jrb7))))))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,10 +187,10 @@ public class FrameLikeIt extends javax.swing.JFrame {
                 .addComponent(jlNumAsk)
                 .addGap(6, 6, 6)
                 .addComponent(jlAsk)
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(jlMostL)
+                    .addComponent(jlLessL))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jrb1)
@@ -177,7 +202,7 @@ public class FrameLikeIt extends javax.swing.JFrame {
                     .addComponent(jrb7))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -237,11 +262,38 @@ public class FrameLikeIt extends javax.swing.JFrame {
         return op;
     }
     
+    public void menuCharger(){
+    menuBar=new JMenuBar();
+    menu = new JMenu();
+    strTemp[0]="Idioma";strTemp[1]="Language";strTemp[2]="Sprache";strTemp[3]="langue";
+    menu.setText(strTemp[foo]);
+    menuBar.add(Box.createHorizontalGlue());
+    menuBar.add(menu);
+    strTemp[0]="Selecciona tu idioma";strTemp[1]="Select your language";strTemp[2]="Wählen Sie Ihre Sprache";strTemp[3]="Choisissez votre langue";
+    menuItem = new JMenuItem(strTemp[foo]);
+    menuItem.setEnabled(false);
+    menu.add(menuItem);
+    menu.addSeparator();
+    rbMILang= new JRadioButtonMenuItem[4];
+    rbMILang[0]= new JRadioButtonMenuItem("Español");
+    rbMILang[1]= new JRadioButtonMenuItem("English");
+    rbMILang[2]= new JRadioButtonMenuItem("Deutsh");
+    rbMILang[3]= new JRadioButtonMenuItem("Française");
+    rbMILang[foo].setSelected(true);
+    menu.addSeparator();
+    for(int i=0;i<4;i++){
+        menu.add(rbMILang[i]);
+        rbMILang[i].addActionListener(this);//
+    }
+    this.setJMenuBar(menuBar);
+        //this.add(menuBar);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jlAsk;
+    private javax.swing.JLabel jlLessL;
+    private javax.swing.JLabel jlMostL;
     private javax.swing.JLabel jlNumAsk;
     private javax.swing.JRadioButton jrb1;
     private javax.swing.JRadioButton jrb2;
@@ -252,4 +304,17 @@ public class FrameLikeIt extends javax.swing.JFrame {
     private javax.swing.JRadioButton jrb7;
     private javax.swing.ButtonGroup rbGroup;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        for(int i=0;i<4;i++){
+            if(e.getSource()==rbMILang[i]){
+                for(int j=0;j<4;j++){
+                    rbMILang[j].setSelected(false);
+                }
+                rbMILang[i].setSelected(true);
+                setIdioma(i);
+            }
+        }
+    }
 }
