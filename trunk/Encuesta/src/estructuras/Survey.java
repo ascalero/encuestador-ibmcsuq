@@ -26,7 +26,7 @@ public class Survey implements Serializable,Cloneable{
 
     public Survey(String name) {
         this.Name = name;
-        this.folder= "c:/enques/data/"+name;
+        this.folder= "../ima/data/"+name;
         for(int a:actQuest){a=0;}
     }
     
@@ -98,8 +98,10 @@ public class Survey implements Serializable,Cloneable{
         SeqSurvey.add(1);
     }
     
-    public void addStQG (){
-        SeqSurvey.add(2);
+    public void addStQG (String[] preg,String dir){
+        StructQuestGrid temp= new StructQuestGrid(preg, dir);
+        StQG.add(temp);
+        SeqSurvey.add(3);
     }
     
     public boolean isEmpy(){
