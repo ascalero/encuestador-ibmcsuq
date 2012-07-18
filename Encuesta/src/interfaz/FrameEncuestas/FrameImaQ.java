@@ -6,6 +6,7 @@ package interfaz.FrameEncuestas;
 
 import estructuras.*;
 import interfaz.JPanelConFondo;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
@@ -21,19 +22,31 @@ public class FrameImaQ extends javax.swing.JFrame {
     
     private Survey s;
     private RespEnq re;
+    private StructImaQ strucImaQ;
+    ArrayList <String> datoEnc;
     
-    public FrameImaQ(int foo,Survey s,RespEnq re){
+    public FrameImaQ(int foo,Survey s,RespEnq re,ArrayList<String> datoEnc,StructImaQ forma){
         this.foo=foo;
         this.s=s;
         this.re=re;
-        //dirIma=s.getNextStIQ().getDir();
+        this.datoEnc=datoEnc;
+        strucImaQ=forma;
+        
         setTitle(s.getName());
+        
         initComponents();
+        setIdioma(foo);
         
         setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
         setLocation(10,20);
         setSize(410, 500);
         setVisible (true);
+    }
+    
+    public void setIdioma(int foo){
+        strTemp[0]="Pregunta"+s.getActual();strTemp[1]="Question"+s.getActual();strTemp[2]="Frage"+s.getActSize();strTemp[3]="Question"+s.getActSize();
+        jlNumAsk.setText(strTemp[0]);
+        jlAsk.setText(strucImaQ.getQuest(foo));
     }
 
     /**
@@ -160,10 +173,10 @@ public class FrameImaQ extends javax.swing.JFrame {
         if(select()){
             re.setRLISI(opSelect(), 2);
             switch(s.getNext()){
-                case 0:/*new FrameAskFree(0,s,re)*/;break;
-                case 1:new FrameLikeIt(0,s,re);break;
-                case 2:new FrameImaQ(0,s,re);break;
-                case 3:new FrameMouseTraking(0,s,re);
+                case 0:new FrameAskFree(foo,s,re,datoEnc,s.getNextStq());break;
+                case 1:new FrameLikeIt(foo,s,re,datoEnc,s.getNextLI());break;
+                case 2:new FrameImaQ(foo,s,re,datoEnc,s.getNextStIQ());break;
+                case 3:new FrameMouseTraking(foo,s,re,datoEnc,s.getNextQG());
                 default:break;
             }
             this.dispose();

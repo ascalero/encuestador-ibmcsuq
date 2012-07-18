@@ -14,7 +14,7 @@ public class JPanelConFondo extends JPanel {
 
     public JPanelConFondo(String nombreImagen) {
         if (nombreImagen != null) {
-            //System.out.println(""+getClass().getResource(nombreImagen));
+            System.out.println(""+getClass().getResource(nombreImagen));
             imagen = new ImageIcon(getClass().getResource(nombreImagen)).getImage();
         }
     }

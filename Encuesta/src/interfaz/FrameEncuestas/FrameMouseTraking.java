@@ -5,6 +5,9 @@
 package interfaz.FrameEncuestas;
 
 import estructuras.*;
+import interfaz.PanelMiembro;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -20,14 +23,20 @@ public class FrameMouseTraking extends javax.swing.JFrame {
     
     private Survey s;
     private RespEnq re;
+    private StructQuestGrid strucGird;
+    ArrayList <String> datoEnc;
     
-    public FrameMouseTraking(int foo,Survey s,RespEnq re){
+    public FrameMouseTraking(int foo,Survey s,RespEnq re,ArrayList <String> datos,StructQuestGrid forma) {
         this.foo=foo;
         this.s=s;
         this.re=re;
+        this.datoEnc=datos;
+        strucGird=forma;
         
         setTitle(s.getName());
+        
         initComponents();
+        setIdioma(foo);
         
         setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
         setLocation(10,20);
@@ -35,6 +44,11 @@ public class FrameMouseTraking extends javax.swing.JFrame {
         setVisible (true);
     }
 
+    public void setIdioma(int foo){
+        strTemp[0]="Pregunta"+s.getActual();strTemp[1]="Question"+s.getActual();strTemp[2]="Frage"+s.getActSize();strTemp[3]="Question"+s.getActSize();
+        jlNumAsk.setText(strTemp[0]);
+        jlAsk.setText(strucGird.getQuest(foo));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,7 +92,7 @@ public class FrameMouseTraking extends javax.swing.JFrame {
         jlAsk.setText(s.getNextQG().getQuest(foo));
         getContentPane().add(jlAsk, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        jlNumAsk.setText(""/*s.getActual()+1*/);
+        jlNumAsk.setText("");
         getContentPane().add(jlNumAsk, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         pack();
@@ -88,12 +102,19 @@ public class FrameMouseTraking extends javax.swing.JFrame {
         if(!((MouseTraking)jpMouseT).isEmpty()){
             re.setSIT(((MouseTraking)jpMouseT).getPoints(),
                     ((MouseTraking)jpMouseT).getClick());
-            switch(s.getNext()){
-                case 0:/*new FrameAskFree(0,s,re)*/;break;
-                case 1:new FrameLikeIt(0,s,re);break;
-                case 2:new FrameImaQ(0,s,re);break;
-                case 3:new FrameMouseTraking(0,s,re);
-                default:break;
+            if(!s.islast()){
+                switch(s.getNext()){
+                    case 0:new FrameAskFree(0,s,re,datoEnc,s.getNextStq());break;
+                    case 1:new FrameLikeIt(0,s,re,datoEnc,s.getNextLI());break;
+                    case 2:new FrameImaQ(0,s,re,datoEnc,s.getNextStIQ());break;
+                    case 3:new FrameMouseTraking(0,s,re,datoEnc,s.getNextQG());
+                    default:break;
+                }
+            }else{
+                strTemp[0]="Gracias por Participar";strTemp[1]="Write your Answer";
+                strTemp[2]="Schreiben Sie Ihre Antwort";strTemp[3]="Ecrivez votre réponse";
+                JOptionPane.showMessageDialog(null,strTemp[foo]);
+                new PanelMiembro(foo);
             }
             this.dispose();
         }
