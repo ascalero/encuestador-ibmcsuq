@@ -24,7 +24,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
     LoginConx driver=new conex.LoginConx();
     private Font fuenteGrande=new Font("Arial",Font.BOLD,20);
     private JXPanel panelTareas,panelCard,panelEE,panelNE,panelSE,panelDatos;
-    private panelNewOpenQuiz panelOpen;
+    private PanelNewOQuiz panelOpen;
     private CardLayout containerStack = new CardLayout();
     private JXTaskPane tareas,sesTask;
     private JXTaskPaneContainer contTask;
@@ -257,7 +257,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         panelDatos.add(todo,BorderLayout.CENTER);
         //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Inicializacion Encuestalibre">
-        panelOpen=new panelNewOpenQuiz(foo);
+        panelOpen=new PanelNewOQuiz(foo,User);
         //</editor-fold>
         
         
@@ -583,12 +583,16 @@ public void limpiatabla(DefaultTableModel modeloT){
             }
         };
        tareas.add(aaNewProy);
-       strTemp[0]="Crear Encuesta Libre";strTemp[1]="Make Open Survey";strTemp[2]="";strTemp[3]="";
+       strTemp[0]="Crear Encuesta Libre";strTemp[1]="Make new Open Survey";strTemp[2]="Knüpfen Sie neue Open-Umfrage";strTemp[3]="Assurez nouvelle enquête ouverte";
         
         aaNewProy=new AbstractAction(strTemp[foo]) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelOpen.setSruct(new Survey("Text1"));
+                
+                strTemp[0]="Da el nombre de la nueva Encuesta";strTemp[1]="Give the name of the new survey";strTemp[2]="Geben Sie den Namen der neuen Umfrage";strTemp[3]="Donner le nom de la nouvelle enquête";
+                String nametmp=JOptionPane.showInputDialog(strTemp[foo]);;
+                panelOpen.setSruct(new Survey(nametmp));
+                
                 panelOpen.limpiapanel();
                 containerStack.show(panelCard, "Open");
                 
