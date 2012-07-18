@@ -33,6 +33,7 @@ public class FrameAskFree extends javax.swing.JFrame {
         setTitle(s.getName());
         //setTitle("Name Enc");
         initComponents();
+        setIdioma(foo);
         
         setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
         setLocation(10,20);
@@ -98,7 +99,7 @@ public class FrameAskFree extends javax.swing.JFrame {
         if(jtaComent.getText().compareToIgnoreCase("")!=0){
             re.setCom(jtaComent.getText());
             switch(s.getNext()){
-                case 0:/*new FrameAskFree(foo,s,re);*/break;
+                case 0:new FrameAskFree(foo,s,re,datoEnc,s.getPrevStq());break;
                 case 1:new FrameLikeIt(foo,s,re);break;
                 case 2:new FrameImaQ(foo,s,re);break;
                 case 3:new FrameMouseTraking(foo,s,re);

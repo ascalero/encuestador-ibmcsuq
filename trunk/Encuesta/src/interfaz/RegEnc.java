@@ -16,6 +16,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import org.jdesktop.swingx.JXFrame;
 
@@ -220,9 +222,13 @@ public class RegEnc extends JXFrame implements ActionListener{
             temp[i]=x;
             i++;
         }
-        System.out.println("info acerca"+sur.getName());
-        
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(RegEnc.class.getName()).log(Level.SEVERE, null, ex);
+        }
         RespEnq re=new RespEnq(temp);
+        sur.resetActuales();
         switch(sur.getNext()){
                 case 0:new FrameAskFree(0,sur,re,datos,sur.getNextStq());break;
                 case 1:new FrameLikeIt(0,sur,re);break;

@@ -16,8 +16,8 @@ import java.util.logging.Logger;
 public class Survey implements Serializable,Cloneable{
     String folder;
     String Name;
-    transient int actual=0;
-    transient int actQuest[]=new int[4];
+    int actual=0;
+    int actQuest[]=new int[4];
     ArrayList<Integer> SeqSurvey= new ArrayList<Integer>();
     ArrayList<StructQuest> StQ=new ArrayList<StructQuest>();
     ArrayList<StructImaQ> StIQ=new ArrayList<StructImaQ>();
@@ -27,6 +27,7 @@ public class Survey implements Serializable,Cloneable{
     public Survey(String name) {
         this.Name = name;
         this.folder= "../ima/data/"+name;
+        actual=0;
         for(int a:actQuest){a=0;}
     }
     
