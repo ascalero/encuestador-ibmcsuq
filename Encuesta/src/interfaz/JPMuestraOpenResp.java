@@ -5,9 +5,11 @@
 package interfaz;
 
 import estructuras.*;
+import interfaz.FrameEncuestas.MouseTrakingAnswer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,7 +20,7 @@ public class JPMuestraOpenResp extends javax.swing.JPanel implements ActionListe
     /**
      * Creates new form JPMuestraOpenResp
      */
-    
+    private DefaultTableModel modeloTabla= new DefaultTableModel();
     private Respuestas infoResp;
     private Survey sur;
     private String strTemp[]= new String[4];
@@ -28,7 +30,7 @@ public class JPMuestraOpenResp extends javax.swing.JPanel implements ActionListe
     ArrayList<StructImaQ> StIQ=new ArrayList<StructImaQ>();
     ArrayList<StructLikeIt> StLI = new ArrayList<StructLikeIt>();
     ArrayList<StructQuestGrid> StQG = new ArrayList<StructQuestGrid>();
-
+    
     public JPMuestraOpenResp(int idioma) {
         foo=idioma;
         actQuest=new int[4];
@@ -54,9 +56,6 @@ public class JPMuestraOpenResp extends javax.swing.JPanel implements ActionListe
     public void setIdioma(int var){
         foo=var;
         jlTitulo.setText(sur.getName());
-        //Tabbed panel Open Question
-        jlTiOR.setText(StQ.get(actQuest[0]).getQuest(foo));
-        jtMTOPCont.setText((actQuest[0]+1)+"/"+StQ.size());
         //Botones anterior y siguiente
         strTemp[0]="Siguiente";strTemp[1]="Next";strTemp[2]="Nächste";strTemp[3]="Prochain";
         jbImaSelNext.setText(strTemp[foo]);
@@ -68,9 +67,16 @@ public class JPMuestraOpenResp extends javax.swing.JPanel implements ActionListe
         jbLIAnt.setText(strTemp[foo]);
         jbMTAnt.setText(strTemp[foo]);
         jbORAnt.setText(strTemp[foo]);
+        //Tabbed panel Open Question
+        jlTiOR.setText(StQ.get(actQuest[0]).getQuest(foo));
+        jtMTOPCont.setText((actQuest[0]+1)+"/"+StQ.size());
+        SetTPopenA();
+        
+        
         //tabbed panel Likeit
         jtfLiCont.setText((actQuest[1]+1)+"/"+StLI.size());
         jlTitBarras.setText(StLI.get(actQuest[1]).getQuest(foo));
+        setTPLikeIT();
         //Tabbedpanel Imaquestion
         
         jtfImaSELCont.setText((actQuest[2]+1)+"/"+StIQ.size());
@@ -81,9 +87,27 @@ public class JPMuestraOpenResp extends javax.swing.JPanel implements ActionListe
         //Tabbed Panel Mousetraking
         jtMTiCont.setText((actQuest[3]+1)+"/"+StQG.size());
         jlTiMT1.setText(StQG.get(actQuest[3]).getQuest(foo));
+        setTPmorTrack();
         
         
-        
+    }
+    public void SetTPopenA(){
+    limpiatabla(modeloTabla);
+        setTitles(modeloTabla);
+        for(String a:infoResp.getResPL(actQuest[0])){
+            Object tempObj[]=new Object[1];
+            tempObj[0]=a;
+            modeloTabla.addRow(tempObj);
+        }
+    }
+    public void setTPLikeIT(){
+        jPGbarra.setTittle(sur.getName());
+        jPGbarra.setDatos(infoResp.getIdnick(), infoResp.getAnsLI(actQuest[1]), StLI.get(actQuest[1]).getQuest(foo));
+    }
+    public void setTPmorTrack(){
+        jPRMT.setImagen(StQG.get(actQuest[3]).getDir());
+        jPRMT.setPointClick(infoResp.getResClicks(actQuest[3]));
+        jPRMT.setPoints(infoResp.getTrace(actQuest[3]));
     }
     public void setTPimaQ(){
     int temvar[]= new int[4];
@@ -102,20 +126,48 @@ public class JPMuestraOpenResp extends javax.swing.JPanel implements ActionListe
         jpIma4.setImagen(direc[3]);
     }
     
+    public void  setTitles(DefaultTableModel c){
+        Object[] a=new Object[1];;		
+                        switch(foo){
+                            case 0: a[0]="Respuesta";
+				c.setColumnIdentifiers(a);
+                            break;
+                            case 1: a[0]="Answer";
+				c.setColumnIdentifiers(a);
+                            break;
+                            case 2: a[0]="beantworten";
+				c.setColumnIdentifiers(a);
+                            break;
+                            case 3: a[0]="répondre";
+				c.setColumnIdentifiers(a);
+                            break;
+                            
+                        }
+    }
+    public void limpiatabla(DefaultTableModel modeloT){
+	int nr = modeloT.getRowCount(),i=0;
+          try{
+	     for( i=nr-1 ; i >= 0; i--) {
+                 modeloT.removeRow(i);
+             }
+             }catch(Exception e){}
+    }
+    
+    
     public void nextORQ(){
         //if(actQuest[0]==0){return;}
         actQuest[0]++;
         if(actQuest[0]==StQ.size()){actQuest[0]--;return;}
         jtMTOPCont.setText((actQuest[0]+1)+"/"+StQ.size());
         jlTiOR.setText(StQ.get(actQuest[0]).getQuest(foo));
-        
+        SetTPopenA();
     }
     public void prevORQ(){
         if(actQuest[0]==0){return;}
         actQuest[0]--;
         jtMTOPCont.setText((actQuest[0]+1)+"/"+StQ.size());
         jlTiOR.setText(StQ.get(actQuest[0]).getQuest(foo));
-        
+        SetTPopenA();
     }
     
     public void nextQLI(){
@@ -124,6 +176,7 @@ public class JPMuestraOpenResp extends javax.swing.JPanel implements ActionListe
         if(actQuest[1]==StQ.size()){actQuest[1]--;return;}
         jtfLiCont.setText((actQuest[1]+1)+"/"+StLI.size());
         jlTitBarras.setText(StLI.get(actQuest[1]).getQuest(foo));
+        setTPLikeIT();
         
     }
     public void prevQLI(){
@@ -131,7 +184,7 @@ public class JPMuestraOpenResp extends javax.swing.JPanel implements ActionListe
         actQuest[1]--;
         jtfLiCont.setText((actQuest[1]+1)+"/"+StLI.size());
         jlTitBarras.setText(StLI.get(actQuest[1]).getQuest(foo));
-        
+        setTPLikeIT();
     }
     public void nextImaQ(){
         //if(actQuest[0]==0){return;}
@@ -155,13 +208,14 @@ public class JPMuestraOpenResp extends javax.swing.JPanel implements ActionListe
         if(actQuest[3]==StIQ.size()){actQuest[2]--;return;}
         jtMTiCont.setText((actQuest[3]+1)+"/"+StQG.size());
         jlTiMT1.setText(StQG.get(actQuest[3]).getQuest(foo));
-        
+        setTPmorTrack();
     }
     public void prevQG(){
         if(actQuest[3]==0){return;}
         actQuest[3]--;
         jtMTiCont.setText((actQuest[3]+1)+"/"+StQG.size());
         jlTiMT1.setText(StQG.get(actQuest[3]).getQuest(foo));
+        setTPmorTrack();
     }
     
 
@@ -178,14 +232,14 @@ public class JPMuestraOpenResp extends javax.swing.JPanel implements ActionListe
         jlTitulo = new javax.swing.JLabel();
         jTPPadre = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jPGbarra = new javax.swing.JPanel();
+        jPGbarra = new GraficaBarras("Temp");
         jlTitBarras = new org.jdesktop.swingx.JXLabel();
         jbLIAnt = new javax.swing.JButton();
         jtfLiCont = new javax.swing.JTextField();
         jbLINext = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jlTiMT1 = new org.jdesktop.swingx.JXLabel();
-        jPRMT = new javax.swing.JPanel();
+        jPRMT = new MouseTrakingAnswer("../../ima/cuadricula.png");
         jbMTAnt = new javax.swing.JButton();
         jtMTiCont = new javax.swing.JTextField();
         jbMTNext = new javax.swing.JButton();
@@ -541,6 +595,7 @@ public class JPMuestraOpenResp extends javax.swing.JPanel implements ActionListe
         jPORTabla.setPreferredSize(new java.awt.Dimension(640, 480));
         jPORTabla.setLayout(new java.awt.BorderLayout());
 
+        jTable1.setModel(modeloTabla);
         jScrollPane1.setViewportView(jTable1);
 
         jPORTabla.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -625,7 +680,9 @@ public class JPMuestraOpenResp extends javax.swing.JPanel implements ActionListe
     }//GEN-LAST:event_jTFCima4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    /*
     private javax.swing.JPanel jPGbarra;
+    */private GraficaBarras jPGbarra;
     /*
     private javax.swing.JPanel jPIma1;
     */private JPanelConFondo jPIma1;
@@ -635,7 +692,9 @@ public class JPMuestraOpenResp extends javax.swing.JPanel implements ActionListe
     private javax.swing.JPanel jPImaSel;
     private javax.swing.JPanel jPOR;
     private javax.swing.JPanel jPORTabla;
+    /*
     private javax.swing.JPanel jPRMT;
+    */private MouseTrakingAnswer jPRMT;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     /*
