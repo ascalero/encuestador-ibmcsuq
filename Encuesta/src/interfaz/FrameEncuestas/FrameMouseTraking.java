@@ -5,6 +5,7 @@
 package interfaz.FrameEncuestas;
 
 import estructuras.*;
+import interfaz.JPanelConFondo;
 import interfaz.PanelMiembro;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -99,15 +100,14 @@ public class FrameMouseTraking extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void nextSurvey(){
-        if(!((MouseTraking)jpMouseT).isEmpty()){
-            re.setSIT(((MouseTraking)jpMouseT).getPoints(),
-                    ((MouseTraking)jpMouseT).getClick());
+        if(!jpMouseT.isEmpty()){
+            re.setSIT(jpMouseT.getPoints(),jpMouseT.getClick());
             if(!s.islast()){
                 switch(s.getNext()){
-                    case 0:new FrameAskFree(0,s,re,datoEnc,s.getNextStq());break;
-                    case 1:new FrameLikeIt(0,s,re,datoEnc,s.getNextLI());break;
-                    case 2:new FrameImaQ(0,s,re,datoEnc,s.getNextStIQ());break;
-                    case 3:new FrameMouseTraking(0,s,re,datoEnc,s.getNextQG());
+                    case 0:new FrameAskFree(foo,s,re,datoEnc,s.getNextStq());break;
+                    case 1:new FrameLikeIt(foo,s,re,datoEnc,s.getNextLI());break;
+                    case 2:new FrameImaQ(foo,s,re,datoEnc,s.getNextStIQ());break;
+                    case 3:new FrameMouseTraking(foo,s,re,datoEnc,s.getNextQG());
                     default:break;
                 }
             }else{
@@ -124,6 +124,6 @@ public class FrameMouseTraking extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jlAsk;
     private javax.swing.JLabel jlNumAsk;
-    private javax.swing.JPanel jpMouseT;
+    private MouseTraking jpMouseT;
     // End of variables declaration//GEN-END:variables
 }
