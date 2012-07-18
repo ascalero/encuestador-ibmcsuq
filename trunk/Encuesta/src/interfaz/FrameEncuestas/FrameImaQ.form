@@ -3,6 +3,10 @@
 <Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="rbGroup">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.ButtonGroup()"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="rbGroup.add(jrbIma1);&#xa;rbGroup.add(jrbIma2);&#xa;rbGroup.add(jrbIma3);&#xa;rbGroup.add(jrbIma4);"/>
+      </AuxValues>
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -30,7 +34,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jlNumAsk">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel2"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="&quot;1&quot;" type="code"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -40,7 +46,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jlAsk">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel2"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="s.getNextStIQ().getQuest(foo)" type="code"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -48,9 +56,10 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Container class="javax.swing.JPanel" name="jpIma1">
+    <Container class="javax.swing.JPanel" name="jpIma3">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JPanelConFondo(&quot;../ima/cuadricula.png&quot;)"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="//new JpanelConFondo(dirIma[2]);"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -74,6 +83,7 @@
     <Container class="javax.swing.JPanel" name="jpIma2">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JPanelConFondo(&quot;../ima/cuadricula.png&quot;)"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="//new JpanelConFondo(dirIma[1]);"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -94,9 +104,10 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Container class="javax.swing.JPanel" name="jpIma3">
+    <Container class="javax.swing.JPanel" name="jpIma1">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JPanelConFondo(&quot;../ima/cuadricula.png&quot;)"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="//new JpanelConFondo(dirIma[0]);"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -120,6 +131,7 @@
     <Container class="javax.swing.JPanel" name="jpIma4">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JPanelConFondo(&quot;../ima/cuadricula.png&quot;)"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="//new JpanelConFondo(dirIma[3]);"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -146,6 +158,9 @@
           <Connection code="strTemp[foo]" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbNextActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="strTemp[0]=&quot;Siguiente&quot;;strTemp[1]=&quot;Next&quot;;strTemp[2]=&quot;N&#xe4;chste&quot;;strTemp[3]=&quot;Prochain&quot;;"/>
       </AuxValues>
@@ -175,7 +190,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+    <Component class="javax.swing.JRadioButton" name="jrbIma3">
       <Properties>
         <Property name="text" type="java.lang.String" value="3"/>
       </Properties>

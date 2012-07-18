@@ -45,6 +45,10 @@ public class MouseTraking extends JPanelConFondo implements MouseMotionListener,
         return p;
     }
     
+    public boolean isEmpty(){
+        return datos.isEmpty();
+    }
+    
     @Override
     public void mouseMoved(MouseEvent e) {
         if((e.getPoint().getX() < w) && (e.getPoint().getY() < h)){
@@ -53,7 +57,6 @@ public class MouseTraking extends JPanelConFondo implements MouseMotionListener,
     }
 
     @Override
-    
     public void mouseClicked(MouseEvent e) {
         if((e.getPoint().getX() < w) && (e.getPoint().getY() < h)){
             datos.add(e.getPoint());

@@ -5,6 +5,7 @@
 package interfaz.FrameEncuestas;
 
 import estructuras.*;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 /**
@@ -72,10 +73,33 @@ public class FrameAskFree extends javax.swing.JFrame {
 
         strTemp[0]="Siguiente";strTemp[1]="Next";strTemp[2]="Nächste";strTemp[3]="Prochain";
         jbNext.setText(strTemp[foo]);
+        jbNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNextActionPerformed(evt);
+            }
+        });
         getContentPane().add(jbNext, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNextActionPerformed
+        if(jtaComent.getText().compareToIgnoreCase("")!=0){
+            re.setCom(jtaComent.getText());
+            switch(s.getNext()){
+                case 0:new FrameAskFree(foo,s,re);break;
+                case 1:new FrameLikeIt(foo,s,re);break;
+                case 2:new FrameImaQ(foo,s,re);break;
+                case 3:new FrameMouseTraking(foo,s,re);
+                default:break;
+            }
+            this.dispose();
+        }else{
+            strTemp[0]="Ecriba su respuesta";strTemp[1]="Write your Answer";
+            strTemp[2]="Schreiben Sie Ihre Antwort";strTemp[3]="Ecrivez votre réponse";
+            JOptionPane.showMessageDialog(null,strTemp[foo]);
+        }
+    }//GEN-LAST:event_jbNextActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;

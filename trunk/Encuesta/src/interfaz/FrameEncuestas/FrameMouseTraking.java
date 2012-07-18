@@ -20,16 +20,13 @@ public class FrameMouseTraking extends javax.swing.JFrame {
     
     private Survey s;
     private RespEnq re;
-    //MouseTraking mt;
-    MouseTraking1 mt;
     
     public FrameMouseTraking(int foo,Survey s,RespEnq re){
         this.foo=foo;
         this.s=s;
         this.re=re;
         
-        //setTitle(s.getName());
-        setTitle("Name Enc");
+        setTitle(s.getName());
         initComponents();
         
         setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
@@ -48,7 +45,7 @@ public class FrameMouseTraking extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jpMouseT = new MouseTraking1("../../ima/cuadricula.png");
+        jpMouseT = new MouseTraking("../../ima/cuadricula.png");
         jlAsk = new javax.swing.JLabel();
         jlNumAsk = new javax.swing.JLabel();
 
@@ -58,6 +55,11 @@ public class FrameMouseTraking extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         //new MouseTraking1(s.getNextQG().getDir());
+        jpMouseT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nextSurvey();
+            }
+        });
         jpMouseT.setPreferredSize(new java.awt.Dimension(650, 500));
 
         javax.swing.GroupLayout jpMouseTLayout = new javax.swing.GroupLayout(jpMouseT);
@@ -73,15 +75,30 @@ public class FrameMouseTraking extends javax.swing.JFrame {
 
         getContentPane().add(jpMouseT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 650, 500));
 
-        jlAsk.setText("jLabel2");
+        jlAsk.setText(s.getNextQG().getQuest(foo));
         getContentPane().add(jlAsk, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        jlNumAsk.setText("jLabel2");
+        jlNumAsk.setText(""/*s.getActual()+1*/);
         getContentPane().add(jlNumAsk, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void nextSurvey(){
+        if(!((MouseTraking)jpMouseT).isEmpty()){
+            re.setSIT(((MouseTraking)jpMouseT).getPoints(),
+                    ((MouseTraking)jpMouseT).getClick());
+            switch(s.getNext()){
+                case 0:new FrameAskFree(0,s,re);break;
+                case 1:new FrameLikeIt(0,s,re);break;
+                case 2:new FrameImaQ(0,s,re);break;
+                case 3:new FrameMouseTraking(0,s,re);
+                default:break;
+            }
+            this.dispose();
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jlAsk;
