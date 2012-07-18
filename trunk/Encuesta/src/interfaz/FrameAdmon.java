@@ -4,12 +4,22 @@
  */
 package interfaz;
 
+import conex.EnqLibConx;
 import conex.LoginConx;
+import estructuras.RespEnq;
+import estructuras.Respuestas;
 import estructuras.Survey;
+import interfaz.FrameEncuestas.FrameAskFree;
+import interfaz.FrameEncuestas.FrameImaQ;
+import interfaz.FrameEncuestas.FrameLikeIt;
+import interfaz.FrameEncuestas.FrameMouseTraking;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.*;
@@ -25,6 +35,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
     private Font fuenteGrande=new Font("Arial",Font.BOLD,20);
     private JXPanel panelTareas,panelCard,panelEE,panelNE,panelSE,panelDatos;
     private PanelNewOQuiz panelOpen;
+    private JPMuestraOpenResp panelResp;
     private CardLayout containerStack = new CardLayout();
     private JXTaskPane tareas,sesTask;
     private JXTaskPaneContainer contTask;
@@ -258,6 +269,10 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         //<editor-fold defaultstate="collapsed" desc="Inicializacion Encuestalibre">
         panelOpen=new PanelNewOQuiz(foo,User);
         //</editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="Inicializacion Muestra Resultados encuesta libre">
+        panelResp=new JPMuestraOpenResp(foo);
+        //</editor-fold>
+        
         
         
         
@@ -268,6 +283,7 @@ public class FrameAdmon extends JXFrame implements ActionListener{
         panelCard.add(panelEE,"Elimina");
         panelCard.add(panelSE,"Ver");
         panelCard.add(panelDatos,"Datos");
+        panelCard.add(panelResp,"ORs");
         panelCard.add(panelOpen,"Open");
         setLayout(null);
         setSize(1,1);
@@ -366,7 +382,7 @@ public void limpiatabla(DefaultTableModel modeloT){
 @Override
     public void actionPerformed(ActionEvent e) {
             if(e.getSource()==butOKsel){
-                inicializaDatos(jcbSel.getSelectedItem().toString(),"");
+                launchEnq(jcbSel.getSelectedItem().toString());
             }
             if(e.getSource()==butOKSurvey){
                 crearProy();
@@ -392,6 +408,31 @@ public void limpiatabla(DefaultTableModel modeloT){
 
 
         }
+
+        private void launchEnq(String nE){
+        LoginConx contmp=new LoginConx();
+        Survey sur=contmp.getBLOBProy(nE);
+        if(sur==null){
+            System.out.println("Vacio");
+            containerStack.show(panelCard, "Datos");
+            inicializaDatos(nE,"");
+            return;
+        }
+        Respuestas alpha= new EnqLibConx().getRespuestas(contmp.getIdProy(nE),"");
+        if(alpha==null){
+            System.out.println("murio ta vacio");
+            return;
+        }
+            sur.resetActuales();
+            
+            panelResp.setValues(alpha, sur);
+            panelResp.inicializavalores();
+            
+        containerStack.show(panelCard, "ORs");
+        /*bloque de codigo que lanzara al frame*/
+        //fin bloque
+    }
+
     //<editor-fold defaultstate="collapsed" desc="Inicializa Datos">
     public boolean inicializaDatos(String nameSur,String Atrib){
                 limpiatabla(modeloPromedios);
@@ -712,6 +753,11 @@ public void limpiatabla(DefaultTableModel modeloT){
      graf.setIdioma(foo);
      
      panelOpen.setIdioma(foo);
+        try {
+            panelResp.setIdioma(foo);
+        } catch (Exception e) {
+        }
+        
      
      //idioma en el menu
      strTemp[0]="Idioma";strTemp[1]="Language";strTemp[2]="Sprache";strTemp[3]="langue";

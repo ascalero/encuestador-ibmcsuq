@@ -7,6 +7,7 @@ package estructuras;
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -45,9 +46,7 @@ public class RespEnq implements Serializable {
     }
     public ArrayList<Point> getSITVal(int index){
         ArrayList<Point> tmp= new ArrayList<Point>();
-        for(Point a:puntos.get(index)){
-            tmp.add(a);
-        }
+        tmp.addAll(Arrays.asList(puntos.get(index)));
         return tmp;
     }
     public Point getClick(int index){
@@ -68,6 +67,7 @@ public class RespEnq implements Serializable {
             i++;
         }
         puntos.add(tem);
+        
         clicks.add(click);
     }
     public void setCom(String var){
