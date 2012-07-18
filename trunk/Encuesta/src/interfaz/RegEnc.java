@@ -4,7 +4,14 @@
  */
 package interfaz;
 
+import conex.LoginConx;
 import conex.OpBasicas;
+import estructuras.RespEnq;
+import estructuras.Survey;
+import interfaz.FrameEncuestas.FrameAskFree;
+import interfaz.FrameEncuestas.FrameImaQ;
+import interfaz.FrameEncuestas.FrameLikeIt;
+import interfaz.FrameEncuestas.FrameMouseTraking;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -198,6 +205,34 @@ public class RegEnc extends JXFrame implements ActionListener{
         return encuestas;
     }
 
+    private void launchEnq(ArrayList<String> datos,String nE){
+        LoginConx contmp=new LoginConx();
+        Survey sur=contmp.getBLOBProy(nE);
+        if(sur==null){
+            System.out.println("Vacio");
+            FrameSurvey beta= new FrameSurvey(foo,datos,nE);
+            this.dispose();
+            return;
+        }
+        int []temp=new int[sur.getActSize()];
+        int i=0;
+        for(int x:sur.getSeq()){
+            temp[i]=x;
+            i++;
+        }
+        System.out.println("info acerca"+sur.getName());
+        
+        RespEnq re=new RespEnq(temp);
+        switch(sur.getNext()){
+                case 0:new FrameAskFree(0,sur,re,datos,sur.getNextStq());break;
+                case 1:new FrameLikeIt(0,sur,re);break;
+                case 2:new FrameImaQ(0,sur,re);break;
+                case 3:new FrameMouseTraking(0,sur,re);
+                default:break;
+            }
+            this.dispose();
+        
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         ArrayList <String> info=new ArrayList <String>();
@@ -210,9 +245,8 @@ public class RegEnc extends JXFrame implements ActionListener{
                 info.add(experiencia.getSelectedIndex()+"");
                 
                 String nomEnc=encuestas.getSelectedItem()+"";
+                launchEnq(info, nomEnc);
                 
-                FrameSurvey beta= new FrameSurvey(foo,info,nomEnc);
-                this.dispose();
             }
         }
         if(e.getSource()==jbCancelar){

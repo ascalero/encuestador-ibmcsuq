@@ -755,6 +755,7 @@ public class PanelNewOQuiz extends javax.swing.JPanel implements ActionListener 
                 JOptionPane.showMessageDialog(null,strtmp[foo],"MSG",JOptionPane.INFORMATION_MESSAGE);
             return;
             }
+            structura.prinTstatus();
             new conex.EnqLibConx().newProy(structura, "",USER);
         }
         try{

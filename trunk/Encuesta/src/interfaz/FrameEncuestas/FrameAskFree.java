@@ -5,6 +5,7 @@
 package interfaz.FrameEncuestas;
 
 import estructuras.*;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
@@ -19,20 +20,30 @@ public class FrameAskFree extends javax.swing.JFrame {
     
     private Survey s;
     private RespEnq re;
+    private StructQuest struc;
+    ArrayList <String> datoEnc;
     
-    public FrameAskFree(int foo,Survey s,RespEnq re) {
+    public FrameAskFree(int foo,Survey s,RespEnq re,ArrayList <String> datos,StructQuest forma) {
         this.foo=foo;
         this.s=s;
         this.re=re;
+        this.datoEnc=datos;
+        struc=forma;
         
-        //setTitle(s.getName());
-        setTitle("Name Enc");
+        setTitle(s.getName());
+        //setTitle("Name Enc");
         initComponents();
         
         setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
         setLocation(10,20);
         setSize(420, 380);
         setVisible (true);
+    }
+    
+    public void setIdioma(int foo){
+        strTemp[0]="Pregunta"+s.getActual();strTemp[1]="Question"+s.getActual();strTemp[2]="Frage"+s.getActSize();strTemp[3]="Question"+s.getActSize();
+        jlNumAsk.setText(strTemp[0]);
+        jlAsk.setText(struc.getQuest(foo));
     }
 
     /**
@@ -87,7 +98,7 @@ public class FrameAskFree extends javax.swing.JFrame {
         if(jtaComent.getText().compareToIgnoreCase("")!=0){
             re.setCom(jtaComent.getText());
             switch(s.getNext()){
-                case 0:new FrameAskFree(foo,s,re);break;
+                case 0:/*new FrameAskFree(foo,s,re);*/break;
                 case 1:new FrameLikeIt(foo,s,re);break;
                 case 2:new FrameImaQ(foo,s,re);break;
                 case 3:new FrameMouseTraking(foo,s,re);
