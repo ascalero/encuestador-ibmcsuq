@@ -4,6 +4,7 @@
  */
 package estructuras;
 
+import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -14,9 +15,8 @@ import java.util.ArrayList;
 public class RespEnq implements Serializable {
     int [] seriepre;
     private ArrayList <Integer> resLikeIt= new ArrayList<Integer>();
-    private ArrayList <String> sourceImaTrakin= new ArrayList<String>();    
-    private ArrayList <Integer> xImaTra= new ArrayList<Integer>();
-    private ArrayList <Integer> yImaTra= new ArrayList<Integer>();
+    private ArrayList<Point[]> puntos;
+    private ArrayList<Point> clicks;
     private ArrayList <String> resCommen= new ArrayList<String>();
     private ArrayList <Integer> selIMA= new ArrayList<Integer>();
         
@@ -28,16 +28,11 @@ public class RespEnq implements Serializable {
     public ArrayList <Integer> getRLI(){
         return resLikeIt;
     }
-    
-    public ArrayList <String> getSIT(){
-        return sourceImaTrakin;
+    public ArrayList<Point[]> getPoints(){
+        return puntos;
     }
-    public ArrayList <Integer> getXIT(){
-        return xImaTra;
-    }
-    
-    public ArrayList <Integer> getYIT(){
-        return yImaTra;
+    public ArrayList<Point> getClicks(){
+        return clicks;
     }
     public ArrayList <String> getComA(){
         return resCommen;
@@ -49,14 +44,15 @@ public class RespEnq implements Serializable {
     public int getRLIVal(int index){
         return resLikeIt.get(index);
     }
-    public String getSITVal(int index){
-        return sourceImaTrakin.get(index);
+    public ArrayList<Point> getSITVal(int index){
+        ArrayList<Point> tmp= new ArrayList<Point>();
+        for(Point a:puntos.get(index)){
+            tmp.add(a);
+        }
+        return tmp;
     }
-    public int getXITVal(int index){
-        return xImaTra.get(index);
-    }
-    public int getYITVal(int index){
-        return yImaTra.get(index);
+    public Point getClick(int index){
+        return clicks.get(index);
     }
     public String getRCVAL(int index){
     return resCommen.get(index);
@@ -65,14 +61,13 @@ public class RespEnq implements Serializable {
         return selIMA.get(index);
     }
     
-    public void setSIT(String var,int x,int y){
-     sourceImaTrakin.add(var);
-     xImaTra.add(x);
-     yImaTra.add(y);
-     }
+    public void setSIT(ArrayList<Point> var,Point click){
+        puntos.add((Point[])var.toArray());
+        clicks.add(click);
+    }
     public void setCom(String var){
-     resCommen.add(var);    
-     }
+        resCommen.add(var);
+    }
     public void setRLISI(int var,int type){
         switch(type){
             case 1:
@@ -88,8 +83,6 @@ public class RespEnq implements Serializable {
      
     public void  setMine(){
         RespEnq temp =new RespEnq(seriepre);
-        
     }
-    
     
 }

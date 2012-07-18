@@ -5,6 +5,7 @@
 package interfaz.FrameEncuestas;
 
 import estructuras.*;
+import javax.swing.*;
 import javax.swing.WindowConstants;
 
 /**
@@ -30,7 +31,7 @@ public class FrameLikeIt extends javax.swing.JFrame {
         
         setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
         setLocation(10,20);
-        setSize(420, 380);
+        setSize(600, 220);
         setVisible (true);
     }
 
@@ -56,6 +57,14 @@ public class FrameLikeIt extends javax.swing.JFrame {
         jrb7 = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+
+        rbGroup.add(jrb1);
+        rbGroup.add(jrb2);
+        rbGroup.add(jrb3);
+        rbGroup.add(jrb4);
+        rbGroup.add(jrb5);
+        rbGroup.add(jrb6);
+        rbGroup.add(jrb7);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,45 +95,53 @@ public class FrameLikeIt extends javax.swing.JFrame {
 
         jLabel2.setText("jLabel2");
 
-        jButton1.setText("jButton1");
+        strTemp[0]="Siguiente";strTemp[1]="Next";strTemp[2]="Nächste";strTemp[3]="Prochain";
+        jButton1.setText(strTemp[foo]);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlNumAsk)
+                    .addComponent(jlAsk))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlNumAsk)
-                                    .addComponent(jlAsk)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jrb1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jrb2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jrb3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jrb4)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jrb5)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jrb6)))
+                                .addGap(120, 120, 120)
+                                .addComponent(jrb1)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jrb7)))))
+                                .addComponent(jrb2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jrb3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jrb4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jrb5)
+                                .addGap(18, 18, 18)
+                                .addComponent(jrb6)
+                                .addGap(18, 18, 18)
+                                .addComponent(jrb7))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(245, 245, 245)
+                                .addComponent(jButton1)))
+                        .addContainerGap(147, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(jButton1)))
-                .addGap(48, 58, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(105, 105, 105))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,7 +150,7 @@ public class FrameLikeIt extends javax.swing.JFrame {
                 .addComponent(jlNumAsk)
                 .addGap(6, 6, 6)
                 .addComponent(jlAsk)
-                .addGap(46, 46, 46)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
@@ -146,9 +163,9 @@ public class FrameLikeIt extends javax.swing.JFrame {
                     .addComponent(jrb5)
                     .addComponent(jrb6)
                     .addComponent(jrb7))
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -158,6 +175,48 @@ public class FrameLikeIt extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jrb6ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(select()){
+            re.setRLISI(opSelect(), 1);
+            switch(s.getNext()){
+                case 0:new FrameAskFree(0,s,re);break;
+                case 1:new FrameLikeIt(0,s,re);break;
+                case 2:new FrameImaQ(0,s,re);break;
+                case 3:new FrameMouseTraking(0,s,re);
+                default:break;
+            }
+            this.dispose();
+        }else{
+            strTemp[0]="Debes de Seleccionar una Opcion";strTemp[1]="You Must select a choise";
+            strTemp[2]="Sie müssen eine Wahl";strTemp[3]="Vous devez sélectionner un choix";
+            JOptionPane.showMessageDialog(null,strTemp[foo]);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public boolean select(){
+        boolean b=false;
+        if(jrb1.isSelected()){b=true;}
+        if(jrb2.isSelected()){b=true;}
+        if(jrb3.isSelected()){b=true;}
+        if(jrb4.isSelected()){b=true;}
+        if(jrb5.isSelected()){b=true;}
+        if(jrb6.isSelected()){b=true;}
+        if(jrb7.isSelected()){b=true;}
+        return b;
+    }
+    
+    public int opSelect(){
+        int op=0;
+        if(jrb1.isSelected()){op=1;}
+        if(jrb2.isSelected()){op=2;}
+        if(jrb3.isSelected()){op=3;}
+        if(jrb4.isSelected()){op=4;}
+        if(jrb5.isSelected()){op=5;}
+        if(jrb6.isSelected()){op=6;}
+        if(jrb7.isSelected()){op=7;}
+        return op;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

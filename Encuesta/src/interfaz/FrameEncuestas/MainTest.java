@@ -17,9 +17,9 @@ public class MainTest {
         x[0]=1;x[1]=2;
         RespEnq re=new RespEnq(x);
        
-        //FrameAskFree fc=new FrameAskFree(0,s,re);
-        //FrameMouseTraking mt= new FrameMouseTraking(0,s,re);
-        //FrameImaQ imq=new FrameImaQ(0,s,re);
-        FrameLikeIt li=new FrameLikeIt(0,s,re);
+        //new FrameAskFree(0,s,re);
+        //new FrameMouseTraking(0,s,re);
+        //new FrameImaQ(0,s,re);
+        new FrameLikeIt(0,s,re);
     }
 }

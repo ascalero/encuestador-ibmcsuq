@@ -87,6 +87,9 @@
           <Connection code="strTemp[foo]" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbNextActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="strTemp[0]=&quot;Siguiente&quot;;strTemp[1]=&quot;Next&quot;;strTemp[2]=&quot;N&#xe4;chste&quot;;strTemp[3]=&quot;Prochain&quot;;"/>
       </AuxValues>
